@@ -4,8 +4,15 @@ Here we fucking go baby, full send!!
 
 To replicate:
 
-npm i axios npm i webpack webpack-cli --save-dev
+**in django_react app:**
 
-then just:
+>pip install django-annoying
+
+**in frontend app:**
+
+>npm i axios npm i webpack webpack-cli --save-dev
+
+
+then:
 
 npm run dev & run the server
