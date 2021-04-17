@@ -40,6 +40,14 @@ INSTALLED_APPS = [
     'leads',
     'rest_framework',
     'frontend',
+    'annoying',
+    'crispy_forms',
+    'phone_field',
+    'partial_date',
+    'datetime',
+    'phonenumber_field',
+    'django_cleanup',
+
 ]
 
 MIDDLEWARE = [

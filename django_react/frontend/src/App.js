@@ -6,29 +6,62 @@ import PlusIcon from './icons/plus.svg';
 import DataFetching from "../DataFetching";
 import DropdownMenu from "../DropDown";
 import React, { useState } from 'react';
-/*declare module "*.svg" {
-  import { ReactElement, SVGProps } from "react";
-  const content: (props: SVGProps<SVGElement>) => ReactElement;
-  export default content;
-}
-*/
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+
 function App() {
   return (
+    <Router>
     <div className="App">
-      
       <Navbar>
         <NavItem icon={<PlusIcon />} />
         <NavItem icon={<BellIcon />} />
         <NavItem icon={<MessengerIcon />} />
         <NavItem icon={<CaretIcon />}>
+          <h1> Hello World </h1>
           <DropdownMenu></DropdownMenu>
         </NavItem>
       </Navbar>
-      <DataFetching />
+      
+      <Switch>
+          <Route path="/about">
+            <About />
+            <DataFetching />
+          </Route>
+          <Route path="/users">
+            <Users />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+          <Route path="/editprofile">
+            <h1>Edit Profile</h1>
+          </Route>
+          <Route path="/profile">
+            <h1>Edit Profile</h1>
+          </Route>
+        </Switch>
     </div>
+    </Router>
   );
 }
 
+function Home() {
+  return <h2>Home</h2>;
+}
+
+function About() {
+  return <h2>About</h2>;
+}
+
+function Users() {
+  return <h2>Users</h2>;
+}
 
 function Navbar(props) {
   return (

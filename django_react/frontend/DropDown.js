@@ -32,10 +32,10 @@ function DropdownMenu() {
   
     return (
       <div className="dropdown" style={{ height: menuHeight }} ref={dropdownRef}>
-  
+    
         <CSSTransition
           in={activeMenu === 'main'}
-          timeout={500}
+          timeout={5000}
           classNames="menu-primary"
           unmountOnExit
           onEnter={calcHeight}>
@@ -47,7 +47,7 @@ function DropdownMenu() {
               goToMenu="settings">
               Settings
             </DropdownItem>
-            <DropdownItem
+           /* <DropdownItem
               leftIcon="🦧"
               rightIcon={<ChevronIcon />}
               goToMenu="animals">
@@ -55,7 +55,7 @@ function DropdownMenu() {
             </DropdownItem>
   
           </div>
-        </CSSTransition>
+        </CSSTransition> 
   
         <CSSTransition
           in={activeMenu === 'settings'}
