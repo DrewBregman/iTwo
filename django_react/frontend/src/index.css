@@ -156,3 +156,7 @@ a {
   transform: translateX(110%);
   transition: all var(--speed) ease;
 }
+
+.wrapper {
+  padding: 20px;
+}

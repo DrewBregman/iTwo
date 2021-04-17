@@ -12,7 +12,9 @@ import {
   Route,
   Link
 } from "react-router-dom";
-
+import Profile from "./components/Profile";
+import ExplorePage from "./components/ExplorePage";
+import ProfileOne from "./components/ProfileOne";
 
 function App() {
   return (
@@ -33,17 +35,35 @@ function App() {
             <About />
             <DataFetching />
           </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/">
-            <Home />
+          <Route path="/explore">
+            <ExplorePage 
+              title='Card Title'
+              imageUrl='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Portrait_Gandhi.jpg/399px-Portrait_Gandhi.jpg'
+              body='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+              />
           </Route>
           <Route path="/editprofile">
             <h1>Edit Profile</h1>
           </Route>
+          <Route path="/p">
+            <ProfileOne 
+            name='Mahatma Gandhi'
+            description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+            followers = '245'
+            following = '185'
+            major='Philosophy'
+            />
+          </Route>
           <Route path="/profile">
-            <h1>Edit Profile</h1>
+            <div className="wrapper">
+              <Profile 
+              name='Mahatma Gandhi'
+              description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+              followers = '245'
+              following = '185'
+              major='Philosophy'
+              />
+            </div>
           </Route>
         </Switch>
     </div>
