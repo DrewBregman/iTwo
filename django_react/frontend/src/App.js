@@ -15,6 +15,7 @@ import {
 import Profile from "./components/Profile";
 import ExplorePage from "./components/ExplorePage";
 import ProfileOne from "./components/ProfileOne";
+import ScrollableTabsButtonForce from "./components/tabs";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
       <Switch>
           <Route path="/about">
             <About />
-            <DataFetching />
+
           </Route>
           <Route path="/explore">
             <ExplorePage 
@@ -64,6 +65,9 @@ function App() {
               major='Philosophy'
               />
             </div>
+          </Route>
+          <Route path="/tabs">
+            <ScrollableTabsButtonForce />
           </Route>
         </Switch>
     </div>
