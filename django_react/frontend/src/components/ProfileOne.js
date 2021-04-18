@@ -73,8 +73,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     margin: 'auto',
     marginTop: 20,
-    maxHeight: 300,
-    height: 400,
+    maxHeight: 450,
+    height: 450,
     textAlign: 'center',
     color: theme.palette.text.secondary,
   
@@ -142,30 +142,34 @@ export default function ProfileOne({name, major, description, followers, followi
             <div className="profile-follow-stats">
                 Followers {followers} Following {following}
             </div>
+            <div className={classes.root}>
+                <AppBar position="static" color="default">
+                    <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    variant="scrollable"
+                    scrollButtons="on"
+                    indicatorColor="primary"
+                    textColor="primary"
+                    aria-label="scrollable force tabs example"
+                    >
+                    <Tab label="Item One" icon={<PhoneIcon />} {...a11yProps(0)} />
+                    <Tab label="Item Two" icon={<FavoriteIcon />} {...a11yProps(1)} />
+                    <Tab label="Item Three" icon={<PersonPinIcon />} {...a11yProps(2)} />
+                    <Tab label="Item Four" icon={<HelpIcon />} {...a11yProps(3)} />
+                    <Tab label="Item Five" icon={<ShoppingBasket />} {...a11yProps(4)} />
+                    <Tab label="Item Six" icon={<ThumbDown />} {...a11yProps(5)} />
+                    <Tab label="Item Seven" icon={<ThumbUp />} {...a11yProps(6)} />
+                    </Tabs>
+                </AppBar>
+            </div>
           </Paper>
         </Grid>
         <Grid item xs={6}>
-          <Paper className={classes.paper}>xs=6
-          <div className={classes.root}>
-            <AppBar position="static" color="default">
-                <Tabs
-                value={value}
-                onChange={handleChange}
-                variant="scrollable"
-                scrollButtons="on"
-                indicatorColor="primary"
-                textColor="primary"
-                aria-label="scrollable force tabs example"
-                >
-                <Tab label="Item One" icon={<PhoneIcon />} {...a11yProps(0)} />
-                <Tab label="Item Two" icon={<FavoriteIcon />} {...a11yProps(1)} />
-                <Tab label="Item Three" icon={<PersonPinIcon />} {...a11yProps(2)} />
-                <Tab label="Item Four" icon={<HelpIcon />} {...a11yProps(3)} />
-                <Tab label="Item Five" icon={<ShoppingBasket />} {...a11yProps(4)} />
-                <Tab label="Item Six" icon={<ThumbDown />} {...a11yProps(5)} />
-                <Tab label="Item Seven" icon={<ThumbUp />} {...a11yProps(6)} />
-                </Tabs>
-            </AppBar>
+          
+        </Grid>
+        <Grid item xs={6}>
+          <Paper className={classes.paper}>
             <TabPanel value={value} index={0}>
                 Item One
             </TabPanel>
@@ -187,11 +191,7 @@ export default function ProfileOne({name, major, description, followers, followi
             <TabPanel value={value} index={6}>
                 Item Seven
             </TabPanel>
-            </div>
           </Paper>
-        </Grid>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>xs=6</Paper>
         </Grid>
         <Grid item xs={3}>
           <Paper className={classes.paper}>xs=3</Paper>

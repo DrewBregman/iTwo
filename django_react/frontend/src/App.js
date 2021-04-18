@@ -66,9 +66,6 @@ function App() {
               />
             </div>
           </Route>
-          <Route path="/tabs">
-            <ScrollableTabsButtonForce />
-          </Route>
         </Switch>
     </div>
     </Router>
