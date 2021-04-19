@@ -218,7 +218,7 @@ export default function ProfileOne({name, major, description, followers, followi
                 {description}
             </div>
             <div className="profile-follow-stats">
-                <h2><b>Followers {followers} Following {following}</b></h2>
+                <h3><b>Followers {followers} {bull} Following {following}</b></h3>
             </div>
             <div className={classes.root}>
                 <AppBar position="static" color="default">
@@ -270,7 +270,7 @@ export default function ProfileOne({name, major, description, followers, followi
           justify="center"
           alignItems="flex-start"
         >       
-          <TabPanel value={value} index={1}>
+            <TabPanel value={value} index={1}>
               <About 
                 major='Law'
                 day='Saturday Afternoons'
@@ -290,9 +290,11 @@ export default function ProfileOne({name, major, description, followers, followi
                 goalThree='Publish a paper'
                 goalOneDesc='I want a faculty mentorship over the course of my four years'
                 goalTwoDesc='With a 6.0GPA, I want to receive the Rhodes Scholarship'
-                goalThree='I would like to conduct research that I can publish a paper from'
+                goalThreeDesc='I would like to conduct research that I can publish a paper from'
+                meetMe="Hello. I am Ghandi. I like to organize non-violent protests to achieve peace in the world. Join us on our journey."
+                lookFor="currently looking for research faculty mentorship, motivated cadets who want to peacefully protest climate change, and anyone who has experience with coordinating large events"
               />
-          </TabPanel>
+            </TabPanel>
         </Grid>
       </div>
     </div>
@@ -387,7 +389,7 @@ function Post() {
 
 
 function generate(element) {
-  return [0, 1, 2].map((value) =>
+  return [0].map((value) =>
     React.cloneElement(element, {
       key: value,
     }),
@@ -399,7 +401,7 @@ function About({ goalOne, goalOneDesc, goalTwo,
                 major, day, experienceOne, experienceTwo, 
                 experienceThree, skillOne, skillTwo, skillThree, 
                 skillFour, skillFive, experienceFour, 
-                experienceFive
+                experienceFive, name, meetMe, lookFor
               }) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
@@ -408,12 +410,20 @@ function About({ goalOne, goalOneDesc, goalTwo,
 
   return (
     <div className={classes.rootGoals}>
-      <Grid container spacing={9}>
-        <Grid item xs>
+      <Grid container spacing={3}>
+        <Grid item xs={4}>
+          <Paper className={classes.about}>
+            Meet Me
+            <Typography variant="body1" color="textSecondary" className={classes.demoGoals}>
+              {meetMe}
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={4}>
             <Paper className={classes.aboutGoals}>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12}>
                 <Typography variant="h6" className={classes.titleGoals}>
-                  Meet Me
+                  Research Goals
                 </Typography>
                 <div className={classes.demoGoals}>
                   <List dense={dense}>
@@ -423,49 +433,46 @@ function About({ goalOne, goalOneDesc, goalTwo,
                           primary={goalOne}
                           secondary={goalOneDesc}
                         />
-                        <ListItemText
-                          primary={goalTwo}
-                          secondary={goalTwoDesc}
-                        />
                       </ListItem>,
+                    )}
+                    {generate(
                       <ListItem>
                         <ListItemText
                           primary={goalTwo}
                           secondary={goalTwoDesc}
                         />
                       </ListItem>,
+                    )}
+                    {generate(
                       <ListItem>
-                      <ListItemText
-                        primary={goalThree}
-                        secondary={goalThreeDesc}
-                      />
-                    </ListItem>,
+                        <ListItemText
+                          primary={goalThree}
+                          secondary={goalThreeDesc}
+                        />
+                      </ListItem>,
                     )}
                   </List>
                 </div>
               </Grid>
             </Paper>
         </Grid>
-        <Grid item xs>
-          <Paper className={classes.about}>Research Goals</Paper>
-        </Grid>
-        <Grid item xs>
+        <Grid item xs={4}>
           <div className={classes.rootExperience}>
             <Paper className={classes.aboutExperience}>
             <div className={classes.section1Experience}>
               <Grid container alignItems="center">
                 <Grid item xs>
-                  <Typography gutterBottom variant="h4">
+                  <Typography gutterBottom variant="h6">
                     Experience
                   </Typography>
                 </Grid>
-                <Grid item>
-                  <Typography color="text-secondary" gutterBottom variant="h6">
+                <Grid item xs>
+                  <Typography color="text-secondary" gutterBottom variant="body1">
                     {major} Major
                   </Typography>
                 </Grid>
               </Grid>
-              <Typography gutterBottom variant="body1">
+              <Typography gutterBottom variant="body2">
               <div className={classes.list}>
                 <ul>
                   <li>{bull}{experienceOne}</li>
@@ -499,13 +506,15 @@ function About({ goalOne, goalOneDesc, goalTwo,
       </Grid>
       <Grid container spacing={3}>
         <Grid item xs>
-          <Paper className={classes.about}>Looking For</Paper>
+          <Paper className={classes.rootGoals}>
+            <b><u>Looking For</u></b>
+            <Typography gutterBottom color="textSecondary" variant="body1">
+                {name} is {lookFor}
+            </Typography>
+          </Paper>
         </Grid>
-        <Grid item xs={6}>
-          <Paper className={classes.about}>Skills</Paper>
-        </Grid>
-        <Grid item xs>
-          <Paper className={classes.about}>{name} is Usually Free On {day}</Paper>
+        <Grid item xs={3}>
+          <Paper className={classes.about}><b>{name}</b> is Usually Free On {day}</Paper>
         </Grid>
       </Grid>
     </div>
