@@ -28,6 +28,12 @@ import InfoIcon from '@material-ui/icons/Info';
 import BlurOnIcon from '@material-ui/icons/BlurOn';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import RateReviewIcon from '@material-ui/icons/RateReview';
+import Chip from '@material-ui/core/Chip';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 /* This is for the tabs */
 function TabPanel(props) {
@@ -118,7 +124,41 @@ const useStyles = makeStyles((theme) => ({
   },
   homeView: {
       margin: 'auto',
-  }
+  },
+  about: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+  },
+  rootExperience: {
+    width: '100%',
+    maxWidth: 560,
+    backgroundColor: theme.palette.background.paper,
+  },
+  chipExperience: {
+    margin: theme.spacing(0.5),
+  },
+  section1Experience: {
+    margin: theme.spacing(3, 2),
+  },
+  section2Experience: {
+    margin: theme.spacing(2),
+  },
+  section3Experience: {
+    margin: theme.spacing(3, 1, 1),
+  },
+  list: {
+    textAlign: 'left',
+  },
+  rootGoals: {
+    flexGrow: 1,
+    maxWidth: 752,
+  },
+  demoGoals: {
+    backgroundColor: theme.palette.background.paper,
+  },
+  titleGoals: {
+    margin: theme.spacing(4, 0, 2),
+  },
 }));
 
 export default function ProfileOne({name, major, description, followers, following}) {
@@ -151,7 +191,12 @@ export default function ProfileOne({name, major, description, followers, followi
 </label>*/
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
+      <Grid container 
+        direction="column"
+        justify="center"
+        alignItems="center"
+        spacing={3}
+      >
         <Grid item xs={12}>
           <Paper className={classes.paper}>
           <label htmlFor="contained-button-file">
@@ -167,13 +212,13 @@ export default function ProfileOne({name, major, description, followers, followi
                 </IconButton>
             </label>
             <div className={classes.profileImg}>
-                <h2><b>{name}</b></h2>{bull}{major}
+                <h2><b>{name}</b>{bull}{major}</h2>
             </div>
             <div className="profile-description">
                 {description}
             </div>
             <div className="profile-follow-stats">
-                Followers {followers} Following {following}
+                <h2><b>Followers {followers} Following {following}</b></h2>
             </div>
             <div className={classes.root}>
                 <AppBar position="static" color="default">
@@ -206,9 +251,7 @@ export default function ProfileOne({name, major, description, followers, followi
                     <Post />
                 </TabPanel>
             </div>
-            <TabPanel value={value} index={1}>
-                This is where the about page will go 
-            </TabPanel>
+            
             <TabPanel value={value} index={2}>
                 This is where user's posts will go
             </TabPanel>
@@ -219,19 +262,39 @@ export default function ProfileOne({name, major, description, followers, followi
                 This is where the user's reviews will go
             </TabPanel>
         </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
       </Grid>
+      <div className = {classes.about}>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="flex-start"
+        >       
+          <TabPanel value={value} index={1}>
+              <About 
+                major='Law'
+                day='Saturday Afternoons'
+                experienceOne='Leader of non-violent independence movement against British rule'
+                experienceTwo='Organized boycotts against British institutions in peaceful forms of civil disobedience'
+                experienceThree='Formed Natal Indian Congress in 1894 to fight discrimination'
+                experienceFour='Graduated from University Collenge London with a Law Degree in 3 years'
+                experienceFive='Led Satyagraha Campaign that Achievfed 1914 Indian Relief Act'
+                skillOne='Public Speaking'
+                skillTwo='Tolerance'
+                skillThree='Forgiveness'
+                skillFour='Leadership'
+                skillFive='Non-Violent Protests'
+                name={name}
+                goalOne='Faculty Oversight When I Save World'
+                goalTwo='Rhodes Scholarship'
+                goalThree='Publish a paper'
+                goalOneDesc='I want a faculty mentorship over the course of my four years'
+                goalTwoDesc='With a 6.0GPA, I want to receive the Rhodes Scholarship'
+                goalThree='I would like to conduct research that I can publish a paper from'
+              />
+          </TabPanel>
+        </Grid>
+      </div>
     </div>
   );
                     }
@@ -320,4 +383,131 @@ function Post() {
       </Card>
     );
 
+}
+
+
+function generate(element) {
+  return [0, 1, 2].map((value) =>
+    React.cloneElement(element, {
+      key: value,
+    }),
+  );
+}
+
+function About({ goalOne, goalOneDesc, goalTwo, 
+                goalTwoDesc, goalThree, goalThreeDesc, 
+                major, day, experienceOne, experienceTwo, 
+                experienceThree, skillOne, skillTwo, skillThree, 
+                skillFour, skillFive, experienceFour, 
+                experienceFive
+              }) {
+  const classes = useStyles();
+  const bull = <span className={classes.bullet}>•</span>;
+  const [dense, setDense] = React.useState(false);
+
+
+  return (
+    <div className={classes.rootGoals}>
+      <Grid container spacing={9}>
+        <Grid item xs>
+            <Paper className={classes.aboutGoals}>
+              <Grid item xs={12} md={6}>
+                <Typography variant="h6" className={classes.titleGoals}>
+                  Meet Me
+                </Typography>
+                <div className={classes.demoGoals}>
+                  <List dense={dense}>
+                    {generate(
+                      <ListItem>
+                        <ListItemText
+                          primary={goalOne}
+                          secondary={goalOneDesc}
+                        />
+                        <ListItemText
+                          primary={goalTwo}
+                          secondary={goalTwoDesc}
+                        />
+                      </ListItem>,
+                      <ListItem>
+                        <ListItemText
+                          primary={goalTwo}
+                          secondary={goalTwoDesc}
+                        />
+                      </ListItem>,
+                      <ListItem>
+                      <ListItemText
+                        primary={goalThree}
+                        secondary={goalThreeDesc}
+                      />
+                    </ListItem>,
+                    )}
+                  </List>
+                </div>
+              </Grid>
+            </Paper>
+        </Grid>
+        <Grid item xs>
+          <Paper className={classes.about}>Research Goals</Paper>
+        </Grid>
+        <Grid item xs>
+          <div className={classes.rootExperience}>
+            <Paper className={classes.aboutExperience}>
+            <div className={classes.section1Experience}>
+              <Grid container alignItems="center">
+                <Grid item xs>
+                  <Typography gutterBottom variant="h4">
+                    Experience
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography color="text-secondary" gutterBottom variant="h6">
+                    {major} Major
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Typography gutterBottom variant="body1">
+              <div className={classes.list}>
+                <ul>
+                  <li>{bull}{experienceOne}</li>
+                  <li>{bull}{experienceTwo}</li>
+                  <li>{bull}{experienceThree}</li>
+                  <li>{bull}{experienceFour}</li>
+                  <li>{bull}{experienceFive}</li>
+                </ul>
+              </div>
+              </Typography>
+            </div>
+            <Divider variant="middle" />
+            <div className={classes.section2Experience}>
+              <Typography gutterBottom variant="body1">
+                Skills
+              </Typography>
+              <div>
+                <Chip className={classes.chipExperience} label={skillOne} />
+                <Chip className={classes.chipExperience} color="primary" label={skillTwo} />
+                <Chip className={classes.chipExperience} label={skillThree} />
+                <Chip className={classes.chipExperience} label={skillFour} />
+                <Chip className={classes.chipExperience} label={skillFive} />
+              </div>
+            </div>
+            <div className={classes.section3Experience}>
+              <Button color="primary">Endorse a Skill</Button>
+            </div>
+          </Paper>
+          </div>
+        </Grid>
+      </Grid>
+      <Grid container spacing={3}>
+        <Grid item xs>
+          <Paper className={classes.about}>Looking For</Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper className={classes.about}>Skills</Paper>
+        </Grid>
+        <Grid item xs>
+          <Paper className={classes.about}>{name} is Usually Free On {day}</Paper>
+        </Grid>
+      </Grid>
+    </div>
+  );
 }
