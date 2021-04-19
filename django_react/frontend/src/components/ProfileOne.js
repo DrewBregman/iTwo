@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, withTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 /*import "../css/ProfileOne.css";*/
@@ -9,15 +9,25 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import PhoneIcon from '@material-ui/icons/Phone';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
-import HelpIcon from '@material-ui/icons/Help';
-import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
-import ThumbDown from '@material-ui/icons/ThumbDown';
-import ThumbUp from '@material-ui/icons/ThumbUp';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import { red } from '@material-ui/core/colors';
+import ShareIcon from '@material-ui/icons/Share';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import HomeIcon from '@material-ui/icons/Home';
+import InfoIcon from '@material-ui/icons/Info';
+import BlurOnIcon from '@material-ui/icons/BlurOn';
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
+import RateReviewIcon from '@material-ui/icons/RateReview';
 
 /* This is for the tabs */
 function TabPanel(props) {
@@ -86,6 +96,29 @@ const useStyles = makeStyles((theme) => ({
       height: 160,
       border: 10,
   },
+  rootPost: {
+    maxWidth: 345,
+  },
+  mediaPost: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatarPost: {
+    backgroundColor: red[500],
+  },
+  homeView: {
+      margin: 'auto',
+  }
 }));
 
 export default function ProfileOne({name, major, description, followers, following}) {
@@ -153,14 +186,13 @@ export default function ProfileOne({name, major, description, followers, followi
                     textColor="primary"
                     aria-label="scrollable force tabs example"
                     >
-                    <Tab label="Item One" icon={<PhoneIcon />} {...a11yProps(0)} />
-                    <Tab label="Item Two" icon={<FavoriteIcon />} {...a11yProps(1)} />
-                    <Tab label="Item Three" icon={<PersonPinIcon />} {...a11yProps(2)} />
-                    <Tab label="Item Four" icon={<HelpIcon />} {...a11yProps(3)} />
-                    <Tab label="Item Five" icon={<ShoppingBasket />} {...a11yProps(4)} />
-                    <Tab label="Item Six" icon={<ThumbDown />} {...a11yProps(5)} />
-                    <Tab label="Item Seven" icon={<ThumbUp />} {...a11yProps(6)} />
+                    <Tab label="Home" icon={<HomeIcon />} {...a11yProps(0)} />
+                    <Tab label="About" icon={<InfoIcon />} {...a11yProps(1)} />
+                    <Tab label="Posts" icon={<BlurOnIcon />} {...a11yProps(2)} />
+                    <Tab label="Projects" icon={<AccountTreeIcon />} {...a11yProps(3)} />
+                    <Tab label="Reviews" icon={<RateReviewIcon />} {...a11yProps(4)} />
                     </Tabs>
+
                 </AppBar>
             </div>
           </Paper>
@@ -169,29 +201,23 @@ export default function ProfileOne({name, major, description, followers, followi
           
         </Grid>
         <Grid item xs={6}>
-          <Paper className={classes.paper}>
-            <TabPanel value={value} index={0}>
-                Item One
-            </TabPanel>
+            <div className={classes.homeView}>
+                <TabPanel value={value} index={0}>
+                    <Post />
+                </TabPanel>
+            </div>
             <TabPanel value={value} index={1}>
-                Item Two
+                This is where the about page will go 
             </TabPanel>
             <TabPanel value={value} index={2}>
-                Item Three
+                This is where user's posts will go
             </TabPanel>
             <TabPanel value={value} index={3}>
-                Item Four
+                This is where user's projects will go 
             </TabPanel>
             <TabPanel value={value} index={4}>
-                Item Five
+                This is where the user's reviews will go
             </TabPanel>
-            <TabPanel value={value} index={5}>
-                Item Six
-            </TabPanel>
-            <TabPanel value={value} index={6}>
-                Item Seven
-            </TabPanel>
-          </Paper>
         </Grid>
         <Grid item xs={3}>
           <Paper className={classes.paper}>xs=3</Paper>
@@ -209,3 +235,89 @@ export default function ProfileOne({name, major, description, followers, followi
     </div>
   );
                     }
+function Post() {
+    const classes = useStyles();
+    const [expanded, setExpanded] = React.useState(false);
+  
+    const handleExpandClick = () => {
+      setExpanded(!expanded);
+    };
+  
+    return (
+      <Card className={classes.rootPost}>
+        <CardHeader
+          avatarPost={
+            <Avatar aria-label="recipe" className={classes.avatarPost}>
+              R
+            </Avatar>
+          }
+          action={
+            <IconButton aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
+          }
+          title="SpaceX Launches Starship"
+          subheader="March 30, 2021"
+        />
+        <CardMedia
+          className={classes.mediaPost}
+          image="pictures/starship.jpg"
+          title="SpaceX Launches Starship"
+        />
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Starship will enter Mars’ atmosphere at 7.5 kilometers per second and decelerate aerodynamically. 
+            The vehicle’s heat shield is designed to withstand multiple entries.
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton>
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Typography paragraph>Method:</Typography>
+            <Typography paragraph>
+              SpaceX's SN10 Starship prototype lands after epic test launch
+              --but then explodes after landing. 
+            </Typography>
+            <Typography paragraph>
+              NASA said on Friday it has awarded billionaire entrepreneur 
+              Elon Musk's private space company SpaceX a $2.9 billion 
+              contract to build a spacecraft to bring astronauts to 
+              the moon as early as 2024, picking it over Jeff Bezos' 
+              Blue Origin and defense contractor Dynetics.
+            </Typography>
+            <Typography paragraph>
+            On May 30, 2020, SpaceX made history when it returned human 
+            spaceflight capabilities to the United States. SpaceX launched 
+            the first pair of NASA astronauts to the International Space 
+            Station (ISS) under the agency’s Commercial Crew Program, 
+            which aims to perform frequent crewed flights to space from 
+            American soil.
+            </Typography>
+            <Typography>
+              Together the Starship spacecraft and Super Heavy rocket create 
+              a reusable transportation system capable of on orbit refueling and leveraging Mars’ 
+              natural H2O and CO2 resources to refuel on the surface of Mars.
+            </Typography>
+          </CardContent>
+        </Collapse>
+      </Card>
+    );
+
+}
