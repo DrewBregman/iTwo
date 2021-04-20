@@ -1,5 +1,5 @@
 # iTwo
-Here we fucking go baby, full send!!
+Here we  go, full send!!
 
 
 To replicate:
