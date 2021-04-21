@@ -36,7 +36,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import axios from 'axios';
 
-/*function dataProfile(){
+function dataProfile(){
   const [profiles, setProfiles] = useState([])
 
   useEffect(() => {
@@ -50,13 +50,14 @@ import axios from 'axios';
           })
   }, [])
   return (
-      <div>
-              {
-                  profiles.map(profile => <li key={profile.id}>{profile.firstName} says {profile.major}</li>)
-              }
-      </div>
+                  profiles.map(profile => {
+                    const {major, day, experienceOne, experienceTwo, experienceThree,
+                          experienceFour, experienceFive, skillOne, skillTwo, SkillThree,
+                          skillFour, skillFive, name, goalOne, goalTwo, goalThree, 
+                          goalOneDesc, goalTwoDesc, goalThreeDesc, meetMe, lookFor} = profile;
+                    })
   )
-}*/
+}
 
 /* This is for the tabs */
 function TabPanel(props) {

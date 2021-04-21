@@ -3,7 +3,7 @@ import BellIcon from './icons/bell.svg';
 import MessengerIcon from './icons/messenger.svg';
 import CaretIcon from './icons/caret.svg';
 import PlusIcon from './icons/plus.svg';
-import DataFetching from "../DataFetching";
+import dataProfile from "../DataFetching";
 import DropdownMenu from "../DropDown";
 import React, { useState } from 'react';
 import {
@@ -46,7 +46,7 @@ function App() {
           <Route path="/editprofile">
             <h1>Edit Profile</h1>
           </Route>
-          <Route path="/p">
+          <Route exact path="/p/:id" component={dataProfile}>
             <ProfileOne 
             name='Mahatma Gandhi'
             description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
