@@ -53,6 +53,8 @@ function App() {
             followers = '245'
             following = '185'
             major='Law'
+            company='D2'
+            year='2023'
             day='Saturday Afternoons'
             experienceOne='Leader of non-violent independence movement against British rule'
             experienceTwo='Organized boycotts against British institutions in peaceful forms of civil disobedience'

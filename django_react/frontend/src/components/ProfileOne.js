@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -36,7 +36,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import axios from 'axios';
 
-function dataProfile(){
+/*function dataProfile(){
   const [profiles, setProfiles] = useState([])
 
   useEffect(() => {
@@ -52,11 +52,11 @@ function dataProfile(){
   return (
       <div>
               {
-                  profiles.map(profile => <li key={lead.id}>{lead.name} says {lead.message}</li>)
+                  profiles.map(profile => <li key={profile.id}>{profile.firstName} says {profile.major}</li>)
               }
       </div>
   )
-}
+}*/
 
 /* This is for the tabs */
 function TabPanel(props) {
@@ -184,7 +184,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProfileOne(description, followers, following) {
+export default function ProfileOne({year, name, major, company, followers, following}) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const [value, setValue] = React.useState(0);
@@ -235,7 +235,8 @@ export default function ProfileOne(description, followers, following) {
       >
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-          <label htmlFor="contained-button-file">
+            <div className={classes.profileImg}>
+            <label htmlFor="contained-button-file">
                 <IconButton>
                     <Avatar 
                         src="https://images.huffingtonpost.com/2016-03-25-1458864692-9841862-MahatmaGandhiALegacyofPeace-thumb.jpg" 
@@ -246,12 +247,16 @@ export default function ProfileOne(description, followers, following) {
                         }} 
                         />
                 </IconButton>
-            </label>
-            <div className={classes.profileImg}>
-                <h2><b>{profiles.name}</b>{bull}{profiles.major}</h2>
+              </label>
+              </div>
+            <div className={classes.nameHeader}>
+                <h2><b>{name}</b></h2>
             </div>
-            <div className="profile-description">
-                {description}
+            <div className={classes.compName}>
+              {company} / {year}
+            </div>
+            <div className={classes.major}>
+                {major}
             </div>
             <div className="profile-follow-stats">
                 <h3><b>Followers {followers} {bull} Following {following}</b></h3>
@@ -320,7 +325,7 @@ export default function ProfileOne(description, followers, following) {
                 skillThree='Forgiveness'
                 skillFour='Leadership'
                 skillFive='Non-Violent Protests'
-                name={profiles.name}
+                name='Mahatma Gandhi'
                 goalOne='Faculty Oversight When I Save World'
                 goalTwo='Rhodes Scholarship'
                 goalThree='Publish a paper'
@@ -437,7 +442,7 @@ function About({ goalTwo,
                 major, day, experienceOne, experienceTwo, 
                 experienceThree, skillOne, skillTwo, skillThree, 
                 skillFour, skillFive, experienceFour, 
-                experienceFive, name, meetMe, lookFor
+                experienceFive, name, meetMe, lookFor, goalOne, goalOneDesc
               }) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
@@ -466,8 +471,8 @@ function About({ goalTwo,
                     {generate(
                       <ListItem>
                         <ListItemText
-                          primary={profiles.goalOne}
-                          secondary={profiles.goalOneDesc}
+                          primary={goalOne}
+                          secondary={goalOneDesc}
                         />
                       </ListItem>,
                     )}
