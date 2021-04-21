@@ -16,11 +16,11 @@ class Lead(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-# order: project, profile, posts, comments, messages, departments, friends, reactions, teams, AIADs
+# order: profile, project, posts, comments, messages, departments, friends, reactions, teams, AIADs
 
-# PROJECT MODELS
-# PROJECT MODELS
-# PROJECT MODELS
+# PROFILE MODELS
+# PROFILE MODELS
+# PROFILE MODELS
 class Profile(models.Model):
     user = AutoOneToOneField(User, on_delete=models.CASCADE)
     firstName = models.CharField(
@@ -32,8 +32,7 @@ class Profile(models.Model):
         "Profile Picture", default='default.jpg', upload_to='profile_pics')
     email = models.EmailField(default="")
     first = models.BooleanField(default=True)
-    # MeetMe = models.TextField()
-
+    meetMe = models.TextField("Introduce Yourself!", null=True, blank=False)
     dep_choice = (
         ('Behavioral Sciences and Leadership',
          ('Behavioral Sciences and Leadership')),
@@ -65,8 +64,24 @@ class Profile(models.Model):
     interest = models.TextField("What Are Your Interests?", null=True)
     expertise = models.TextField(
         "Please list Your Areas of Expertise (separate by commas)", null=True)
-    research_goals = models.TextField(
-        "What Do You Want To Get Out Of Research?", null=True)
+    day = models.CharField(max_length=10, null=True, blank=False)
+    goalOne = models.TextField(
+        "Please List One of Your Research Goals?", null=True)
+    goalTwoDesc = models.TextField(
+        "Describe your first research goal", null=True)
+    goalTwo = models.TextField(
+        "Please List One of Your Research Goals?", null=True)
+    goalTwoDesc = models.TextField(
+        "Describe your first research goal", null=True)
+    goalThree = models.TextField(
+        "Please List One of Your Research Goals?", null=True)
+    goalThreeDesc = models.TextField(
+        "Describe your first research goal", null=True)
+    skillOne = models.CharField(max_length=30, null=True)
+    skillTwo = models.CharField(max_length=30, null=True)
+    skillThree = models.CharField(max_length=30, null=True)
+    skillFour = models.CharField(max_length=30, null=True)
+    skillFive = models.CharField(max_length=30, null=True)
     look = (
         ('a research team to join.', ('an established Research Team')),
         ('a project to work on.', ('a fun project to work on')),
@@ -86,7 +101,16 @@ class Profile(models.Model):
     # choices=look, lookOne, lookTwo,
     # default='nothing at the moment.',
     # )
-
+    experienceOne = models.TextField(
+        "Please List and Describe Your Experience", null=True)
+    experienceTwo = models.TextField(
+        "Please List and Describe Your Experience", null=True)
+    experienceThree = models.TextField(
+        "Please List and Describe Your Experience", null=True)
+    experienceFour = models.TextField(
+        "Please List and Describe Your Experience", null=True)
+    experienceFive = models.TextField(
+        "Please List and Describe Your Experience", null=True)
     lookingFor = MultiSelectField(
         "What Are You Currently Looking For?", choices=look, max_choices=3)
     faculty_cadet = (

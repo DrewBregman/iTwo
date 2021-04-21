@@ -34,6 +34,29 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import axios from 'axios';
+
+function dataProfile(){
+  const [profiles, setProfiles] = useState([])
+
+  useEffect(() => {
+      axios.get("api/profiles/")
+          .then(res =>{
+              console.log(res)
+              setProfiles(res.data)
+          })
+          .catch(err => {
+              console.log(err)
+          })
+  }, [])
+  return (
+      <div>
+              {
+                  profiles.map(profile => <li key={lead.id}>{lead.name} says {lead.message}</li>)
+              }
+      </div>
+  )
+}
 
 /* This is for the tabs */
 function TabPanel(props) {
@@ -161,7 +184,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProfileOne({name, major, description, followers, following}) {
+export default function ProfileOne(description, followers, following) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const [value, setValue] = React.useState(0);
@@ -169,6 +192,19 @@ export default function ProfileOne({name, major, description, followers, followi
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+/* THIS GETS MY DATA FROM MODELS */
+  const [profiles, setProfiles] = useState([])
+
+  useEffect(() => {
+      axios.get("api/profiles/")
+          .then(res =>{
+              console.log(res)
+              setProfiles(res.data)
+          })
+          .catch(err => {
+              console.log(err)
+          })
+  }, [])
   /* EXAMPLE FOR USER DATA FOR IMAGE 
 <input
  accept="image/*"
@@ -212,7 +248,7 @@ export default function ProfileOne({name, major, description, followers, followi
                 </IconButton>
             </label>
             <div className={classes.profileImg}>
-                <h2><b>{name}</b>{bull}{major}</h2>
+                <h2><b>{profiles.name}</b>{bull}{profiles.major}</h2>
             </div>
             <div className="profile-description">
                 {description}
@@ -284,7 +320,7 @@ export default function ProfileOne({name, major, description, followers, followi
                 skillThree='Forgiveness'
                 skillFour='Leadership'
                 skillFive='Non-Violent Protests'
-                name={name}
+                name={profiles.name}
                 goalOne='Faculty Oversight When I Save World'
                 goalTwo='Rhodes Scholarship'
                 goalThree='Publish a paper'
@@ -396,7 +432,7 @@ function generate(element) {
   );
 }
 
-function About({ goalOne, goalOneDesc, goalTwo, 
+function About({ goalTwo, 
                 goalTwoDesc, goalThree, goalThreeDesc, 
                 major, day, experienceOne, experienceTwo, 
                 experienceThree, skillOne, skillTwo, skillThree, 
@@ -430,8 +466,8 @@ function About({ goalOne, goalOneDesc, goalTwo,
                     {generate(
                       <ListItem>
                         <ListItemText
-                          primary={goalOne}
-                          secondary={goalOneDesc}
+                          primary={profiles.goalOne}
+                          secondary={profiles.goalOneDesc}
                         />
                       </ListItem>,
                     )}
