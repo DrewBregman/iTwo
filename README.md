@@ -26,3 +26,7 @@ To replicate:
 then:
 
 >npm run dev & run the server
+
+
+**Visual Studio Code Packages Usesd**
+> Python, Prettier, ES7 React
