@@ -15,4 +15,4 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ('firstName', 'lastName', 'skillOne', 'skillTwo', 'skillThree', 'skillFour', 'skillFive',
                   'goalOne', 'goalOneDesc', 'goalTwo', 'goalTwoDesc', 'goalThree', 'goalThreeDesc',
                   'Major', 'lookingFor', 'Department', 'experienceOne', 'experienceTwo', 'experienceThree',
-                  'experienceFour', 'experienceFive', 'meetMe', 'day', 'image')
+                  'experienceFour', 'experienceFive', 'meetMe', 'day', 'image', 'areaInterestOne', 'areaInterestTwo', 'areaInterestThree')
