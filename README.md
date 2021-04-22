@@ -16,6 +16,21 @@ To replicate:
 
 >pip install nodejs
 
+>pip install django-crispy-forms
+
+>pip install django-phone-field
+
+>pip install django_partial_date
+
+>pip install django_phonenumber_field
+
+>pip install django_cleanup
+
+>pip install phonenumbers
+
+>pip install django-multiselectfield
+
+
 **in frontend app:**
 
 >npm i axios 
