@@ -35,6 +35,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import axios from 'axios';
+import EditButton from './EditProfile';
 
 function dataProfile(){
   const [profiles, setProfiles] = useState([])
@@ -558,6 +559,10 @@ function About({ goalTwo,
         <Grid item xs={3}>
           <Paper className={classes.about}><b>{name}</b> is Usually Free On {day}</Paper>
         </Grid>
+        <Grid item xs={3}>
+            <EditButton>Hello</EditButton>
+        </Grid>
+
       </Grid>
     </div>
   );

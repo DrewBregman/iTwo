@@ -67,16 +67,16 @@ class Profile(models.Model):
     day = models.CharField(max_length=10, null=True, blank=False)
     goalOne = models.TextField(
         "Please List One of Your Research Goals?", null=True)
-    goalTwoDesc = models.TextField(
+    goalOneDesc = models.TextField(
         "Describe your first research goal", null=True)
     goalTwo = models.TextField(
         "Please List One of Your Research Goals?", null=True)
     goalTwoDesc = models.TextField(
-        "Describe your first research goal", null=True)
+        "Describe your second research goal", null=True)
     goalThree = models.TextField(
         "Please List One of Your Research Goals?", null=True)
     goalThreeDesc = models.TextField(
-        "Describe your first research goal", null=True)
+        "Describe your third research goal", null=True)
     skillOne = models.CharField(max_length=30, null=True)
     skillTwo = models.CharField(max_length=30, null=True)
     skillThree = models.CharField(max_length=30, null=True)
@@ -111,6 +111,13 @@ class Profile(models.Model):
         "Please List and Describe Your Experience", null=True)
     experienceFive = models.TextField(
         "Please List and Describe Your Experience", null=True)
+    areaInterestOne = models.TextField(
+        "Please List and Describe Your Area of Interest", null=True)
+    areaInterestTwo = models.TextField(
+        "Please List and Describe Your Area of Interest", null=True)
+    areaInterestThree = models.TextField(
+        "Please List and Describe Your Area of Interest", null=True)
+
     lookingFor = MultiSelectField(
         "What Are You Currently Looking For?", choices=look, max_choices=3)
     faculty_cadet = (
