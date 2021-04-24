@@ -36,6 +36,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import axios from 'axios';
 import EditButton from './EditProfile';
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
+import PostsProfile from "./PostTab/PostsProfile";
+import Posts from "./PostTab/Posts";
+import ProjectTab from "./uProjectTab/ProjectTab";
 
 function dataProfile(){
   const [profiles, setProfiles] = useState([])
@@ -291,16 +295,10 @@ export default function ProfileOne({year, name, major, company, followers, follo
         <Grid item xs={6}>
             <div className={classes.homeView}>
                 <TabPanel value={value} index={0}>
-                    <Post />
+                    <Posts />
                 </TabPanel>
             </div>
             
-            <TabPanel value={value} index={2}>
-                This is where user's posts will go
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-                This is where user's projects will go 
-            </TabPanel>
             <TabPanel value={value} index={4}>
                 This is where the user's reviews will go
             </TabPanel>
@@ -340,95 +338,20 @@ export default function ProfileOne({year, name, major, company, followers, follo
             </TabPanel>
         </Grid>
       </div>
+      <div className="postsProfile">
+        <TabPanel value={value} index={2}>
+          <PostsProfile />
+        </TabPanel>
+      </div>
+      <div className="projectsProfile">
+        <TabPanel value={value} index={3}>
+                <ProjectTab />
+        </TabPanel>
+      </div>
     </div>
   );
                     }
-function Post() {
-    const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
-  
-    const handleExpandClick = () => {
-      setExpanded(!expanded);
-    };
-  
-    return (
-      <Card className={classes.rootPost}>
-        <CardHeader
-          avatarPost={
-            <Avatar aria-label="recipe" className={classes.avatarPost}>
-              R
-            </Avatar>
-          }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title="SpaceX Launches Starship"
-          subheader="March 30, 2021"
-        />
-        <CardMedia
-          className={classes.mediaPost}
-          image="pictures/starship.jpg"
-          title="SpaceX Launches Starship"
-        />
-        <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Starship will enter Mars’ atmosphere at 7.5 kilometers per second and decelerate aerodynamically. 
-            The vehicle’s heat shield is designed to withstand multiple entries.
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>Method:</Typography>
-            <Typography paragraph>
-              SpaceX's SN10 Starship prototype lands after epic test launch
-              --but then explodes after landing. 
-            </Typography>
-            <Typography paragraph>
-              NASA said on Friday it has awarded billionaire entrepreneur 
-              Elon Musk's private space company SpaceX a $2.9 billion 
-              contract to build a spacecraft to bring astronauts to 
-              the moon as early as 2024, picking it over Jeff Bezos' 
-              Blue Origin and defense contractor Dynetics.
-            </Typography>
-            <Typography paragraph>
-            On May 30, 2020, SpaceX made history when it returned human 
-            spaceflight capabilities to the United States. SpaceX launched 
-            the first pair of NASA astronauts to the International Space 
-            Station (ISS) under the agency’s Commercial Crew Program, 
-            which aims to perform frequent crewed flights to space from 
-            American soil.
-            </Typography>
-            <Typography>
-              Together the Starship spacecraft and Super Heavy rocket create 
-              a reusable transportation system capable of on orbit refueling and leveraging Mars’ 
-              natural H2O and CO2 resources to refuel on the surface of Mars.
-            </Typography>
-          </CardContent>
-        </Collapse>
-      </Card>
-    );
 
-}
 
 
 function generate(element) {
@@ -562,8 +485,8 @@ function About({ goalTwo,
         <Grid item xs={3}>
             <EditButton>Hello</EditButton>
         </Grid>
-
       </Grid>
     </div>
   );
 }
+

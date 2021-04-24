@@ -31,7 +31,14 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-
+import Friend from "./components/PostTab/Friend";
+import {
+  MotionScene,
+  MotionScreen,
+  SharedElement,
+  useMotion
+} from "react-motion-layout";
+import { MotionLayoutProvider } from "react-motion-layout";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -143,7 +150,7 @@ function App() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}><Link to="/p/1">Profile</Link></MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
@@ -158,9 +165,9 @@ function App() {
       open={isNavMenuOpen}
       onClose={handleNavMenuClose}
     >
-      <MenuItem onClick={handleNavMenuClose}>Explore</MenuItem>
-      <MenuItem onClick={handleNavMenuClose}>Home</MenuItem>
-      <MenuItem onClick={handleNavMenuClose}>Settings</MenuItem>
+      <MenuItem onClick={handleNavMenuClose}><Link to="/explore">Explore</Link></MenuItem>
+      <MenuItem onClick={handleNavMenuClose}><Link to="/">Home</Link></MenuItem>
+      <MenuItem onClick={handleNavMenuClose}><Link to="/">Settings</Link></MenuItem>
     </Menu>
   );
 
@@ -289,6 +296,7 @@ function App() {
         {renderMenu}
         {renderMenuNav}
       </Navbar>
+      <MotionLayoutProvider>
       <Switch>
           <Route path="/about">
             <About />
@@ -297,6 +305,9 @@ function App() {
           <Route path="/explore">
             <ExplorePage 
               />
+          </Route>
+          <Route path="friend/:friendId">
+            <Friend />
           </Route>
           <Route path="/editprofile">
             <h1>Edit Profile</h1>
@@ -328,8 +339,10 @@ function App() {
             </div>
           </Route>
         </Switch>
+        </MotionLayoutProvider>
     </div>
     </Router>
+    
   );
 }
 
