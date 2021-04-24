@@ -104,14 +104,21 @@ function App() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [NavAnchorEl, setNavAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
+  const isNavMenuOpen = Boolean(NavAnchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  const handleNavMenuOpen = (event) => {
+    setNavAnchorEl(event.currentTarget);
+  };
+  const handleNavMenuClose = (event) => {
+    setNavAnchorEl(null);
+  };
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -140,8 +147,25 @@ function App() {
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
+  const navMenuId = 'primary-search-account-menu-nav';
+  const renderMenuNav = (
+    <Menu
+      NavAnchorEl={NavAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+      id={navMenuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+      open={isNavMenuOpen}
+      onClose={handleNavMenuClose}
+    >
+      <MenuItem onClick={handleNavMenuClose}>Explore</MenuItem>
+      <MenuItem onClick={handleNavMenuClose}>Home</MenuItem>
+      <MenuItem onClick={handleNavMenuClose}>Settings</MenuItem>
+    </Menu>
+  );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
+
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -152,6 +176,17 @@ function App() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      <MenuItem onClick={handleNavMenuOpen}>
+      <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu-nav"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <MenuIcon />
+        </IconButton>
+        <p>Menu</p>
+      </MenuItem>
       <MenuItem>
         <IconButton aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="secondary">
@@ -189,15 +224,17 @@ function App() {
       <AppBar position="static">
         <Toolbar>
           <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={navMenuId}
+              aria-haspopup="true"
+              onClick={handleNavMenuOpen}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
+            Candle
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -250,6 +287,7 @@ function App() {
           </AppBar>
         {renderMobileMenu}
         {renderMenu}
+        {renderMenuNav}
       </Navbar>
       <Switch>
           <Route path="/about">
