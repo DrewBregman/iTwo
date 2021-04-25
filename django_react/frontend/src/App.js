@@ -5,7 +5,7 @@ import CaretIcon from './icons/caret.svg';
 import PlusIcon from './icons/plus.svg';
 import dataProfile from "../DataFetching";
 import DropdownMenu from "../DropDown";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -39,6 +39,31 @@ import {
   useMotion
 } from "react-motion-layout";
 import { MotionLayoutProvider } from "react-motion-layout";
+import axios from 'axios';
+
+function getProfile(){
+  const [profiles, setProfiles] = useState([])
+
+  useEffect(() => {
+      axios.get("/api/profiles/1")
+          .then(res =>{
+              console.log(res)
+              setProfiles(res.data)
+          })
+          .catch(err => {
+              console.log(err)
+          })
+  }, [])
+  return (
+                  profiles
+                  /*profiles.map(profile => {
+                    const {major, day, experienceOne, experienceTwo, experienceThree,
+                          experienceFour, experienceFive, skillOne, skillTwo, SkillThree,
+                          skillFour, skillFive, name, goalOne, goalTwo, goalThree,
+                          goalOneDesc, goalTwoDesc, goalThreeDesc, meetMe, lookFor} = profile;
+                    })*/
+  )
+}
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -108,6 +133,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 function App() {
+  /*const data123 = JSON.parse(window._DEFAULT_DATA);*/
+  const profile1 = getProfile();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -314,12 +341,12 @@ function App() {
           </Route>
           <Route exact path="/p/:id" component={dataProfile}>
             <ProfileOne 
-            name='Mahatma Gandhi'
+            name='hello'
             description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
             followers = '245'
-            following = '185'
-            major='Law'
-            company='D2'
+            following = {window.REP_LOG_APP_PROPS.cat}
+            major={profile1.Major}
+            company={profile1.company}
             year='2023'
             day='Saturday Afternoons'
             experienceOne='Leader of non-violent independence movement against British rule'
