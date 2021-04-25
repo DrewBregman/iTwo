@@ -40,6 +40,7 @@ import {
 } from "react-motion-layout";
 import { MotionLayoutProvider } from "react-motion-layout";
 import axios from 'axios';
+import ProjectTab from './components/uProjectTab/ProjectTab';
 
 function getProfile(){
   const [profiles, setProfiles] = useState([])
@@ -364,6 +365,9 @@ function App() {
               major='Philosophy'
               />
             </div>
+          </Route>
+          <Route path="project">
+            <Project />
           </Route>
         </Switch>
         </MotionLayoutProvider>

@@ -376,7 +376,7 @@ function About({ goalTwo,
 
   return (
     <div className={classes.rootGoals}>
-      <Grid container spacing={3}>
+      <Grid container alignItems="baseline" justify="center" spacing={3}>
         <Grid item xs={4}>
           <Paper className={classes.about}>
             Meet Me
@@ -469,9 +469,7 @@ function About({ goalTwo,
           </Paper>
           </div>
         </Grid>
-      </Grid>
-      <Grid container spacing={3}>
-        <Grid item xs>
+        <Grid item xs={4}>
           <Paper className={classes.rootGoals}>
             <b><u>Looking For</u></b>
             <Typography gutterBottom color="textSecondary" variant="body1">
@@ -479,14 +477,15 @@ function About({ goalTwo,
             </Typography>
           </Paper>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <Paper className={classes.about}><b>{name}</b> is Usually Free On {day}</Paper>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={4}>
             <EditButton>Hello</EditButton>
         </Grid>
       </Grid>
     </div>
+
   );
 }
 
