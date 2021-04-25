@@ -1,59 +1,92 @@
-import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-/*import "../css/ProfileOne.css";*/
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
 import HomeIcon from '@material-ui/icons/Home';
 import InfoIcon from '@material-ui/icons/Info';
-import BlurOnIcon from '@material-ui/icons/BlurOn';
-import AccountTreeIcon from '@material-ui/icons/AccountTree';
-import RateReviewIcon from '@material-ui/icons/RateReview';
-import axios from 'axios';
+import TimelineIcon from '@material-ui/icons/Timeline';
+import GroupIcon from '@material-ui/icons/Group';
+import PostAddIcon from '@material-ui/icons/PostAdd';
+import About from "./About";
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    minWidth: 275,
+    flexGrow: 1,
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  grid: {
+    backgroundColor: 'blue',
+  },
+  paper: {
+    padding: theme.spacing(2),
+    flexGrow: 1,
+    backgroundColor: 'white',
+    }
+}));
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`scrollable-force-tabpanel-${index}`}
+      aria-labelledby={`scrollable-force-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `scrollable-force-tab-${index}`,
+    'aria-controls': `scrollable-force-tabpanel-${index}`,
+  };
+}
 
 export default function Project() {
-    const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
-    const [value, setValue] = React.useState(0);
-   
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-    };
-  /* THIS GETS MY DATA FROM MODELS */
-    const [profiles, setProfiles] = useState([])
-  
-    useEffect(() => {
-        axios.get("api/profiles/")
-            .then(res =>{
-                console.log(res)
-                setProfiles(res.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [])
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
 
-    return (
-      <div className={classes.root}>
-        <Grid container 
-          direction="column"
-          justify="center"
-          alignItems="center"
-          spacing={3}
-        >
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>
-              <div className={classes.projectImage}>
-              <label htmlFor="contained-button-file">
-                  <IconButton>
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <div className={classes.root}>
+    <Paper className={classes.paper} elevation={3}>
+    <Grid container spacing={3}>
+
+      <Grid item xs={4}>
+        <IconButton>
                       <Avatar 
+                          variant="square"
                           src="https://images.unsplash.com/photo-1518364538800-6bae3c2ea0f2?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cm9ja2V0fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60" 
                           style={{
                           margin: "10px",
@@ -61,104 +94,75 @@ export default function Project() {
                           height: "160px",
                           }} 
                           />
-                  </IconButton>
-                </label>
-                </div>
-              <div className={classes.nameHeader}>
-                  <h2><b>{name}</b></h2>
-              </div>
-              <div className={classes.compName}>
-                {company} / {year}
-              </div>
-              <div className={classes.major}>
-                  {major}
-              </div>
-              <div className="profile-follow-stats">
-                  <h3><b>Followers {followers} {bull} Following {following}</b></h3>
-              </div>
-              <div className={classes.root}>
-                  <AppBar position="static" color="default">
-                      <Tabs
-                      value={value}
-                      onChange={handleChange}
-                      variant="scrollable"
-                      scrollButtons="on"
-                      indicatorColor="primary"
-                      textColor="primary"
-                      aria-label="scrollable force tabs example"
-                      >
-                      <Tab label="Home" icon={<HomeIcon />} {...a11yProps(0)} />
-                      <Tab label="About" icon={<InfoIcon />} {...a11yProps(1)} />
-                      <Tab label="Posts" icon={<BlurOnIcon />} {...a11yProps(2)} />
-                      <Tab label="Projects" icon={<AccountTreeIcon />} {...a11yProps(3)} />
-                      <Tab label="Reviews" icon={<RateReviewIcon />} {...a11yProps(4)} />
-                      </Tabs>
-  
-                  </AppBar>
-              </div>
-            </Paper>
-          </Grid>
-          <Grid item xs={6}>
-            
-          </Grid>
-          <Grid item xs={6}>
-              <div className={classes.homeView}>
-                  <TabPanel value={value} index={0}>
-                      <Posts />
-                  </TabPanel>
-              </div>
-              
-              <TabPanel value={value} index={4}>
-                  This is where the user's reviews will go
-              </TabPanel>
-          </Grid>
+          </IconButton>
+      </Grid>
+      <Grid item container xs={8}>
+        <Grid item xs={12}>
+          Name
+        </Grid> 
+        <Grid item xs={12}>
+          Description
+        </Grid>  
+        <Grid item xs={12}>
+          Number Members
         </Grid>
-        <div className = {classes.about}>
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="flex-start"
-          >       
-              <TabPanel value={value} index={1}>
-                <About 
-                  major='Law'
-                  day='Saturday Afternoons'
-                  experienceOne='Leader of non-violent independence movement against British rule'
-                  experienceTwo='Organized boycotts against British institutions in peaceful forms of civil disobedience'
-                  experienceThree='Formed Natal Indian Congress in 1894 to fight discrimination'
-                  experienceFour='Graduated from University Collenge London with a Law Degree in 3 years'
-                  experienceFive='Led Satyagraha Campaign that Achievfed 1914 Indian Relief Act'
-                  skillOne='Public Speaking'
-                  skillTwo='Tolerance'
-                  skillThree='Forgiveness'
-                  skillFour='Leadership'
-                  skillFive='Non-Violent Protests'
-                  name='Mahatma Gandhi'
-                  goalOne='Faculty Oversight When I Save World'
-                  goalTwo='Rhodes Scholarship'
-                  goalThree='Publish a paper'
-                  goalOneDesc='I want a faculty mentorship over the course of my four years'
-                  goalTwoDesc='With a 6.0GPA, I want to receive the Rhodes Scholarship'
-                  goalThreeDesc='I would like to conduct research that I can publish a paper from'
-                  meetMe="Hello. I am Ghandi. I like to organize non-violent protests to achieve peace in the world. Join us on our journey."
-                  lookFor="currently looking for research faculty mentorship, motivated cadets who want to peacefully protest climate change, and anyone who has experience with coordinating large events"
-                />
-              </TabPanel>
-          </Grid>
-        </div>
-        <div className="postsProfile">
-          <TabPanel value={value} index={2}>
-            <PostsProfile />
-          </TabPanel>
-        </div>
-        <div className="projectsProfile">
-          <TabPanel value={value} index={3}>
-                  <ProjectTab />
-          </TabPanel>
-        </div>
-      </div>
-    );
-                      }
-  
-  
+        <Grid item xs={12}>
+          Date Founded
+        </Grid>     
+        <Grid item xs={12}>
+          Departments
+        </Grid>                              
+      </Grid>
+      <Grid className={classes.nav} item xs={12}>
+        <AppBar position="static" color="white">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            variant="scrollable"
+            scrollButtons="on"
+            indicatorColor="primary"
+            textColor="primary"
+            aria-label="scrollable force tabs example"
+          >
+            <Tab label="Home" icon={<HomeIcon />} {...a11yProps(0)} />
+            <Tab label="Posts" icon={<PostAddIcon  />} {...a11yProps(1)} />
+            <Tab label="About" icon={<InfoIcon />} {...a11yProps(2)} />
+            <Tab label="Milestones" icon={<TimelineIcon />} {...a11yProps(3)} />
+            <Tab label="Members" icon={<GroupIcon />} {...a11yProps(4)} />
+          </Tabs>
+        </AppBar>
+      </Grid>
+    </Grid>
+    </Paper>         
+
+    <Box m={2} />
+    <Paper className={classes.paper} elevation={3} >
+       <TabPanel value={value} index={0}>
+          Item One
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          Item Two
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <About />
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          Item Four
+        </TabPanel>
+        <TabPanel value={value} index={4}>
+          Item Five
+        </TabPanel>
+        <TabPanel value={value} index={5}>
+          Item Six
+        </TabPanel>
+        <TabPanel value={value} index={6}>
+          Item Seven
+        </TabPanel>
+                          
+    </Paper>          
+      <h1>Hello CodeSandbox</h1>
+      <h2>Start editing to see some magic happen!</h2>
+    </div>
+  );
+}
+
