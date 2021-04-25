@@ -6,6 +6,8 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
+import Avatar from '@material-ui/core/Avatar';
+import { makeStyles } from '@material-ui/core/styles';
 
 import {
   MotionScene,
@@ -14,8 +16,23 @@ import {
   useMotion
 } from "react-motion-layout";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+
+  large: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+  },
+}));
+
 function ItemComponent({ item, id }) {
   const history = useHistory();
+  const classes = useStyles();
   const withTransition = useMotion(`friend-${id}`);
   const callback = useCallback(() => history.push(`/friend/${id}`), [
     history,
@@ -28,12 +45,13 @@ function ItemComponent({ item, id }) {
       name={`friend-${id}`}
       onClick={withTransition(callback)}
     >
+      <div className={classes.root}>
       <div className="mt-1">
         <SharedElement.Div
           animationKey="main-box"
           className={`flex p-4 bg-white cursor-pointer hover:bg-gray-100 rounded-md`}
         >
-          <img alt="" className="w-16 h-16 rounded-full" src={item.avatar} />
+          <Avatar alt="" className={classes.large} variant="square" src={item.avatar} />
           <div className="flex justify-between w-full ml-4 mt-2">
             <div className="flex flex-col">
               <div className={`font-semibold`}>{item.name}</div>
@@ -43,6 +61,7 @@ function ItemComponent({ item, id }) {
             </div>
           </div>
         </SharedElement.Div>
+      </div>
       </div>
     </MotionScene>
   );
