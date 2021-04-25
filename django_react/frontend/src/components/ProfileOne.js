@@ -209,15 +209,25 @@ export default function ProfileOne({id}) {
               setProfiles(res.data)
           })
           .catch(err => {
-              console.log(err)
+              console.log(err4)
           })
   }, [])*/
   const gottenprofile = getProfile()
   var str1 = gottenprofile.firstName
-  var str2 = ' '
+  var str2 = ''
   var str3 = gottenprofile.lastName
   const name = str1 + ' ' + str3
-  const logo = gottenprofile.image
+  var img = gottenprofile.image
+  const logo1 = '/static/default.jpg'
+  if(img != undefined) {
+    var logo2 = '/static' + img.replace('/profile_pics','');
+  }
+  if(img != undefined) {
+    var logo = logo2;
+  }
+  else{
+    var logo = logo1;
+  }
   /* EXAMPLE FOR USER DATA FOR IMAGE 
 <input
  accept="image/*"
@@ -252,7 +262,7 @@ export default function ProfileOne({id}) {
             <label htmlFor="contained-button-file">
                 <IconButton>
                     <Avatar
-                        src={{logo}}
+                        src={logo}
                         /*src="https://images.huffingtonpost.com/2016-03-25-1458864692-9841862-MahatmaGandhiALegacyofPeace-thumb.jpg"
                         */style={{
                         margin: "10px",
