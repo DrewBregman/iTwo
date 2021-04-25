@@ -41,11 +41,11 @@ import PostsProfile from "./PostTab/PostsProfile";
 import Posts from "./PostTab/Posts";
 import ProjectTab from "./uProjectTab/ProjectTab";
 
-function dataProfile(){
+function getProfile(){
   const [profiles, setProfiles] = useState([])
 
   useEffect(() => {
-      axios.get("api/profiles/")
+      axios.get("/api/profiles/1")
           .then(res =>{
               console.log(res)
               setProfiles(res.data)
@@ -55,12 +55,13 @@ function dataProfile(){
           })
   }, [])
   return (
-                  profiles.map(profile => {
+                  profiles
+                  /*profiles.map(profile => {
                     const {major, day, experienceOne, experienceTwo, experienceThree,
                           experienceFour, experienceFive, skillOne, skillTwo, SkillThree,
-                          skillFour, skillFive, name, goalOne, goalTwo, goalThree, 
+                          skillFour, skillFive, name, goalOne, goalTwo, goalThree,
                           goalOneDesc, goalTwoDesc, goalThreeDesc, meetMe, lookFor} = profile;
-                    })
+                    })*/
   )
 }
 
@@ -190,7 +191,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProfileOne({year, name, major, company, followers, following}) {
+export default function ProfileOne({id}) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const [value, setValue] = React.useState(0);
@@ -199,7 +200,7 @@ export default function ProfileOne({year, name, major, company, followers, follo
     setValue(newValue);
   };
 /* THIS GETS MY DATA FROM MODELS */
-  const [profiles, setProfiles] = useState([])
+  /*const [profiles, setProfiles] = useState([])
 
   useEffect(() => {
       axios.get("api/profiles/")
@@ -210,7 +211,13 @@ export default function ProfileOne({year, name, major, company, followers, follo
           .catch(err => {
               console.log(err)
           })
-  }, [])
+  }, [])*/
+  const gottenprofile = getProfile()
+  var str1 = gottenprofile.firstName
+  var str2 = ' '
+  var str3 = gottenprofile.lastName
+  const name = str1 + ' ' + str3
+  const logo = gottenprofile.image
   /* EXAMPLE FOR USER DATA FOR IMAGE 
 <input
  accept="image/*"
@@ -244,9 +251,10 @@ export default function ProfileOne({year, name, major, company, followers, follo
             <div className={classes.profileImg}>
             <label htmlFor="contained-button-file">
                 <IconButton>
-                    <Avatar 
-                        src="https://images.huffingtonpost.com/2016-03-25-1458864692-9841862-MahatmaGandhiALegacyofPeace-thumb.jpg" 
-                        style={{
+                    <Avatar
+                        src={{logo}}
+                        /*src="https://images.huffingtonpost.com/2016-03-25-1458864692-9841862-MahatmaGandhiALegacyofPeace-thumb.jpg"
+                        */style={{
                         margin: "10px",
                         width: "160px",
                         height: "160px",
@@ -259,13 +267,13 @@ export default function ProfileOne({year, name, major, company, followers, follo
                 <h2><b>{name}</b></h2>
             </div>
             <div className={classes.compName}>
-              {company} / {year}
+              {gottenprofile.company} / {gottenprofile.gradYear}
             </div>
             <div className={classes.major}>
-                {major}
+                {gottenprofile.major}
             </div>
             <div className="profile-follow-stats">
-                <h3><b>Followers {followers} {bull} Following {following}</b></h3>
+                <h3><b>Followers 20 {bull} Following 30 (need to change this once we get friends running)</b></h3>
             </div>
             <div className={classes.root}>
                 <AppBar position="static" color="default">
@@ -313,27 +321,27 @@ export default function ProfileOne({year, name, major, company, followers, follo
         >       
             <TabPanel value={value} index={1}>
               <About 
-                major='Law'
-                day='Saturday Afternoons'
-                experienceOne='Leader of non-violent independence movement against British rule'
-                experienceTwo='Organized boycotts against British institutions in peaceful forms of civil disobedience'
-                experienceThree='Formed Natal Indian Congress in 1894 to fight discrimination'
-                experienceFour='Graduated from University Collenge London with a Law Degree in 3 years'
-                experienceFive='Led Satyagraha Campaign that Achievfed 1914 Indian Relief Act'
-                skillOne='Public Speaking'
-                skillTwo='Tolerance'
-                skillThree='Forgiveness'
-                skillFour='Leadership'
-                skillFive='Non-Violent Protests'
-                name='Mahatma Gandhi'
-                goalOne='Faculty Oversight When I Save World'
-                goalTwo='Rhodes Scholarship'
-                goalThree='Publish a paper'
-                goalOneDesc='I want a faculty mentorship over the course of my four years'
-                goalTwoDesc='With a 6.0GPA, I want to receive the Rhodes Scholarship'
-                goalThreeDesc='I would like to conduct research that I can publish a paper from'
-                meetMe="Hello. I am Ghandi. I like to organize non-violent protests to achieve peace in the world. Join us on our journey."
-                lookFor="currently looking for research faculty mentorship, motivated cadets who want to peacefully protest climate change, and anyone who has experience with coordinating large events"
+                major={gottenprofile.major}
+                day={gottenprofile.day}
+                experienceOne={gottenprofile.experienceOne}
+                experienceTwo={gottenprofile.experienceTwo}
+                experienceThree={gottenprofile.experienceThree}
+                experienceFour={gottenprofile.experienceFour}
+                experienceFive={gottenprofile.experienceFive}
+                skillOne={gottenprofile.skillOne}
+                skillTwo={gottenprofile.skillTwo}
+                skillThree={gottenprofile.skillThree}
+                skillFour={gottenprofile.skillFour}
+                skillFive={gottenprofile.skillFive}
+                name={name}
+                goalOne={gottenprofile.goalOne}
+                goalTwo={gottenprofile.goalTwo}
+                goalThree={gottenprofile.goalThree}
+                goalOneDesc={gottenprofile.goalOneDesc}
+                goalTwoDesc={gottenprofile.goalTwoDesc}
+                goalThreeDesc={gottenprofile.goalThreeDesc}
+                meetMe={gottenprofile.meetMe}
+                lookFor={gottenprofile.lookingFor}
               />
             </TabPanel>
         </Grid>

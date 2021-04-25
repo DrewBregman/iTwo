@@ -41,30 +41,9 @@ import {
 import { MotionLayoutProvider } from "react-motion-layout";
 import axios from 'axios';
 import ProjectTab from './components/uProjectTab/ProjectTab';
+import Project from './components/project/Project'
 
-function getProfile(){
-  const [profiles, setProfiles] = useState([])
 
-  useEffect(() => {
-      axios.get("/api/profiles/1")
-          .then(res =>{
-              console.log(res)
-              setProfiles(res.data)
-          })
-          .catch(err => {
-              console.log(err)
-          })
-  }, [])
-  return (
-                  profiles
-                  /*profiles.map(profile => {
-                    const {major, day, experienceOne, experienceTwo, experienceThree,
-                          experienceFour, experienceFive, skillOne, skillTwo, SkillThree,
-                          skillFour, skillFive, name, goalOne, goalTwo, goalThree,
-                          goalOneDesc, goalTwoDesc, goalThreeDesc, meetMe, lookFor} = profile;
-                    })*/
-  )
-}
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -135,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   /*const data123 = JSON.parse(window._DEFAULT_DATA);*/
-  const profile1 = getProfile();
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -342,8 +321,9 @@ function App() {
             <h1>Edit Profile</h1>
           </Route>
           <Route exact path="/p/:id" component={dataProfile}>
-            <ProfileOne 
-            name='hello'
+            <ProfileOne
+            id = {window.REP_LOG_APP_PROPS.userid}
+            /*name='hello'
             description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
             followers = '245'
             following = {window.REP_LOG_APP_PROPS.cat}
@@ -353,7 +333,7 @@ function App() {
             day='Saturday Afternoons'
             experienceOne='Leader of non-violent independence movement against British rule'
             experienceTwo='Organized boycotts against British institutions in peaceful forms of civil disobedience'
-            experienceThree='Formed Natal Indian Congress in 1894 to fight discrimination'
+            experienceThree='Formed Natal Indian Congress in 1894 to fight discrimination'*/
             />
           </Route>
           <Route path="/profile">
@@ -367,7 +347,7 @@ function App() {
               />
             </div>
           </Route>
-          <Route path="project">
+          <Route path="/project">
             <Project />
           </Route>
         </Switch>
