@@ -192,7 +192,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProfileOne({user_id}) {
+export default function ProfileSelf({user_id}) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const [value, setValue] = React.useState(0);

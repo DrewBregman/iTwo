@@ -15,6 +15,7 @@ import {
 import Profile from "./components/Profile";
 import ExplorePage from "./components/ExplorePage";
 import ProfileOne from "./components/ProfileOne";
+import ProfileSelf from "./components/ProfileSelf";
 import ScrollableTabsButtonForce from "./components/tabs";
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -322,7 +323,7 @@ function App() {
           </Route>
           <Route exact path="/p/:id" component={dataProfile}>
             <ProfileOne
-            id = {window.REP_LOG_APP_PROPS.userid}
+            user_id = {window.REP_LOG_APP_PROPS.user_id}
             /*name='hello'
             description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
             followers = '245'
@@ -335,6 +336,11 @@ function App() {
             experienceTwo='Organized boycotts against British institutions in peaceful forms of civil disobedience'
             experienceThree='Formed Natal Indian Congress in 1894 to fight discrimination'*/
             />
+          </Route>
+          <Route exact path="/p/self/:id" component={dataProfile}>
+            <ProfileSelf
+            user_id = {window.REP_LOG_APP_PROPS.user_id}
+                        />
           </Route>
           <Route path="/profile">
             <div className="wrapper">
