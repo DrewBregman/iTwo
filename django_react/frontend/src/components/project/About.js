@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-
+import Link from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
@@ -57,36 +57,41 @@ export default function About(){
           Posted Roles
         </Typography>
       </Grid>
-
-      <Grid item xs={9}>
+      <Grid item container>
+      <Grid item xs={9} lg={6}>
         <Typography variant="body1" color="textSecondary">
-          {bull} This is where the posted role will go 
+          {bull} This is where the posted role will go. 
         </Typography>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={3} lg={6}>
         <Typography variant="body1" color="primary">
-          View Role. 
+          <Button variant='link'><Link to="/role">View Role.</Link></Button>
         </Typography>
       </Grid>
-      <Grid item xs={9}>
+      </Grid>
+      <Grid item container>
+      <Grid item xs={9} lg={6}>
         <Typography variant="body1" color="textSecondary">
-          {bull} This is where the posted role will go 
+          {bull} This is where the posted role will go. 
         </Typography>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={3} lg={6}>
         <Typography variant="body1" color="primary">
-          View Role. 
+          <Link to="/role">View Role.</Link>
         </Typography>
       </Grid>
-      <Grid item xs={9}>
+      </Grid>      <Grid item container>
+      <Grid item xs={9} lg={6}>
         <Typography variant="body1" color="textSecondary">
-          {bull} This is where the posted role will go 
+          {bull} This is where the posted role will go.
         </Typography>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={3} lg={6}>
         <Typography variant="body1" color="primary">
-          View Role. 
+          <Link component="button" variant="body2" 
+          > View Role.</Link>
         </Typography>
+      </Grid>
       </Grid>
     </Paper>
   
