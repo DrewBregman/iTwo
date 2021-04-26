@@ -16,6 +16,7 @@ import TimelineIcon from '@material-ui/icons/Timeline';
 import GroupIcon from '@material-ui/icons/Group';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import About from "./About";
+import Milestones from "./Milestones";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -147,7 +148,7 @@ export default function Project() {
           <About />
         </TabPanel>
         <TabPanel value={value} index={3}>
-          Item Four
+          <Milestones />
         </TabPanel>
         <TabPanel value={value} index={4}>
           Item Five

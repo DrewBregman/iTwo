@@ -8,6 +8,23 @@ from multiselectfield import MultiSelectField
 from annoying.fields import AutoOneToOneField
 # Create your models here.
 
+#class follows(models.Model):
+#users foreign key
+#user foreign key
+
+#department data in profile and projects and teams should be parsed from department models
+#change profile to users
+#Posts will have postID, title, sourceID, dateCreated, with subclasses of: VideoPost, TextPost, ImagePost
+
+#each subclass will have postID and each will have different rendered views
+
+#follows will be userID and sourceID
+
+#do we want users to be able to follow people?
+#figure out how to do subclasses in django
+
+#depart, proj, team, user need to all be a sub class of source model that has a source id,
+#
 
 class Lead(models.Model):
     name = models.CharField(max_length=100)
@@ -52,7 +69,7 @@ class Profile(models.Model):
         ('Systems Engineering', ('Systems Engineering')),
         ('Independent', ('Independent')),
     )
-    Department = models.CharField(
+    Department = models.CharField( #should be models.OneToOneField(Department)
         max_length=50,
         choices=dep_choice,
         default='Independent',
@@ -199,7 +216,7 @@ class Project(models.Model):
         ('Systems Engineering', ('Systems Engineering')),
         ('Independent', ('Independent')),
     )
-    department = models.CharField(
+    department = models.CharField( #should be models.AutoOneToFieldOne(Department)
         max_length=50,
         choices=dep_choice1,
         default='Independent',
@@ -466,6 +483,7 @@ class Member(models.Model):
 
     def __str__(self):
         return self.text
+
 
 
 class uProjects(models.Model):

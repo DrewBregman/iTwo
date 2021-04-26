@@ -2,8 +2,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Link from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import SpringModal from './RoleModal';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -58,39 +60,37 @@ export default function About(){
         </Typography>
       </Grid>
       <Grid item container>
-      <Grid item xs={9} lg={6}>
-        <Typography variant="body1" color="textSecondary">
-          {bull} This is where the posted role will go. 
-        </Typography>
-      </Grid>
-      <Grid item xs={3} lg={6}>
-        <Typography variant="body1" color="primary">
-          <Button variant='link'><Link to="/role">View Role.</Link></Button>
-        </Typography>
-      </Grid>
-      </Grid>
-      <Grid item container>
-      <Grid item xs={9} lg={6}>
-        <Typography variant="body1" color="textSecondary">
-          {bull} This is where the posted role will go. 
-        </Typography>
-      </Grid>
-      <Grid item xs={3} lg={6}>
-        <Typography variant="body1" color="primary">
-          <Link to="/role">View Role.</Link>
-        </Typography>
-      </Grid>
-      </Grid>      <Grid item container>
-      <Grid item xs={9} lg={6}>
+      <Grid item xs={8} lg={6}>
         <Typography variant="body1" color="textSecondary">
           {bull} This is where the posted role will go.
         </Typography>
       </Grid>
-      <Grid item xs={3} lg={6}>
-        <Typography variant="body1" color="primary">
-          <Link component="button" variant="body2" 
-          > View Role.</Link>
+      <Grid item xs={4} lg={6}>
+        <Button href="#text-buttons" color="primary">
+          View Role
+        </Button>
+      </Grid>
+      </Grid>
+      <Grid item container>
+      <Grid item xs={8} lg={6}>
+        <Typography variant="body1" color="textSecondary">
+          {bull} This is where the posted role will go.
         </Typography>
+      </Grid>
+      <Grid item xs={4} lg={6}>
+        <Button href="#text-buttons" color="primary">
+          View Role
+        </Button>
+      </Grid>
+      </Grid>  
+      <Grid item container>
+      <Grid item xs={8} lg={6}>
+        <Typography variant="body1" color="textSecondary">
+          {bull} This is where the posted role will go.
+        </Typography>
+      </Grid>
+      <Grid item xs={4} lg={6}>
+        <SpringModal />
       </Grid>
       </Grid>
     </Paper>
