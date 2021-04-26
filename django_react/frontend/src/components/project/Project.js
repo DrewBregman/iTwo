@@ -83,7 +83,7 @@ export default function Project() {
     <Paper className={classes.paper} elevation={3}>
     <Grid container spacing={3}>
 
-      <Grid item xs={4}>
+      <Grid item xs={4} lg={2}>
         <IconButton>
                       <Avatar 
                           variant="square"
@@ -96,7 +96,7 @@ export default function Project() {
                           />
           </IconButton>
       </Grid>
-      <Grid item container xs={8}>
+      <Grid item container xs={8} lg={10}>
         <Grid item xs={12}>
           Name
         </Grid> 

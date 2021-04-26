@@ -19,3 +19,6 @@ def profileSelf(request,ID):
         'request_id': request.user.id
     }
     return render(request, 'frontend/profileSelf.html', context)
+
+def project(request):
+    return render(request, 'frontend/project.html')

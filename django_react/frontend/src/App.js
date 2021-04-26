@@ -42,7 +42,7 @@ import {
 import { MotionLayoutProvider } from "react-motion-layout";
 import axios from 'axios';
 import ProjectTab from './components/uProjectTab/ProjectTab';
-import Project from './components/project/Project'
+import Project from './components/project/Project';
 
 
 
@@ -160,7 +160,7 @@ function App() {
     >
       <MenuItem onClick={handleMenuClose}><Link to="/p/1">Profile</Link></MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem onClick={handleMenuClose}><Link to="project">My Projects</Link></MenuItem>
+      <MenuItem onClick={handleMenuClose}><Link to="/project">My Projects</Link></MenuItem>
     </Menu>
   );
   const navMenuId = 'primary-search-account-menu-nav';
