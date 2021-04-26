@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
 import {
   MotionScene,
@@ -40,6 +41,7 @@ function ItemComponent({ item, id }) {
   ]);
 
   return (
+
     <MotionScene
       easing="cubic-bezier(0.34, 1.56, 0.64, 1)"
       name={`friend-${id}`}
@@ -71,6 +73,14 @@ export default function Friends() {
   return (
     <Card>
       <CardContent>
+        <MotionScreen>
+          <div className="pt-4 bg-white min-h-screen">
+            <h1 className="p-4 text-3xl font-bold">Friends</h1>
+            {FriendsDB.map((item, id) => (
+              <ItemComponent item={item} id={id} key={id} />
+            ))}
+          </div>
+        </MotionScreen>
         <MotionScreen>
           <div className="pt-4 bg-white min-h-screen">
             <h1 className="p-4 text-3xl font-bold">Friends</h1>
