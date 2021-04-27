@@ -322,7 +322,6 @@ function App() {
           </Route>
           <Route exact path="/p/:id" component={dataProfile}>
             <ProfileOne
-            user_id = {window.REP_LOG_APP_PROPS.user_id}
             /*name='hello'
             description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
             followers = '245'
@@ -338,7 +337,6 @@ function App() {
           </Route>
           <Route exact path="/p/self/:id" component={dataProfile}>
             <ProfileSelf
-            user_id = {window.REP_LOG_APP_PROPS.user_id}
                         />
           </Route>
           <Route path="/project">

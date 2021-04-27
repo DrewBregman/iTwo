@@ -192,7 +192,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProfileSelf({user_id}) {
+export default function ProfileSelf() {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const [value, setValue] = React.useState(0);
@@ -213,7 +213,7 @@ export default function ProfileSelf({user_id}) {
               console.log(err4)
           })
   }, [])*/
-  const gottenprofile = getProfile(user_id)
+  const gottenprofile = getProfile(window.REP_LOG_APP_PROPS.user_id)
   var str1 = gottenprofile.firstName
   var str2 = ''
   var str3 = gottenprofile.lastName
@@ -278,7 +278,7 @@ export default function ProfileSelf({user_id}) {
                 <h2><b>{name}</b></h2>
             </div>
             <div className={classes.compName}>
-              {gottenprofile.company} / {gottenprofile.gradYear} {user_id}
+              {gottenprofile.company} / {gottenprofile.gradYear}
             </div>
             <div className={classes.major}>
                 {gottenprofile.major}

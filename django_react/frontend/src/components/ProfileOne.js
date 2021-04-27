@@ -192,7 +192,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProfileOne({user_id}) {
+export default function ProfileOne() {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const [value, setValue] = React.useState(0);
@@ -213,7 +213,7 @@ export default function ProfileOne({user_id}) {
               console.log(err4)
           })
   }, [])*/
-  const gottenprofile = getProfile(user_id)
+  const gottenprofile = getProfile(window.REP_LOG_APP_PROPS.user_id)
   var str1 = gottenprofile.firstName
   var str2 = ''
   var str3 = gottenprofile.lastName
@@ -278,7 +278,7 @@ export default function ProfileOne({user_id}) {
                 <h2><b>{name}</b></h2>
             </div>
             <div className={classes.compName}>
-              {gottenprofile.company} / {gottenprofile.gradYear} {user_id}
+              {gottenprofile.company} / {gottenprofile.gradYear}
             </div>
             <div className={classes.major}>
                 {gottenprofile.major}
@@ -380,131 +380,158 @@ function generate(element) {
     }),
   );
 }
+function UploadButtons() {
+  const classes = useStyles();
 
+  return (
+    <div className={classes.root}>
+      <input
+        accept="image/*"
+        className={classes.input}
+        id="contained-button-file"
+        multiple
+        type="file"
+      />
+      <label htmlFor="contained-button-file">
+        <Button variant="contained" color="primary" component="span">
+          Upload
+        </Button>
+      </label>
+      <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
+
+    </div>
+  );
+}
 function About({ goalTwo, 
-                goalTwoDesc, goalThree, goalThreeDesc, 
-                major, day, experienceOne, experienceTwo, 
-                experienceThree, skillOne, skillTwo, skillThree, 
-                skillFour, skillFive, experienceFour, 
-                experienceFive, name, meetMe, lookFor, goalOne, goalOneDesc
-              }) {
+  goalTwoDesc, goalThree, goalThreeDesc, 
+  major, day, experienceOne, experienceTwo, 
+  experienceThree, skillOne, skillTwo, skillThree, 
+  skillFour, skillFive, experienceFour, 
+  experienceFive, name, meetMe, lookFor, goalOne, goalOneDesc
+}) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const [dense, setDense] = React.useState(false);
 
 
-  return (
+return (
     <div className={classes.rootGoals}>
       <Grid container alignItems="baseline" justify="center" spacing={3}>
-        <Grid item xs={4}>
-          <Paper className={classes.about}>
+        <Grid item className={classes.paper} xs={4}>
+          <Grid item xs={12}>
+            <Paper className={classes.about}>
             Meet Me
             <Typography variant="body1" color="textSecondary" className={classes.demoGoals}>
-              {meetMe}
+            {meetMe}
             </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={4}>
-            <Paper className={classes.aboutGoals}>
-              <Grid item xs={12}>
-                <Typography variant="h6" className={classes.titleGoals}>
-                  Research Goals
-                </Typography>
-                <div className={classes.demoGoals}>
-                  <List dense={dense}>
-                    {generate(
-                      <ListItem>
-                        <ListItemText
-                          primary={goalOne}
-                          secondary={goalOneDesc}
-                        />
-                      </ListItem>,
-                    )}
-                    {generate(
-                      <ListItem>
-                        <ListItemText
-                          primary={goalTwo}
-                          secondary={goalTwoDesc}
-                        />
-                      </ListItem>,
-                    )}
-                    {generate(
-                      <ListItem>
-                        <ListItemText
-                          primary={goalThree}
-                          secondary={goalThreeDesc}
-                        />
-                      </ListItem>,
-                    )}
-                  </List>
-                </div>
-              </Grid>
             </Paper>
-        </Grid>
-        <Grid item xs={4}>
-          <div className={classes.rootExperience}>
-            <Paper className={classes.aboutExperience}>
-            <div className={classes.section1Experience}>
-              <Grid container alignItems="center">
-                <Grid item xs>
-                  <Typography gutterBottom variant="h6">
-                    Experience
-                  </Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography color="text-secondary" gutterBottom variant="body1">
-                    {major} Major
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Typography gutterBottom variant="body2">
-              <div className={classes.list}>
-                <ul>
-                  <li>{bull}{experienceOne}</li>
-                  <li>{bull}{experienceTwo}</li>
-                  <li>{bull}{experienceThree}</li>
-                  <li>{bull}{experienceFour}</li>
-                  <li>{bull}{experienceFive}</li>
-                </ul>
-              </div>
-              </Typography>
-            </div>
-            <Divider variant="middle" />
-            <div className={classes.section2Experience}>
-              <Typography gutterBottom variant="body1">
-                Skills
-              </Typography>
-              <div>
-                <Chip className={classes.chipExperience} label={skillOne} />
-                <Chip className={classes.chipExperience} color="primary" label={skillTwo} />
-                <Chip className={classes.chipExperience} label={skillThree} />
-                <Chip className={classes.chipExperience} label={skillFour} />
-                <Chip className={classes.chipExperience} label={skillFive} />
-              </div>
-            </div>
-            <div className={classes.section3Experience}>
-              <Button color="primary">Endorse a Skill</Button>
-            </div>
-          </Paper>
-          </div>
-        </Grid>
-        <Grid item xs={4}>
-          <Paper className={classes.rootGoals}>
+          </Grid >
+          <Box m={2} />
+          <Grid item xs={12}>
+            <Paper className={classes.rootGoals}>
             <b><u>Looking For</u></b>
             <Typography gutterBottom color="textSecondary" variant="body1">
-                {name} is {lookFor}
+              {name} is {lookFor}
             </Typography>
-          </Paper>
+            </Paper>
+          </Grid>
+          <Box m={2} />
+          <Grid item xs={4}>
+            <UploadButtons />
+          </Grid>
         </Grid>
         <Grid item xs={4}>
-          <Paper className={classes.about}><b>{name}</b> is Usually Free On {day}</Paper>
+          <Grid item xs={12}>
+            <Paper className={classes.aboutGoals}>
+            <Grid item xs={12}>
+              <Typography variant="h6" className={classes.titleGoals}>
+                Research Goals
+              </Typography>
+              <div className={classes.demoGoals}>
+                <List dense={dense}>
+                  {generate(
+                    <ListItem>
+                      <ListItemText
+                        primary={goalOne}
+                        secondary={goalOneDesc}
+                      />
+                    </ListItem>,
+                  )}
+                  {generate(
+                    <ListItem>
+                      <ListItemText
+                        primary={goalTwo}
+                        secondary={goalTwoDesc}
+                      />
+                    </ListItem>,
+                  )}
+                  {generate(
+                    <ListItem>
+                      <ListItemText
+                        primary={goalThree}
+                        secondary={goalThreeDesc}
+                      />
+                    </ListItem>,
+                  )}
+                </List>
+              </div>
+            </Grid>
+            </Paper>
+          </Grid>
+          <Box m={2} />
+          <Grid item xs={12}>
+            <Paper className={classes.about}><b>{name}</b> is Usually Free On {day}</Paper>
+          </Grid>
         </Grid>
         <Grid item xs={4}>
-            <EditButton>Hello</EditButton>
+        <div className={classes.rootExperience}>
+        <Paper className={classes.aboutExperience}>
+        <div className={classes.section1Experience}>
+        <Grid container alignItems="center">
+          <Grid item xs>
+            <Typography gutterBottom variant="h6">
+              Experience
+            </Typography>
+          </Grid>
+          <Grid item xs>
+            <Typography color="text-secondary" gutterBottom variant="body1">
+              {major} Major
+            </Typography>
+          </Grid>
+        </Grid>
+        <Typography gutterBottom variant="body2">
+        <div className={classes.list}>
+          <ul>
+            <li>{bull}{experienceOne}</li>
+            <li>{bull}{experienceTwo}</li>
+            <li>{bull}{experienceThree}</li>
+            <li>{bull}{experienceFour}</li>
+            <li>{bull}{experienceFive}</li>
+          </ul>
+        </div>
+        </Typography>
+        </div>
+        <Divider variant="middle" />
+        <div className={classes.section2Experience}>
+        <Typography gutterBottom variant="body1">
+          Skills
+        </Typography>
+        <div>
+          <Chip className={classes.chipExperience} label={skillOne} />
+          <Chip className={classes.chipExperience} color="primary" label={skillTwo} />
+          <Chip className={classes.chipExperience} label={skillThree} />
+          <Chip className={classes.chipExperience} label={skillFour} />
+          <Chip className={classes.chipExperience} label={skillFive} />
+        </div>
+        </div>
+        <div className={classes.section3Experience}>
+        <Button color="primary">Endorse a Skill</Button>
+        </div>
+        </Paper>
+        </div>
         </Grid>
       </Grid>
     </div>
 
-  );
+);
 }
-
