@@ -22,3 +22,4 @@ def profileSelf(request,ID):
 
 def project(request):
     return render(request, 'frontend/project.html')
+
