@@ -31,17 +31,21 @@ export default function PostsProfile() {
     const bull = <span className={classes.bullet}>•</span>;
 
     return (
-        <div className={classes.root}>
+<div className={classes.root}>
         <Grid container spacing={2}>
-
-            <Grid item container xs={12} sm={12} md={12} lg={12}>
-                <Grid item xs={4} sm={4} md={4} lg={4}>
+            <Grid item container xs={12} lg={12}>
+              <Grid item xs={4} lg={4} xl={3}>
+                <Post />
+              </Grid>
+            </Grid>
+            <Grid item spacing={2} container xs={12} sm={12} md={12} lg={12}>
+                <Grid item xs={4} sm={4} md={4} lg={4} xl={3}>
                     <Post />
                 </Grid>
-                <Grid item xs={4} sm={4} md={4} lg={4}>
+                <Grid item xs={4} sm={4} md={4} lg={4} xl={3}>
                     <Post />
                 </Grid>
-                <Grid item xs={4} sm={4} md={4} lg={4}>
+                <Grid item xs={4} sm={4} md={4} lg={4} xl={3}>
                     <Post />
                 </Grid>
             </Grid>
@@ -60,7 +64,7 @@ export default function PostsProfile() {
                 <AreaInterest aOne="Robotics" aTwo="Peaceful Protest" aThree="Legal System"/>
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
-                <Friends />
+                hi
             </Grid>
         </Grid>
         </div>

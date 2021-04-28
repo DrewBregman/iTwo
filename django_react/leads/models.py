@@ -28,6 +28,15 @@ from django.contrib.contenttypes.models import ContentType
 
 #depart, proj, team, user need to all be a sub class of source model that has a source id,
 #
+#for if statements, if profile.exists(), if project.exists
+
+#create 4 queries-->post.source.id = profile.source.id
+# 4 different APIs with prof, proj,
+#SETH THINKS GOOD HABIT TO ROUTE VERYTHING THRU HTML PAGE
+# for feed, will need to post users id
+# user id is passed through a variable in profile one
+#put context in variables and pass through HTML page (For variables that react can;t get to, person who is currently logged in (request user id--> in django views request.user_id))
+#add source object to profile, project, to call the source from profile side 
 
 class Source(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE, null=True, default=False, blank=True)
@@ -98,6 +107,8 @@ class Lead(models.Model):
 # PROFILE MODELS
 class Profile(models.Model):
     user = AutoOneToOneField(User, on_delete=models.CASCADE)
+    followers = models.ForeignKey( 'Source', on_delete=models.CASCADE)
+    following = models.ForeignKey('Source', on_delete=models.CASCADE)
     firstName = models.CharField(
         "First Name", max_length=25, null=False, blank=True, default="")
     lastName = models.CharField(

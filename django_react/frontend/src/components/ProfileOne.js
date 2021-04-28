@@ -312,9 +312,17 @@ export default function ProfileOne() {
           
         </Grid>
         <Grid item xs={6}>
-            <div className={classes.homeView}>
+            <div className={classes.paper}>
                 <TabPanel value={value} index={0}>
+                <Grid container className={classes.paper}>
+                  <Grid item xs={3} md={3} lg={3} xl={3}>
+                  </Grid>
+                  <Grid item xs={6} md={6} lg={6} xl={6}>
                     <Post />
+                  </Grid>
+                  <Grid item xs={3} md={3} lg={3} xl={3}>                 
+                    </Grid>
+                    </Grid>
                 </TabPanel>
             </div>
             

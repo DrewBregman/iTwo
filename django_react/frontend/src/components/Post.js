@@ -18,7 +18,7 @@ import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
 import MessageOutlinedIcon from '@material-ui/icons/MessageOutlined';
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
-
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,9 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
     post: {
       margin: "auto",
-      maxHeight: 200,
       padding: 10,
-      height: 450,
       textAlign: "center",
       color: theme.palette.text.secondary
     },
@@ -51,9 +49,8 @@ const useStyles = makeStyles((theme) => ({
     },
     name: {
       margin: "auto",
-      maxHeight: 200,
       height: 450,
-      textAlign: "left",
+      textAlign: "center",
       color: theme.palette.text.secondary
     },
     divide: {
@@ -69,132 +66,146 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
   
-/*function getPost(id){
+function getPost(id){
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
-      const str = "/api/post/" + id
+      const str = "/api/post/1"
       axios.get(str)
           .then(res =>{
               console.log(res)
-              setProfiles(res.data)
+              setPosts(res.data)
           })
           .catch(err => {
               console.log(err)
           })
   }, [])
-  return (posts)
+  return posts
 }
 
-const post = getPost(window.REP_LOG_APP_PROPS.post_id)
-var img = post.image
-const logo1 = '/static/default.jpg'
-if(img != undefined) {
-  var logo2 = '/static' + img.replace('/post_pics','');
-}
-if(img != undefined) {
-  var logo = logo2;
-}
 
-else{
-  var logo = logo1;
-}
-*/
 
 function Post() {
-    const classes = useStyles();
+  const classes = useStyles();
+  const post = getPost(1)
+  var img = post.image
+  const logo1 = '/static/default.jpg'
+  if(img != undefined) {
+    var logo2 = '/static' + img.replace('/post_pics','');
+  }
+  if(img != undefined) {
+    var logo = logo2;
+  }
   
-    return (
+  else{
+    var logo = logo1;
+  }
   
-      <Grid container spacing={2}>
-          <Grid className={classes.post} item container xs={12} md={12} lg={12}>
-          <Paper elevation={3}>
+  return (
+    <Grid container spacing={2}>
+      <Grid className={classes.post} item container xs={12} md={12} lg={12}>
+        <Paper elevation={3}>
           <Box p={1}>
             <Grid item container xs={12} lg={12}>
-              <Grid item xs={2} lg={2}>
+              <Grid item xs={2} lg={2} xl={2}>
+                <IconButton aria-label="avatar">
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                </IconButton>
               </Grid>
-              <Grid item xs={8} lg={8}>
+              <Grid item xs={8} lg={8} xl={8}> 
                 <Grid className={classes.divide} item xs={8} lg={8}>
-                  Andrew Bregman
+                  {post.sourceID}
                 </Grid>
-                <Grid item xs={4} lg={4}>
-                </Grid>
+                <Grid item xs={4} lg={4} xl={4}></Grid>
               </Grid>
-              <Grid item xs={2} lg={2}>
-                <MoreHorizIcon />
+              <Grid item xs={2} lg={2} xl={2}>
+                <IconButton aria-label="like">
+                  <MoreHorizIcon /> 
+                </IconButton>
               </Grid>
             </Grid>
             <Box m={2} />
-            <Grid item container xs={12} lg={12}>
-              <Grid item  xs={12} lg={12}>
-                <Typography variant='h6'>
-                This is the title of the post
+            <Grid item container xs={12} lg={12} xl={12}>
+              <Grid item xs={12} lg={12} xl={12}>
+                <Typography variant="h6">
+                  HELLO
+                  {post.title}
                 </Typography>
               </Grid>
             </Grid>
             <Box m={2} />
-            <Grid item container xs={12} lg={12}>
-              <Grid item xs={12}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy text ever
-                since the 1500s, when an unknown printer took a galley of type and
-                scrambled it to make a type specimen book. It has survived not only
-                five centuries, but also the leap into electronic typesetting,
-             </Grid>
-             <Box m={2} />
+            <Grid item container xs={12} lg={12} xl={12}>
+              <Grid item xs={12} xl={12}>
+                {post.body}
+              </Grid>
+              <Box m={2} />
             </Grid>
-            <Grid item container xs={12} lg={12}>
-              <Grid item container xs={12}>
-              <Grid item xs={4} lg={4}>
-                <ThumbUpAltIcon fontSize="small" /> 42
-              </Grid>
-              <Grid item xs={4} lg={4}></Grid>
-              <Grid item xs={4} lg={4}>
-                42 Comments
-              </Grid>
+            <Grid item container xs={12} lg={12} xl={12}>
+              <Grid item container xs={12} xl={12}>
+                <Grid item xs={4} lg={4} xl={4}>
+                <IconButton aria-label="like">
+                  <ThumbUpAltIcon fontSize="small"  /> 
+                </IconButton>
+                  48
+                </Grid>
+                <Grid item xs={4} lg={4} xl={4}></Grid>
+                <Grid item xs={4} lg={4} xl={4}>
+                 42 Comments
+                </Grid>
               </Grid>
             </Grid>
-            <Grid item container xs={12} lg={12}>
-              <Grid className={classes.divide} item xs={12} lg={12}>
-               <Divider variant="middle" />
+            <Grid item container xs={12} lg={12} xl={12}>
+              <Grid className={classes.divide} item xs={12} lg={12} xl={12}>
+                <Divider variant="middle" />
               </Grid>
             </Grid>
             <Box m={2} />
-            <Grid item container xs={12} lg={12}>
-              <Grid item xs={3} lg={3}>
-               <Grid item xs={6} lg={6}>
-                </Grid>
-                <Grid item xs={6} lg={6}>
-                  <ThumbUpAltOutlinedIcon /> Like
-                </Grid>
-              </Grid>
-              <Grid item xs={3} lg={3}>
-               <Grid item xs={6} lg={6}>
-                <ShareOutlinedIcon /> Share
-                </Grid>
-                <Grid item xs={6} lg={6}>
+            <Grid item container xs={12} lg={12} xl={12}>
+              <Grid item xs={3} lg={3} xl={3}>
+                <Grid item xs={6} lg={6} xl={6}></Grid>
+                <Grid item xs={6} lg={6} xl={6}>
+                <IconButton aria-label="like">
+                  <ThumbUpAltOutlinedIcon /> 
+                </IconButton>
+                Like
                 </Grid>
               </Grid>
-              <Grid item xs={3} lg={3}>
-               <Grid item xs={6} lg={6}>
-                <MessageOutlinedIcon /> Message
-                </Grid>
-                <Grid item xs={6} lg={6}>
-                </Grid>
+              <Grid item xs={3} lg={3} xl={3}>
+                <Grid item xs={6} lg={6} xl={6}>
+                <IconButton aria-label="Share">
+                  <ShareOutlinedIcon /> 
+                </IconButton>
+                Share
               </Grid>
-              <Grid item xs={2} lg={2}>
-               <SendOutlinedIcon /> Send
+                <Grid item xs={6} lg={6} xl={6}></Grid>
+              </Grid>
+              <Grid item xs={3} lg={3} xl={3}>
+                <Grid item xs={6} lg={6}>
+                <IconButton aria-label="Comment">
+                  <MessageOutlinedIcon /> 
+                </IconButton>
+                Comment
+                </Grid>
+                <Grid item xs={6} lg={6} xl={6}></Grid>
+              </Grid>
+              <Grid item xs={2} lg={2} xl={2}>
+              <IconButton aria-label="send">
+                <SendOutlinedIcon /> 
+              </IconButton>
+              Send
               </Grid>
             </Grid>
-            <Grid item container xs={12} lg={12}>
-            </Grid>
-            </Box>
-            </Paper>
-          </Grid>
+            <Grid item container xs={12} lg={12} xl={12}></Grid>
+          </Box>
+        </Paper>
       </Grid>
-    );
-  }
-  
-  export default Post;
-  
+    </Grid>
+  );
+}
+
+export default Post;
+
+
+/* I think that the problem here stems from the fact that javascript does not know wehre 
+to find the post ID of the view being rendered. We will have to consider implementing
+this logic, without isolating it to the url */

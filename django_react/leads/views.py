@@ -41,3 +41,7 @@ class PostAPI(APIView):
                 return Response({'Post Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
 
             return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
+#class FeedAPI(APIView):
+    #queryset = Profile.objects.all()
+    #serializer_class = 
