@@ -38,7 +38,7 @@ import axios from 'axios';
 import EditButton from './EditProfile';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import PostsProfile from "./PostTab/PostsProfile";
-import Posts from "./PostTab/Posts";
+import Post from "./Post";
 import ProjectTab from "./uProjectTab/ProjectTab";
 
 function getProfile(id){
@@ -314,7 +314,7 @@ export default function ProfileOne() {
         <Grid item xs={6}>
             <div className={classes.homeView}>
                 <TabPanel value={value} index={0}>
-                    <Posts />
+                    <Post />
                 </TabPanel>
             </div>
             

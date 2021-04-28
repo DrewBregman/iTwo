@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Lead
-from .models import Profile
+from .models import Profile, Source, Followers, Following, Post
 
 
 class LeadSerializer(serializers.ModelSerializer):
@@ -16,3 +16,8 @@ class ProfileSerializer(serializers.ModelSerializer):
                   'goalOne', 'goalOneDesc', 'goalTwo', 'goalTwoDesc', 'goalThree', 'goalThreeDesc',
                   'Major', 'lookingFor', 'Department', 'experienceOne', 'experienceTwo', 'experienceThree',
                   'experienceFour', 'experienceFive', 'meetMe', 'day', 'image', 'areaInterestOne', 'areaInterestTwo', 'areaInterestThree','company','gradYear')
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ('sourceID', 'image', 'title', 'body', 'time_created', 'status', 'link')
+

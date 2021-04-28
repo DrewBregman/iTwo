@@ -2,72 +2,74 @@ import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-/*import "../css/ProfileOne.css";*/
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import { red } from '@material-ui/core/colors';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import HomeIcon from '@material-ui/icons/Home';
-import InfoIcon from '@material-ui/icons/Info';
-import BlurOnIcon from '@material-ui/icons/BlurOn';
-import AccountTreeIcon from '@material-ui/icons/AccountTree';
-import RateReviewIcon from '@material-ui/icons/RateReview';
-import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import axios from 'axios';
-import EditButton from './EditProfile';
-import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
-import PostsProfile from "./PostTab/PostsProfile";
-import Posts from "./PostTab/Posts";
-import ProjectTab from "./uProjectTab/ProjectTab";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
+import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
+import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
+import MessageOutlinedIcon from '@material-ui/icons/MessageOutlined';
+import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
-      flexGrow: 1,
+      flexGrow: 1
     },
     bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
+      display: "inline-block",
+      margin: "0 2px",
+      transform: "scale(0.8)"
     },
     paper: {
       padding: theme.spacing(2),
-      margin: 'auto',
+      margin: "auto",
       marginTop: 20,
-      maxHeight: 450,
+      maxHeight: 200,
       height: 450,
-      textAlign: 'center',
+      textAlign: "center",
+      color: theme.palette.text.secondary
+    },
+    post: {
+      margin: "auto",
+      maxHeight: 200,
+      padding: 10,
+      height: 450,
+      textAlign: "center",
+      color: theme.palette.text.secondary
+    },
+    text:{
       color: theme.palette.text.secondary,
-    
+    },
+    name: {
+      margin: "auto",
+      maxHeight: 200,
+      height: 450,
+      textAlign: "left",
+      color: theme.palette.text.secondary
+    },
+    divide: {
+      textAlign: 'center',
+      margin: 'auto',
     },
     profileImg: {
-        margin: '0 2px',
-        display: 'inline-block',
-        width: 160,
-        height: 160,
-        border: 10,
-    },
+      margin: "0 2px",
+      display: "inline-block",
+      width: 160,
+      height: 160,
+      border: 10
+    }
   }));
-function getPost(id){
+  
+/*function getPost(id){
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
@@ -97,26 +99,102 @@ if(img != undefined) {
 else{
   var logo = logo1;
 }
-
+*/
 
 function Post() {
+    const classes = useStyles();
+  
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={12}>
-
+  
+      <Grid container spacing={2}>
+          <Grid className={classes.post} item container xs={12} md={12} lg={12}>
+          <Paper elevation={3}>
+          <Box p={1}>
+            <Grid item container xs={12} lg={12}>
+              <Grid item xs={2} lg={2}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+              </Grid>
+              <Grid item xs={8} lg={8}>
+                <Grid className={classes.divide} item xs={8} lg={8}>
+                  Andrew Bregman
+                </Grid>
+                <Grid item xs={4} lg={4}>
+                </Grid>
+              </Grid>
+              <Grid item xs={2} lg={2}>
+                <MoreHorizIcon />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-
+            <Box m={2} />
+            <Grid item container xs={12} lg={12}>
+              <Grid item  xs={12} lg={12}>
+                <Typography variant='h6'>
+                This is the title of the post
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={12}> 
-
+            <Box m={2} />
+            <Grid item container xs={12} lg={12}>
+              <Grid item xs={12}>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book. It has survived not only
+                five centuries, but also the leap into electronic typesetting,
+             </Grid>
+             <Box m={2} />
             </Grid>
-            <Divider variant="middle" />
-            <Grid item xs={12}>
-
+            <Grid item container xs={12} lg={12}>
+              <Grid item container xs={12}>
+              <Grid item xs={4} lg={4}>
+                <ThumbUpAltIcon fontSize="small" /> 42
+              </Grid>
+              <Grid item xs={4} lg={4}></Grid>
+              <Grid item xs={4} lg={4}>
+                42 Comments
+              </Grid>
+              </Grid>
             </Grid>
-        </Grid>
-    )
-}
-
-export default Post
+            <Grid item container xs={12} lg={12}>
+              <Grid className={classes.divide} item xs={12} lg={12}>
+               <Divider variant="middle" />
+              </Grid>
+            </Grid>
+            <Box m={2} />
+            <Grid item container xs={12} lg={12}>
+              <Grid item xs={3} lg={3}>
+               <Grid item xs={6} lg={6}>
+                </Grid>
+                <Grid item xs={6} lg={6}>
+                  <ThumbUpAltOutlinedIcon /> Like
+                </Grid>
+              </Grid>
+              <Grid item xs={3} lg={3}>
+               <Grid item xs={6} lg={6}>
+                <ShareOutlinedIcon /> Share
+                </Grid>
+                <Grid item xs={6} lg={6}>
+                </Grid>
+              </Grid>
+              <Grid item xs={3} lg={3}>
+               <Grid item xs={6} lg={6}>
+                <MessageOutlinedIcon /> Message
+                </Grid>
+                <Grid item xs={6} lg={6}>
+                </Grid>
+              </Grid>
+              <Grid item xs={2} lg={2}>
+               <SendOutlinedIcon /> Send
+              </Grid>
+            </Grid>
+            <Grid item container xs={12} lg={12}>
+            </Grid>
+            </Box>
+            </Paper>
+          </Grid>
+      </Grid>
+    );
+  }
+  
+  export default Post;
+  

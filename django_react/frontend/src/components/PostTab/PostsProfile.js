@@ -6,10 +6,11 @@ import Posts from "./Posts";
 import CreatePost from "./CreatePost";
 import Friends from "./Friends";
 import AreaInterest from "./AreaInterest";
+import Post from "../Post";
 
 const useStyles = makeStyles({
     root: {
-      minWidth: 275,
+      flexGrow: 1,
     },
     bullet: {
       display: 'inline-block',
@@ -30,9 +31,19 @@ export default function PostsProfile() {
     const bull = <span className={classes.bullet}>•</span>;
 
     return (
+        <div className={classes.root}>
         <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={4}>
-                <CreatePost />
+
+            <Grid item container xs={12} sm={12} md={12} lg={12}>
+                <Grid item xs={4} sm={4} md={4} lg={4}>
+                    <Post />
+                </Grid>
+                <Grid item xs={4} sm={4} md={4} lg={4}>
+                    <Post />
+                </Grid>
+                <Grid item xs={4} sm={4} md={4} lg={4}>
+                    <Post />
+                </Grid>
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
                 <CreatePost />
@@ -41,11 +52,10 @@ export default function PostsProfile() {
                 <CreatePost />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
-                <Posts />
+                <CreatePost />
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-                <Posts />
-            </Grid>
+
+            
             <Grid item xs={12} sm={6} md={4}>
                 <AreaInterest aOne="Robotics" aTwo="Peaceful Protest" aThree="Legal System"/>
             </Grid>
@@ -53,5 +63,6 @@ export default function PostsProfile() {
                 <Friends />
             </Grid>
         </Grid>
+        </div>
     );
 }

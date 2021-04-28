@@ -6,6 +6,9 @@ from phonenumber_field.modelfields import PhoneNumberField
 import datetime
 from multiselectfield import MultiSelectField
 from annoying.fields import AutoOneToOneField
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+
 # Create your models here.
 
 #class follows(models.Model):
@@ -25,6 +28,61 @@ from annoying.fields import AutoOneToOneField
 
 #depart, proj, team, user need to all be a sub class of source model that has a source id,
 #
+
+class Source(models.Model):
+    profile = models.ForeignKey('Profile', on_delete=models.CASCADE, null=True, default=False, blank=True)
+    project= models.ForeignKey('Project', on_delete=models.CASCADE, null=True, default=False, blank=True)
+    team = models.ForeignKey('Team', on_delete=models.CASCADE, null=True, default=False, blank=True)
+    department = models.ForeignKey('Department', on_delete=models.CASCADE, default=False, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.id)
+
+
+class Followers(models.Model): 
+    profile = AutoOneToOneField(User, on_delete=models.CASCADE)  
+    account_types = models.ForeignKey('Source', on_delete=models.CASCADE)  
+    account_ids = models.PositiveIntegerField()
+    #follower_objects = GenericForeignKey('account_types', 'account_ids')
+
+    def __str__(self):
+        return self.profile + 'followers'
+
+class Following(models.Model): 
+    profile = AutoOneToOneField('Profile', on_delete=models.CASCADE)  
+    account_types = models.ForeignKey('Source', on_delete=models.CASCADE)  #need to create an account type
+    account_ids = models.PositiveIntegerField() #need to pass in source id here, autogenereate
+    #following_objects = ('account_types', 'account_ids')
+
+    def __str__(self):
+        return self.profile + 'is following'
+
+
+class Post(models.Model):
+    sourceID = models.ForeignKey('Source', on_delete=models.CASCADE)
+    image = models.ImageField(
+        "Post Picture", upload_to='post_pics', blank=True, null=True)
+    title = models.CharField(max_length=50)
+    body = models.TextField()
+    link = models.URLField(
+        max_length=2000,
+        blank=True
+    )
+    time_created = models.DateTimeField(auto_now_add=True)
+    time_updated = models.DateTimeField(auto_now=True)
+    statusOptions = (
+        ('Active', ('Active')),
+        ('Archived', ('Archived')),
+        ('Deleted', ('Deleted')),
+    )
+
+    status = models.CharField(
+        max_length=50,
+        choices=statusOptions,
+        default='Active',
+    )
+    def __str__(self):
+        return str(self.sourceID)
 
 class Lead(models.Model):
     name = models.CharField(max_length=100)
@@ -541,32 +599,6 @@ class Notification(models.Model):
 # POSTS MODELS
 # POSTS MODELS
 # POSTS MODELS
-
-class Post(models.Model):
-    title = models.CharField(max_length=50, null=False)
-    img = models.ImageField(default='', blank=True, upload_to='post_image')
-    link = models.URLField(
-        max_length=2000,
-        blank=True
-    )
-
-    body = models.TextField(default="", null=False)
-    time_created = models.DateTimeField(auto_now_add=True)
-    time_updated = models.DateTimeField(auto_now=True)
-    statusOptions = (
-        ('Active', ('Active')),
-        ('Archived', ('Archived')),
-        ('Deleted', ('Deleted')),
-    )
-
-    status = models.CharField(
-        max_length=50,
-        choices=statusOptions,
-        default='Active',
-    )
-
-    def __str__(self):
-        return self.title
 
 
 class uPosts(models.Model):
