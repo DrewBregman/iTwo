@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Lead
-from .models import Profile, Source, Followers, Following, Post
+from .models import Profile, Source, Post
 
 
 class LeadSerializer(serializers.ModelSerializer):

@@ -39,36 +39,18 @@ from django.contrib.contenttypes.models import ContentType
 #add source object to profile, project, to call the source from profile side 
 
 class Source(models.Model):
-    profile = models.ForeignKey('Profile', on_delete=models.CASCADE, null=True, default=False, blank=True)
-    project= models.ForeignKey('Project', on_delete=models.CASCADE, null=True, default=False, blank=True)
-    team = models.ForeignKey('Team', on_delete=models.CASCADE, null=True, default=False, blank=True)
-    department = models.ForeignKey('Department', on_delete=models.CASCADE, default=False, blank=True, null=True)
+    profile = models.ForeignKey('Profile', on_delete=models.CASCADE, null=True, default=False, blank=True, related_name='+')
+    project= models.ForeignKey('Project', on_delete=models.CASCADE, null=True, default=False, blank=True, related_name='+')
+    team = models.ForeignKey('Team', on_delete=models.CASCADE, null=True, default=False, blank=True, related_name='+')
+    department = models.ForeignKey('Department', on_delete=models.CASCADE, default=False, blank=True, null=True, related_name='+')
 
     def __str__(self):
         return str(self.id)
 
 
-class Followers(models.Model): 
-    profile = AutoOneToOneField(User, on_delete=models.CASCADE)  
-    account_types = models.ForeignKey('Source', on_delete=models.CASCADE)  
-    account_ids = models.PositiveIntegerField()
-    #follower_objects = GenericForeignKey('account_types', 'account_ids')
-
-    def __str__(self):
-        return self.profile + 'followers'
-
-class Following(models.Model): 
-    profile = AutoOneToOneField('Profile', on_delete=models.CASCADE)  
-    account_types = models.ForeignKey('Source', on_delete=models.CASCADE)  #need to create an account type
-    account_ids = models.PositiveIntegerField() #need to pass in source id here, autogenereate
-    #following_objects = ('account_types', 'account_ids')
-
-    def __str__(self):
-        return self.profile + 'is following'
-
 
 class Post(models.Model):
-    sourceID = models.ForeignKey('Source', on_delete=models.CASCADE)
+    sourceID = models.ForeignKey('Source', on_delete=models.CASCADE, related_name='+')
     image = models.ImageField(
         "Post Picture", upload_to='post_pics', blank=True, null=True)
     title = models.CharField(max_length=50)
@@ -107,8 +89,9 @@ class Lead(models.Model):
 # PROFILE MODELS
 class Profile(models.Model):
     user = AutoOneToOneField(User, on_delete=models.CASCADE)
-    followers = models.ForeignKey( 'Source', on_delete=models.CASCADE)
-    following = models.ForeignKey('Source', on_delete=models.CASCADE)
+    sourceID = models.ForeignKey('Source', on_delete=models.CASCADE, related_name='+', default='')
+    followers = models.ForeignKey( 'Source', on_delete=models.CASCADE, related_name='+', default='')
+    following = models.ForeignKey('Source', on_delete=models.CASCADE, related_name='+', default='')
     firstName = models.CharField(
         "First Name", max_length=25, null=False, blank=True, default="")
     lastName = models.CharField(
@@ -261,6 +244,7 @@ class Profile(models.Model):
 
 class Project(models.Model):
     name = models.CharField(max_length=30)
+    sourceID = models.ForeignKey('Source', on_delete=models.CASCADE, related_name='+')
     #owner = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
     bPic = models.ImageField("Choose Your Project Banner Picture",
                              default='defaultproban.jpg', upload_to='project_banner')
@@ -391,6 +375,7 @@ class Project(models.Model):
 
 class Department(models.Model):
     name = models.CharField(max_length=30)
+    sourceID = AutoOneToOneField('Source', on_delete=models.CASCADE, related_name='+', default=0)
     mission = models.CharField(max_length=100)
     departmentHead = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name="departmentHead")
@@ -420,6 +405,7 @@ class Department(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=30)
+    sourceID = models.ForeignKey('Source', on_delete=models.CASCADE, related_name='+')
     #owner = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
     bPic = models.ImageField(default='defaultproban.jpg',
                              upload_to='project_banner')
