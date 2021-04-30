@@ -50,7 +50,7 @@ class Source(models.Model):
 
 
 class Post(models.Model):
-    #sourceID = models.ForeignKey('Source', blank=True, on_delete=models.CASCADE, related_name='+', null=True)
+    sourceID = models.ForeignKey('Source', blank=True, on_delete=models.CASCADE, related_name='+', null=True)
     image = models.ImageField(
         "Post Picture", upload_to='post_pics', blank=True, null=True)
     title = models.CharField(max_length=50)
@@ -81,7 +81,7 @@ class Lead(models.Model):
     message = models.CharField(max_length=300)
     created_at = models.DateTimeField(auto_now_add=True)
 
-
+.0
 # order: profile, project, posts, comments, messages, departments, friends, reactions, teams, AIADs
 
 # PROFILE MODELS
@@ -89,9 +89,9 @@ class Lead(models.Model):
 # PROFILE MODELS
 class Profile(models.Model):
     user = AutoOneToOneField(User, default=True,  on_delete=models.CASCADE)
-    #sourceID = models.ForeignKey('Source', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
-    #followers = models.ForeignKey( 'Source', on_delete=models.CASCADE, related_name='+', default='')
-    #following = models.ForeignKey('Source', on_delete=models.CASCADE, related_name='+', default='')
+    sourceID = models.ForeignKey('Source', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+    followers = models.ForeignKey( 'Source', on_delete=models.CASCADE, related_name='+', default='', blank=True, null=True)
+    following = models.ForeignKey('Source', on_delete=models.CASCADE, related_name='+', default='', blank=True, null=True)
     firstName = models.CharField(
         "First Name", max_length=25, null=False, blank=True, default="")
     lastName = models.CharField(
@@ -244,7 +244,7 @@ class Profile(models.Model):
 
 class Project(models.Model):
     name = models.CharField(max_length=30)
-    #sourceID = models.ForeignKey('Source', blank=True, on_delete=models.CASCADE, related_name='+', null=True)
+    sourceID = models.ForeignKey('Source', blank=True, on_delete=models.CASCADE, related_name='+', null=True)
     #owner = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
     bPic = models.ImageField("Choose Your Project Banner Picture",
                              default='defaultproban.jpg', upload_to='project_banner')
@@ -375,7 +375,7 @@ class Project(models.Model):
 
 class Department(models.Model):
     name = models.CharField(max_length=30)
-    #sourceID = AutoOneToOneField('Source', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+    sourceID = AutoOneToOneField('Source', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
     mission = models.CharField(max_length=100)
     departmentHead = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name="departmentHead")
@@ -406,6 +406,7 @@ class Department(models.Model):
 class Team(models.Model):
     name = models.CharField(max_length=30)
     #owner = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
+    sourceID = AutoOneToOneField('Source', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
     bPic = models.ImageField(default='defaultproban.jpg',
                              upload_to='project_banner')
     logo = models.ImageField(default='defaultlogo.jpg',
