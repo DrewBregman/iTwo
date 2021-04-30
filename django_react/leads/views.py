@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from .models import Lead, Profile, Post
-from .serializers import LeadSerializer, ProfileSerializer, PostSerializer
+from .models import Lead, Profile, Post, Source
+from .serializers import LeadSerializer, ProfileSerializer, PostSerializer, FeedSerializer, SourceSerializer
 from rest_framework import generics,status
 from rest_framework.views import APIView
 from frontend import templates
 from rest_framework.response import Response
+from drf_multiple_model.views import ObjectMultipleModelAPIView
 
 class LeadListCreate(generics.ListCreateAPIView):
     queryset = Lead.objects.all()
@@ -45,3 +46,37 @@ class PostAPI(APIView):
 #class FeedAPI(APIView):
     #queryset = Profile.objects.all()
     #serializer_class = 
+
+class FeedAPI(ObjectMultipleModelAPIView):
+
+    #lookup_url_kwarg = 'id'
+    def get_querylist(self, *args, **kwargs):
+        id = self.kwargs['id']
+        if id != None:
+            profile = Profile.objects.filter(id=id)
+            if len(profile) > 0:
+                data = ProfileSerializer(profile[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+
+        querylist = [
+            {'queryset': Profile.objects.all(), 'serializer_class': ProfileSerializer},
+            {'queryset': Post.objects.all(), 'serializer_class': PostSerializer},
+            {'queryset': Source.objects.all(), 'serializer_class': SourceSerializer},
+        ]
+        props = Source.objects.filter(profile_id=id)
+        followers = [f.pk for f in Profile.objects.filter(followers__in=props)]
+
+        feedPosts= []
+        postID = Post.objects.filter()
+        i=0
+        length = len(followers)
+        #while i < length:
+            #feedPosts = list(Post.objects.filter(Source_id=Post.sourceID))
+            #return feedPosts(i)
+             #i+=1
+        for x in followers:
+            feedPosts = Post.objects.filter(Source_id=followers)
+            return feedPosts(x)
+        return Response(feedPosts,  status=status.HTTP_200_OK)
+
+#go from followers to source to post.id
