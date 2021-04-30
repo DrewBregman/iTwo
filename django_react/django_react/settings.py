@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'datetime',
     'phonenumber_field',
     'django_cleanup',
+    'drf_multiple_model',
+    
 
 ]
 

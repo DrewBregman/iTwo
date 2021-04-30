@@ -90,8 +90,8 @@ class Lead(models.Model):
 class Profile(models.Model):
     user = AutoOneToOneField(User, default=True,  on_delete=models.CASCADE)
     sourceID = models.ForeignKey('Source', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
-    followers = models.ForeignKey( 'Source', on_delete=models.CASCADE, related_name='+', default='', blank=True, null=True)
-    following = models.ForeignKey('Source', on_delete=models.CASCADE, related_name='+', default='', blank=True, null=True)
+    followers = models.ManyToManyField( 'Source', related_name='+', default='', blank=True, null=True)
+    following = models.ManyToManyField('Source', related_name='+', default='', blank=True, null=True)
     firstName = models.CharField(
         "First Name", max_length=25, null=False, blank=True, default="")
     lastName = models.CharField(
