@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Lead, Profile, Post, Source
-from .serializers import LeadSerializer, ProfileSerializer, PostSerializer, FeedSerializer, SourceSerializer
+from .serializers import LeadSerializer, ProfileSerializer, PostSerializer, SourceSerializer
 from rest_framework import generics,status
 from rest_framework.views import APIView
 from frontend import templates

@@ -129,7 +129,7 @@ function Post() {
       {items}
     </InfiniteScroll>
     </div>
-    {posts.map((post) => (
+    /*{posts.map((post) => (
       <Grid container spacing={2}>
         <Grid className={classes.post} item container xs={12} md={12} lg={12}>
           <Paper elevation={3}>
@@ -229,8 +229,8 @@ function Post() {
         </Grid>
       </Grid>
     ))}
-  );
-}
+  );*/
+  )}
 
 export default Post;
 
