@@ -14,7 +14,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ('firstName', 'lastName', 'skillOne', 'skillTwo', 'skillThree', 'skillFour', 'skillFive',
                   'goalOne', 'goalOneDesc', 'goalTwo', 'goalTwoDesc', 'goalThree', 'goalThreeDesc',
                   'Major', 'lookingFor', 'Department', 'experienceOne', 'experienceTwo', 'experienceThree',
-                  'experienceFour', 'experienceFive', 'meetMe', 'day', 'image', 'areaInterestOne', 'areaInterestTwo', 'areaInterestThree','company','gradYear', 'followers', 'following', 'serialID')
+                  'experienceFour', 'experienceFive', 'meetMe', 'day', 'image', 'areaInterestOne', 'areaInterestTwo', 'areaInterestThree','company','gradYear', 'followers', 'following','sourceID')
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
@@ -36,3 +36,12 @@ class EditProfileSerializer1(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ('firstName', 'lastName', 'Major', 'meetMe', 'day', 'company','gradYear')
+class EditProfileSerializer2(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('experienceOne','experienceTwo','experienceThree'
+                    ,'experienceFour','experienceFive','skillOne','skillTwo','skillThree','skillFour','skillFive')
+class EditProfileSerializer3(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('lookingFor','goalOne','goalOneDesc','goalTwo','goalTwoDesc','goalThree','goalThreeDesc')

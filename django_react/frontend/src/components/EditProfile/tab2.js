@@ -19,53 +19,53 @@ export default function Tab2() {
       <div>
         <TextField
         style = {{width: 460}}
-          id="experienceOne"
+          name="experienceOne"
           label="One Experience"
           defaultValue="Hello World"
 
         />
         <TextField
         style = {{width: 460}}
-          id="experienceTwo"
+          name="experienceTwo"
           label="Another Experience"
           defaultValue="Hello World"
         />
         <TextField
         style = {{width: 460}}
-          id="experienceThree"
+          name="experienceThree"
           label="Another Experience"
           defaultValue="Hello World"
         />
         <TextField
         style = {{width: 460}}
-          id="experienceFour"
+          name="experienceFour"
           label="Another Experience"
           defaultValue="Hello World"
         />
         <TextField
         style = {{width: 460}}
-          id="experienceFive"
+          name="experienceFive"
           label="Another Experience"
           defaultValue="Hello World"
         />
-        <TextField id="skillOne" label="One Skill" defaultValue="Hello World" />
+        <TextField name="skillOne" label="One Skill" defaultValue="Hello World" />
         <TextField
-          id="skillTwo"
+          name="skillTwo"
           label="Another Skill"
           defaultValue="Hello World"
         />
         <TextField
-          id="skillThree"
+          name="skillThree"
           label="Another Skill"
           defaultValue="Hello World"
         />
         <TextField
-          id="skillFour"
+          name="skillFour"
           label="Another Skill"
           defaultValue="Hello World"
         />
         <TextField
-          id="skillFive"
+          name="skillFive"
           label="Another Skill"
           defaultValue="Hello World"
         />

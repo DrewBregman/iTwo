@@ -188,8 +188,9 @@ class Profile(models.Model):
     areaInterestThree = models.TextField(
         "Please List and Describe Your Area of Interest", null=True, blank=True, default="")
 
-    lookingFor = MultiSelectField(
-        "What Are You Currently Looking For?", choices=look, max_choices=3,null=True, blank=True, default="")
+    #lookingFor = MultiSelectField(
+     #   "What Are You Currently Looking For?", choices=look, max_choices=3,null=True, blank=True, default="")
+    lookingFor = models.TextField(null=True,blank=True)
     faculty_cadet = (
         ('Faculty', ('Faculty')),
         ('Cadet', ('Cadet')),
