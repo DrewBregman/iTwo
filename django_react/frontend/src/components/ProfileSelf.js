@@ -35,11 +35,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import axios from 'axios';
-import EditButton from './EditProfile';
+/*import EditButton from './EditProfile';*/
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import PostsProfile from "./PostTab/PostsProfile";
 import Posts from "./PostTab/Posts";
 import ProjectTab from "./uProjectTab/ProjectTab";
+import EditButton from './EditProfile/EditProf';
 
 function getProfile(id){
   const [profiles, setProfiles] = useState([])
@@ -285,6 +286,9 @@ export default function ProfileSelf() {
             </div>
             <div className="profile-follow-stats">
                 <h3><b>Followers 20 {bull} Following 30 (need to change this once we get friends running)</b></h3>
+            </div>
+            <div>
+                <EditButton />
             </div>
             <div className={classes.root}>
                 <AppBar position="static" color="default">

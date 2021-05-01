@@ -32,3 +32,7 @@ class FeedSerializer(serializers.ModelSerializer):
 class SourceSerializer(serializers.ModelSerializer):
     model = Source
     fields = ('id', 'profile', 'project', 'team', 'department')
+class EditProfileSerializer1(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('firstName', 'lastName', 'Major', 'meetMe', 'day', 'company','gradYear')
