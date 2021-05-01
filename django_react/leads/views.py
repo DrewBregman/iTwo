@@ -52,30 +52,11 @@ class FeedAPI(APIView):
     #lookup_url_kwarg = 'id'
     def get(self, *args, **kwargs):
         id = self.kwargs['id']
-        #if id != None:
-         #   profile = Profile.objects.filtersss(id=id)
-          #  if len(profile) > 0:
-           #     data = ProfileSerializer(profile[0]).data
-            #    return Response(data, status=status.HTTP_200_OK)
 
-        querylist = [
-            {'queryset': Profile.objects.all(), 'serializer_class': ProfileSerializer},
-            {'queryset': Post.objects.all(), 'serializer_class': PostSerializer},
-            {'queryset': Source.objects.all(), 'serializer_class': SourceSerializer},
-        ]
         props = Source.objects.filter(profile_id=id)
-        followers = [f.pk for f in Profile.objects.filter(followers__in=props)]
         followers = []
         for source in props[0].profile.followers.all():
             followers.append(source)
-        feedPosts= []
-        postID = Post.objects.filter()
-        i=0
-        length = len(followers)
-        #while i < length:
-            #feedPosts = list(Post.objects.filter(Source_id=Post.sourceID))
-            #return feedPosts(i)
-             #i+=1
         superList = []
         for x in followers:
             feedPosts = Post.objects.filter(sourceID_id=x)
