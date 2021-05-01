@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.index),
     path('project', views.project),
     path('p/self/<int:ID>',views.profileSelf)
+
     #url('', views.index)
 
 ]
