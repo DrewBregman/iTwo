@@ -21,13 +21,6 @@ class PostSerializer(serializers.ModelSerializer):
         fields = ('sourceID', 'image', 'title', 'body', 'time_created', 'status', 'link')
 
 
-class FeedSerializer(serializers.ModelSerializer):
-
-    profile = serializers.PrimaryKeyRelatedField(queryset=Profile.objects.all())
-
-    class Meta:
-        model = Post
-        fields = ('profile', 'sourceID', 'image', 'title', 'body', 'time_created', 'status', 'link', 'serialID' )
 
 class SourceSerializer(serializers.ModelSerializer):
     model = Source
