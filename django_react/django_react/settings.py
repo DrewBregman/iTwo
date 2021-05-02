@@ -139,3 +139,5 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'profile_pics'),
     #os.path.join(BASE_DIR, 'resources'),
 )
+
+LOGIN_REDIRECT_URL = '/'

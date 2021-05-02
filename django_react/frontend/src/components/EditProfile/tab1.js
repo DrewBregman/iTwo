@@ -20,9 +20,13 @@ export default function Tab1() {
     const data = new FormData(event.target);
 
     console.log(data.get('company')); // reference by form input's `name` tag
-
+    const headers = new Headers({
+        'Content-Type': 'application/json',
+        /*'X-CSRF-TOKEN': csrfToken*/
+    });
     fetch('/api/editP1/' + window.REP_LOG_APP_PROPS.user_id, {
       method: 'POST',
+      headers,
       body: data,
     });
   };
@@ -48,7 +52,7 @@ export default function Tab1() {
 
         <TextField
           name = "Major"
-          id="major"
+          id="Major"
           label="Major"
           defaultValue="current value"
         />

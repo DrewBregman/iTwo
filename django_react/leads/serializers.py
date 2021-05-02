@@ -28,7 +28,7 @@ class SourceSerializer(serializers.ModelSerializer):
 class EditProfileSerializer1(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ('firstName', 'lastName', 'Major', 'meetMe', 'day', 'company','gradYear')
+        fields = ('firstName', 'lastName', 'company', 'gradYear', 'Major', 'day', 'meetMe')
 class EditProfileSerializer2(serializers.ModelSerializer):
     class Meta:
         model = Profile
