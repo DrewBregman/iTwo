@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Tab2() {
+export default function Tab2(props) {
   const classes = useStyles();
 
   return (
@@ -21,53 +21,53 @@ export default function Tab2() {
         style = {{width: 460}}
           name="experienceOne"
           label="One Experience"
-          defaultValue="Hello World"
+          defaultValue={props.experienceOne}
 
         />
         <TextField
         style = {{width: 460}}
           name="experienceTwo"
           label="Another Experience"
-          defaultValue="Hello World"
+          defaultValue={props.experienceTwo}
         />
         <TextField
         style = {{width: 460}}
           name="experienceThree"
           label="Another Experience"
-          defaultValue="Hello World"
+          defaultValue={props.experienceThree}
         />
         <TextField
         style = {{width: 460}}
           name="experienceFour"
           label="Another Experience"
-          defaultValue="Hello World"
+          defaultValue={props.experienceFour}
         />
         <TextField
         style = {{width: 460}}
           name="experienceFive"
           label="Another Experience"
-          defaultValue="Hello World"
+          defaultValue={props.experienceFive}
         />
-        <TextField name="skillOne" label="One Skill" defaultValue="Hello World" />
+        <TextField name="skillOne" label="One Skill" defaultValue={props.skillOne} />
         <TextField
           name="skillTwo"
           label="Another Skill"
-          defaultValue="Hello World"
+          defaultValue={props.skillTwo}
         />
         <TextField
           name="skillThree"
           label="Another Skill"
-          defaultValue="Hello World"
+          defaultValue={props.skillThree}
         />
         <TextField
           name="skillFour"
           label="Another Skill"
-          defaultValue="Hello World"
+          defaultValue={props.skillFour}
         />
         <TextField
           name="skillFive"
           label="Another Skill"
-          defaultValue="Hello World"
+          defaultValue={props.skillFive}
         />
       </div>
     </form>

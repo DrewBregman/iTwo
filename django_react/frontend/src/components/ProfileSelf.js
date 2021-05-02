@@ -281,14 +281,14 @@ export default function ProfileSelf() {
             <div className={classes.compName}>
               {gottenprofile.company} / {gottenprofile.gradYear}
             </div>
-            <div className={classes.major}>
-                {gottenprofile.major}
+            <div className={classes.compName}>
+                Major: {gottenprofile.Major}
             </div>
             <div className="profile-follow-stats">
                 <h3><b>Followers 20 {bull} Following 30 (need to change this once we get friends running)</b></h3>
             </div>
             <div>
-                <EditButton />
+                <EditButton {...gottenprofile}/>
             </div>
             <div className={classes.root}>
                 <AppBar position="static" color="default">

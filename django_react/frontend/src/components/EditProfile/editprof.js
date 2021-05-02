@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import SimpleTabs from './tabs.js'
 
-export default function EditButton() {
+export default function EditButton(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -18,7 +18,9 @@ export default function EditButton() {
   const handleClose = () => {
     setOpen(false);
   };
-
+function refreshPage() {
+    window.location.reload(true);
+  }
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -27,14 +29,11 @@ export default function EditButton() {
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Edit</DialogTitle>
         <DialogContent>
-        <SimpleTabs />
+        <SimpleTabs {...props}/>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Update
+          <Button onClick={refreshPage} color="primary">
+            Done
           </Button>
         </DialogActions>
       </Dialog>

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Tab3() {
+export default function Tab3(props) {
   const classes = useStyles();
 
   return (
@@ -21,46 +21,46 @@ export default function Tab3() {
         style = {{width: 460}}
           name="lookingFor"
           label="What Are You Looking For?"
-          defaultValue="Hello World"
+          defaultValue={props.lookingFor}
 
         />
         <TextField
         style = {{width: 460}}
           id="goalOne"
           label="First Goal"
-          defaultValue="Hello World"
+          defaultValue={props.goalOne}
         />
         <TextField
         style = {{width: 460}}
           id="goalOneDesc"
           label="Describe the Goal"
-          defaultValue="Hello World"
+          defaultValue={props.goalOneDesc}
           multiline={true}
         />
                 <TextField
         style = {{width: 460}}
           id="goalTwo"
           label="Second Goal"
-          defaultValue="Hello World"
+          defaultValue={props.goalTwo}
         />
         <TextField
         style = {{width: 460}}
           id="goalTwoDesc"
           label="Describe the Goal"
-          defaultValue="Hello World"
+          defaultValue={props.goalTwoDesc}
           multiline={true}
         />
                 <TextField
         style = {{width: 460}}
           id="goalThree"
           label="Third Goal"
-          defaultValue="Hello World"
+          defaultValue={props.goalThree}
         />
         <TextField
         style = {{width: 460}}
           id="goalThreeDesc"
           label="Describe the Goal"
-          defaultValue="Hello World"
+          defaultValue={props.goalThreeDesc}
           multiline={true}
         />
       </div>

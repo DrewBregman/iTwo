@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleTabs() {
+export default function SimpleTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -68,13 +68,13 @@ export default function SimpleTabs() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-      <Tab1 />
+      <Tab1 {...props}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <Tab2 />
+      <Tab2 {...props}/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Tab3 />
+        <Tab3 {...props}/>
       </TabPanel>
     </div>
   );
