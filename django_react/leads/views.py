@@ -180,38 +180,52 @@ class ProjectAPI(APIView):
 
 class ProjMemberAPI(APIView):
     serializer_class = MemberSerializer
-    queryset = uProjects.objects.all()
-    serializer_action_classes = {
-        'list': MemberSerializer,
-    }
-    filterset_fields = ('uProjects_ID')
-    def get_context_data(self,*args, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context = {
-            'project': Project.objects.filter(name=name),
-            'id': Project.objects.filter(id=id)
-        }
-        return Response(context, status=status.HTTP_200_OK)
+
+
+    def get(self,*args, **kwargs):
+            #id = request.GET.get(self.lookup_url_kwarg)
+        id = self.kwargs['id']
+        if id != None:
+            project = Project.objects.filter(id=id)
+            uProj = uProjects.objects.all()
+            if len(uProj) > 0:
+                data = MemberSerializer(uProj[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'User Projects Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class RoleAPI(APIView):
     serializer_class = RoleSerializer
-    queryset = Role.objects.all()
 
-    def get_context_data(self,*args, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context = {
-            'project': Project.objects.filter(name=name),
-            'id': Project.objects.filter(id=id)
-        }
-        return Response(context, status=status.HTTP_200_OK)
+    def get(self,*args, **kwargs):
+            #id = request.GET.get(self.lookup_url_kwarg)
+        id = self.kwargs['id']
+        if id != None:
+            project = Project.objects.filter(id=id)
+            role = Role.objects.all()
+            if len(role) > 0:
+                data = RoleSerializer(role[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Project Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
 
+        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
+            
 class MilestoneAPI(APIView):
     serializer_class = MilestoneSerializer
-    queryset = Milestones.objects.all()
 
-    def get_context_data(self,*args, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context = {
-            'project': Project.objects.filter(name=name),
-        }
-        return Response(context, status=status.HTTP_200_OK)
+    def get(self,*args, **kwargs):
+            #id = request.GET.get(self.lookup_url_kwarg)
+        id = self.kwargs['id']
+        if id != None:
+            project = Project.objects.filter(id=id)
+            milestone = Milestones.objects.all()
+            if len(milestone) > 0:
+                data = MilestoneSerializer(milestone[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Milestones Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)

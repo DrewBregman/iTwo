@@ -47,16 +47,16 @@ class RoleSerializer(serializers.ModelSerializer):
 
 class MilestoneSerializer(serializers.ModelSerializer):
     class Meta:
-        models = Milestones
+        model = Milestones
         fields = ('title', 'date','description', 'project')
 
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
-        models = Project
+        model = Project
         fields = ('name','sourceID','logo','department','mission','vision','description','dateFounded',
                 'recruiting','status')
 
 class MemberSerializer(serializers.ModelSerializer):
     class Meta:
-        models = uProjects
+        model = uProjects
         fields = ('user', 'project', 'ifAccepted', 'ifAdmin', 'title')

@@ -11,7 +11,7 @@ urlpatterns = [
     path('editP3/<int:id>', views.SetProfile3API.as_view()),
     #path('feed/<str:firstName>-<str:lastName>-<int:id>', views.FeedAPI.as_view()),
     path('project/<int:id>', views.ProjectAPI.as_view()),
-    path('project/<str:project>/roles', views.RoleAPI.as_view()),
-    path('project/<str:project>/milestones', views.MilestoneAPI.as_view()),
-    path('project/<str:project>/members', views.ProjMemberAPI.as_view()),
+    path('project/<int:id>/roles', views.RoleAPI.as_view()),
+    path('project/<int:id>/milestones', views.MilestoneAPI.as_view()),
+    path('project/<int:id>/members', views.ProjMemberAPI.as_view()),
 ]   
