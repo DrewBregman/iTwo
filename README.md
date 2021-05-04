@@ -30,6 +30,11 @@ To replicate:
 
 >pip install django-multiselectfield
 
+>pip install djangorestframework
+
+>pip install pillow
+
+>pip install django-rest-multiple-models
 
 **in frontend app:**
 
