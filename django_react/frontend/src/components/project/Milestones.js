@@ -4,105 +4,103 @@ import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timel
 import WorkIcon from '@material-ui/icons/Work';
 import SchoolIcon from '@material-ui/icons/School';
 import StarIcon from '@material-ui/icons/Star';
+import axios from 'axios';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
+import { useState, useEffect } from 'react';
+
+
+const useStyles = makeStyles(theme => ({
+    root: {
+      minWidth: 275,
+      flexGrow: 1,
+    },
+    bullet: {
+      display: 'inline-block',
+      margin: '0 2px',
+      transform: 'scale(0.8)',
+    },
+    grid: {
+      backgroundColor: 'blue',
+    },
+    paper: {
+      padding: theme.spacing(2),
+      flexGrow: 1,
+      backgroundColor: 'white',
+  
+    },
+  }));
+  
+function getMilestones(project_id){
+    const [milestones, setMilestones] = useState([])
+  
+    useEffect(() => {
+        const str = "/api/project/" + project_id + '/milestones'
+        axios.get(str)
+            .then(res =>{
+                console.log(res)
+                setMilestones(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+    return (
+                    milestones
+    )
+  }
+
+function numGen(){
+    let val = Math.floor(Math.random() * 255);
+    return val;
+  };
+
 
 function Milestones() {
+    var randomColor = require('randomcolor'); 
+    var color = randomColor();
+    var colorIcon = randomColor();
+    const milestones = getMilestones(project_id);
+    const classes = useStyles();
+
     return (
         <div>
-            <VerticalTimeline>
-                <VerticalTimelineElement
+        <VerticalTimeline>
+            <List className={classes.root} subheader={<li />}>
+            <li key={`role-${milestones.milestones_id}`} >
+                
+                <ul >
+                    {milestones.map((m) => 
+                    <VerticalTimelineElement
                     className="vertical-timeline-element--work"
-                    contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-                    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-                    date="2011 - present"
-                    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                    contentStyle={{ background: '#fff', color: '#000000'}}
+                    contentArrowStyle={{ borderRight: '7px solid #0690FA' }}
+                    date={m.date}
+                    iconStyle={{ background: colorIcon, color: '#fff' }}
                     icon={<WorkIcon />}
                 >
-                    <h3 className="vertical-timeline-element-title">Creative Director</h3>
-                    <h4 className="vertical-timeline-element-subtitle">Miami, FL</h4>
+
+                    <h3 className="vertical-timeline-element-title">{m.title}</h3>
+                    <h4 className="vertical-timeline-element-subtitle">{m.project}</h4>
                     <p>
-                    Creative Direction, User Experience, Visual Design, Project Management, Team Leading
+                    {m.description}
                     </p>
-                </VerticalTimelineElement>
-                <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
-                    date="2010 - 2011"
-                    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-                    icon={<WorkIcon />}
-                >
-                    <h3 className="vertical-timeline-element-title">Art Director</h3>
-                    <h4 className="vertical-timeline-element-subtitle">San Francisco, CA</h4>
-                    <p>
-                    Creative Direction, User Experience, Visual Design, SEO, Online Marketing
-                    </p>
-                </VerticalTimelineElement>
-                <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
-                    date="2008 - 2010"
-                    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-                    icon={<WorkIcon />}
-                >
-                    <h3 className="vertical-timeline-element-title">Web Designer</h3>
-                    <h4 className="vertical-timeline-element-subtitle">Los Angeles, CA</h4>
-                    <p>
-                    User Experience, Visual Design
-                    </p>
-                </VerticalTimelineElement>
-                <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
-                    date="2006 - 2008"
-                    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-                    icon={<WorkIcon />}
-                >
-                    <h3 className="vertical-timeline-element-title">Web Designer</h3>
-                    <h4 className="vertical-timeline-element-subtitle">San Francisco, CA</h4>
-                    <p>
-                    User Experience, Visual Design
-                    </p>
-                </VerticalTimelineElement>
-                <VerticalTimelineElement
-                    className="vertical-timeline-element--education"
-                    date="April 2013"
-                    iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-                    icon={<SchoolIcon />}
-                >
-                    <h3 className="vertical-timeline-element-title">Content Marketing for Web, Mobile and Social Media</h3>
-                    <h4 className="vertical-timeline-element-subtitle">Online Course</h4>
-                    <p>
-                    Strategy, Social Media
-                    </p>
-                </VerticalTimelineElement>
-                <VerticalTimelineElement
-                    className="vertical-timeline-element--education"
-                    date="November 2012"
-                    iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-                    icon={<SchoolIcon />}
-                >
-                    <h3 className="vertical-timeline-element-title">Agile Development Scrum Master</h3>
-                    <h4 className="vertical-timeline-element-subtitle">Certification</h4>
-                    <p>
-                    Creative Direction, User Experience, Visual Design
-                    </p>
-                </VerticalTimelineElement>
-                <VerticalTimelineElement
-                    className="vertical-timeline-element--education"
-                    date="2002 - 2006"
-                    iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-                    icon={<SchoolIcon />}
-                >
-                    <h3 className="vertical-timeline-element-title">Bachelor of Science in Interactive Digital Media Visual Imaging</h3>
-                    <h4 className="vertical-timeline-element-subtitle">Bachelor Degree</h4>
-                    <p>
-                    Creative Direction, Visual Design
-                    </p>
-                </VerticalTimelineElement>
-                <VerticalTimelineElement
-                    iconStyle={{ background: 'rgb(16, 204, 82)', color: '#fff' }}
-                    icon={<StarIcon />}
-                />
-                </VerticalTimeline>
+                    
+                    </VerticalTimelineElement>
+
+                )};
+                </ul>
+            </li>
+            </List>
+        </VerticalTimeline>
         </div>
     )
 }
 
 export default Milestones
 
+/* Let's add a green check mark icon if the milestone model's status object = True, else add a red  "x" icon */

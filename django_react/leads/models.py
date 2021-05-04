@@ -11,46 +11,51 @@ from django.contrib.contenttypes.models import ContentType
 
 # Create your models here.
 
-#class follows(models.Model):
-#users foreign key
-#user foreign key
+# class follows(models.Model):
+# users foreign key
+# user foreign key
 
-#department data in profile and projects and teams should be parsed from department models
-#change profile to users
-#Posts will have postID, title, sourceID, dateCreated, with subclasses of: VideoPost, TextPost, ImagePost
+# department data in profile and projects and teams should be parsed from department models
+# change profile to users
+# Posts will have postID, title, sourceID, dateCreated, with subclasses of: VideoPost, TextPost, ImagePost
 
-#each subclass will have postID and each will have different rendered views
+# each subclass will have postID and each will have different rendered views
 
-#follows will be userID and sourceID
+# follows will be userID and sourceID
 
-#do we want users to be able to follow people?
-#figure out how to do subclasses in django
+# do we want users to be able to follow people?
+# figure out how to do subclasses in django
 
-#depart, proj, team, user need to all be a sub class of source model that has a source id,
+# depart, proj, team, user need to all be a sub class of source model that has a source id,
 #
-#for if statements, if profile.exists(), if project.exists
+# for if statements, if profile.exists(), if project.exists
 
-#create 4 queries-->post.source.id = profile.source.id
+# create 4 queries-->post.source.id = profile.source.id
 # 4 different APIs with prof, proj,
-#SETH THINKS GOOD HABIT TO ROUTE VERYTHING THRU HTML PAGE
+# SETH THINKS GOOD HABIT TO ROUTE VERYTHING THRU HTML PAGE
 # for feed, will need to post users id
 # user id is passed through a variable in profile one
-#put context in variables and pass through HTML page (For variables that react can;t get to, person who is currently logged in (request user id--> in django views request.user_id))
-#add source object to profile, project, to call the source from profile side 
+# put context in variables and pass through HTML page (For variables that react can;t get to, person who is currently logged in (request user id--> in django views request.user_id))
+# add source object to profile, project, to call the source from profile side
+
 
 class Source(models.Model):
-    profile = models.ForeignKey('Profile', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-    project= models.ForeignKey('Project', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-    team = models.ForeignKey('Team', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-    department = models.ForeignKey('Department', on_delete=models.CASCADE, blank=True, null=True, related_name='+')
+    profile = models.ForeignKey(
+        'Profile', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+    project = models.ForeignKey(
+        'Project', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+    team = models.ForeignKey(
+        'Team', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+    department = models.ForeignKey(
+        'Department', on_delete=models.CASCADE, blank=True, null=True, related_name='+')
 
     def __str__(self):
         return str(self.id)
 
 
-
 class Post(models.Model):
-    sourceID = models.ForeignKey('Source', blank=True, on_delete=models.CASCADE, related_name='+', null=True)
+    sourceID = models.ForeignKey(
+        'Source', blank=True, on_delete=models.CASCADE, related_name='+', null=True)
     image = models.ImageField(
         "Post Picture", upload_to='post_pics', blank=True, null=True)
     title = models.CharField(max_length=50)
@@ -72,8 +77,10 @@ class Post(models.Model):
         choices=statusOptions,
         default='Active',
     )
+
     def __str__(self):
         return self.title
+
 
 class Lead(models.Model):
     name = models.CharField(max_length=100)
@@ -81,17 +88,23 @@ class Lead(models.Model):
     message = models.CharField(max_length=300)
     created_at = models.DateTimeField(auto_now_add=True)
 
+
 .0
 # order: profile, project, posts, comments, messages, departments, friends, reactions, teams, AIADs
 
 # PROFILE MODELS
 # PROFILE MODELS
 # PROFILE MODELS
+
+
 class Profile(models.Model):
     user = AutoOneToOneField(User, default=True,  on_delete=models.CASCADE)
-    sourceID = models.ForeignKey('Source', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
-    followers = models.ManyToManyField( 'Source', related_name='+', default='', blank=True, null=True)
-    following = models.ManyToManyField('Source', related_name='+', default='', blank=True, null=True)
+    sourceID = models.ForeignKey(
+        'Source', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+    followers = models.ManyToManyField(
+        'Source', related_name='+', default='', blank=True, null=True)
+    following = models.ManyToManyField(
+        'Source', related_name='+', default='', blank=True, null=True)
     firstName = models.CharField(
         "First Name", max_length=25, null=False, blank=True, default="")
     lastName = models.CharField(
@@ -99,9 +112,10 @@ class Profile(models.Model):
     # username = models.CharField(max_length=25, null=False, blank=False, unique=True, default=User.username)
     image = models.ImageField(
         "Profile Picture", default='default.jpg', upload_to='profile_pics', blank=True)
-    email = models.EmailField(default="", blank=True,null=True)
+    email = models.EmailField(default="", blank=True, null=True)
     first = models.BooleanField(default=True, null=True)
-    meetMe = models.TextField("Introduce Yourself!", null=True, blank=True, default="")
+    meetMe = models.TextField("Introduce Yourself!",
+                              null=True, blank=True, default="")
     dep_choice = (
         ('Behavioral Sciences and Leadership',
          ('Behavioral Sciences and Leadership')),
@@ -121,7 +135,7 @@ class Profile(models.Model):
         ('Systems Engineering', ('Systems Engineering')),
         ('Independent', ('Independent')),
     )
-    Department = models.CharField( #should be models.OneToOneField(Department)
+    Department = models.CharField(  # should be models.OneToOneField(Department)
         max_length=50,
         choices=dep_choice,
         default='Independent',
@@ -131,7 +145,8 @@ class Profile(models.Model):
     # title = models.CharField(max_length=30, null=False, blank=False)
     Major = models.CharField(max_length=50, null=True, blank=True, default="")
     Minor = models.CharField(max_length=50, null=True, blank=True, default="")
-    interest = models.TextField("What Are Your Interests?", null=True, blank=True, default="")
+    interest = models.TextField(
+        "What Are Your Interests?", null=True, blank=True, default="")
     expertise = models.TextField(
         "Please list Your Areas of Expertise (separate by commas)", null=True, blank=True, default="")
     day = models.CharField(max_length=10, null=True, blank=True, default="")
@@ -147,11 +162,16 @@ class Profile(models.Model):
         "Please List One of Your Research Goals?", null=True, blank=True, default="")
     goalThreeDesc = models.TextField(
         "Describe your third research goal", null=True, blank=True, default="")
-    skillOne = models.CharField(max_length=30, null=True, blank=True, default="")
-    skillTwo = models.CharField(max_length=30, null=True, blank=True, default="")
-    skillThree = models.CharField(max_length=30, null=True, blank=True, default="")
-    skillFour = models.CharField(max_length=30, null=True, blank=True, default="")
-    skillFive = models.CharField(max_length=30, null=True, blank=True, default="")
+    skillOne = models.CharField(
+        max_length=30, null=True, blank=True, default="")
+    skillTwo = models.CharField(
+        max_length=30, null=True, blank=True, default="")
+    skillThree = models.CharField(
+        max_length=30, null=True, blank=True, default="")
+    skillFour = models.CharField(
+        max_length=30, null=True, blank=True, default="")
+    skillFive = models.CharField(
+        max_length=30, null=True, blank=True, default="")
     look = (
         ('a research team to join.', ('an established Research Team')),
         ('a project to work on.', ('a fun project to work on')),
@@ -188,9 +208,9 @@ class Profile(models.Model):
     areaInterestThree = models.TextField(
         "Please List and Describe Your Area of Interest", null=True, blank=True, default="")
 
-    #lookingFor = MultiSelectField(
-     #   "What Are You Currently Looking For?", choices=look, max_choices=3,null=True, blank=True, default="")
-    lookingFor = models.TextField(null=True,blank=True)
+    # lookingFor = MultiSelectField(
+    #   "What Are You Currently Looking For?", choices=look, max_choices=3,null=True, blank=True, default="")
+    lookingFor = models.TextField(null=True, blank=True)
     faculty_cadet = (
         ('Faculty', ('Faculty')),
         ('Cadet', ('Cadet')),
@@ -242,32 +262,45 @@ class Profile(models.Model):
         notification = Notification(user=self.user, message=message)
         notification.save()
 
+
 class Role(models.Model):
     role = models.CharField(max_length=50)
-    project = models.ForeignKey('Project', blank=True, on_delete=models.CASCADE, null=True)
-    description = models.TextField('Please describe the role' , null=True)
+    project = models.ForeignKey(
+        'Project', blank=True, on_delete=models.CASCADE, null=True)
+    description = models.TextField('Please describe the role', null=True)
     hoursWeek = models.CharField(max_length=50)
-    daysWeek = models.CharField('Please describe the average number of work days per week for this role', max_length=50)
-    semester = models.CharField('Please describe the minimum number of semesters for this role', null=True, max_length=50)
-    contact = models.ForeignKey('Profile', blank=True, on_delete=models.CASCADE, null=True)
-    qualifications =  models.TextField('What are the basic qualifications for this role' , null=True)
-    niceToHave = models.TextField('What experience or qualities would be nice to have for this role' , null=True)
-    idealFor = models.TextField('Who would this role be ideal for' , null=True)
+    daysWeek = models.CharField(
+        'Please describe the average number of work days per week for this role', max_length=50)
+    semester = models.CharField(
+        'Please describe the minimum number of semesters for this role', null=True, max_length=50)
+    contact = models.ForeignKey(
+        'Profile', blank=True, on_delete=models.CASCADE, null=True)
+    qualifications = models.TextField(
+        'What are the basic qualifications for this role', null=True)
+    niceToHave = models.TextField(
+        'What experience or qualities would be nice to have for this role', null=True)
+    idealFor = models.TextField('Who would this role be ideal for', null=True)
 
     def __str__(self):
         return self.role
+
+
 class Milestones(models.Model):
     title = models.CharField(max_length=50)
     date = models.DateTimeField()
     description = models.TextField(null=True)
-    project = models.ForeignKey('Project', on_delete= models.CASCADE)
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)
+    status = models.BooleanField(
+        'Is this milestone completed yet', null=True, blank=True, default=False)
 
     def __str__(self):
-        return self.title 
+        return self.title
+
 
 class Project(models.Model):
     name = models.CharField(max_length=30)
-    sourceID = models.ForeignKey('Source', blank=True, on_delete=models.CASCADE, related_name='+', null=True)
+    sourceID = models.ForeignKey(
+        'Source', blank=True, on_delete=models.CASCADE, related_name='+', null=True)
     #owner = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
     bPic = models.ImageField("Choose Your Project Banner Picture",
                              default='defaultproban.jpg', upload_to='project_banner')
@@ -292,7 +325,7 @@ class Project(models.Model):
         ('Systems Engineering', ('Systems Engineering')),
         ('Independent', ('Independent')),
     )
-    department = models.CharField( #should be models.AutoOneToFieldOne(Department)
+    department = models.CharField(  # should be models.AutoOneToFieldOne(Department)
         max_length=50,
         choices=dep_choice1,
         default='Independent',
@@ -348,12 +381,12 @@ class Project(models.Model):
         default='Active',
     )
 
-    
     class Meta:
         verbose_name_plural = "projects"
 
     def __str__(self):
         return self.name
+
 
 class uProjects(models.Model):
 
@@ -370,11 +403,10 @@ class uProjects(models.Model):
         return self.user.username + ',' + self.project.name
 
 
-
-
 class Department(models.Model):
     name = models.CharField(max_length=30)
-    sourceID = AutoOneToOneField('Source', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+    sourceID = AutoOneToOneField(
+        'Source', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
     mission = models.CharField(max_length=100)
     departmentHead = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name="departmentHead")
@@ -405,7 +437,8 @@ class Department(models.Model):
 class Team(models.Model):
     name = models.CharField(max_length=30)
     #owner = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
-    sourceID = AutoOneToOneField('Source', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+    sourceID = AutoOneToOneField(
+        'Source', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
     bPic = models.ImageField(default='defaultproban.jpg',
                              upload_to='project_banner')
     logo = models.ImageField(default='defaultlogo.jpg',
@@ -537,8 +570,6 @@ class Member(models.Model):
 
     def __str__(self):
         return self.text
-
-
 
 
 # DEPARTMENT VIEWS

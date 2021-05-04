@@ -27,4 +27,5 @@ def project(request, id):
     context = {
         'project_id': id,
     }
+
     return render(request, 'frontend/project.html', context)
