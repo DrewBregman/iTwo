@@ -189,7 +189,7 @@ class ProjMemberAPI(APIView):
             project = Project.objects.filter(id=id)
             uProj = uProjects.objects.all()
             if len(uProj) > 0:
-                data = MemberSerializer(uProj[0]).data
+                data = [MemberSerializer(x).data for x in uProj]
                 return Response(data, status=status.HTTP_200_OK)
             return Response({'User Projects Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
 
@@ -207,7 +207,7 @@ class RoleAPI(APIView):
             project = Project.objects.filter(id=id)
             role = Role.objects.all()
             if len(role) > 0:
-                data = RoleSerializer(role[0]).data
+                data = [RoleSerializer(x).data for x in role]
                 return Response(data, status=status.HTTP_200_OK)
             return Response({'Project Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
 
@@ -224,7 +224,7 @@ class MilestoneAPI(APIView):
             project = Project.objects.filter(id=id)
             milestone = Milestones.objects.all()
             if len(milestone) > 0:
-                data = MilestoneSerializer(milestone[0]).data
+                data = [MilestoneSerializer(x).data for x in milestone]
                 return Response(data, status=status.HTTP_200_OK)
             return Response({'Milestones Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
 
