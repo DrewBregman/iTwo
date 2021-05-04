@@ -4,7 +4,7 @@ Here we fucking go baby, full send!!
 
 To replicate:
 
->Download newest version of python
+>Download newest version of python, npm, and nodejs from web or microsoft store
 
 **in django_react app:**
 
