@@ -27,6 +27,27 @@ function dataProfile(){
     )
   }
   
+
+  function dataProject(){
+    const [projects, setProfiles] = useState([])
+    const { state } = useLocation();
+
+    useEffect(() => {
+        axios.get("api/project/")
+            .then(res =>{
+                console.log(res)
+                setProjects(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+    return (
+                    projects
+    )
+  }
+  
+
 function DataFetching() {
     const [leads, setLeads] = useState([])
 

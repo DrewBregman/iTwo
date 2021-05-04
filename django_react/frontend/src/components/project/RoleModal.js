@@ -60,7 +60,7 @@ Fade.propTypes = {
   onExited: PropTypes.func
 };
 
-export default function SpringModal() {
+export default function SpringModal({...role}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -92,7 +92,7 @@ export default function SpringModal() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <Roles />
+            <Roles {...role}/>
           </div>
         </Fade>
       </Modal>

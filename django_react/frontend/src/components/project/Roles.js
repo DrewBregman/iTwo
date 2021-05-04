@@ -9,10 +9,16 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import Box from "@material-ui/core/Box";
 import ApplicationModal from "./Apply/ApplyModal";
 
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
-    flexGrow: 1
+    flexGrow: 1,
+    maxWidth: 850,
+    justify: "center",
+    overflow: 'auto',
+    maxHeight: 600,
   },
   paper: {
     padding: theme.spacing(2),
@@ -30,30 +36,30 @@ const useStyles = makeStyles((theme) => ({
     display: "inline-block",
     margin: "0 2px",
     transform: "scale(0.8)"
-  }
+  },
 }));
-export default function Role() {
+export default function Role({...role}) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   return (
     <div className={classes.root}>
-      <Paper>
+      <Paper >
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="h3">Role Name</Typography>
+          <Grid item xs={12} xl={12}>
+            <Typography variant="h3">Project Name</Typography>
           </Grid>
           <Grid item container>
-            <Grid item xs={4} lg={2}>
+            <Grid item xs={6} lg={4}>
               <Typography color="textSecondary" variant="h5">
-                Project name
+                {role.role}
               </Typography>
             </Grid>
-            <Grid item xs={4} lg={2}>
+            <Grid item xs={6} lg={4}>
               <Typography color="textPrimary" variant="h5">
                 Project Department(s)
               </Typography>
             </Grid>
-            <Grid item xs={4} lg={8} />
+            <Grid item xs={0} lg={4} />
           </Grid>
           <Grid item container>
             <Grid item xs={3} lg={1}>
@@ -69,7 +75,8 @@ export default function Role() {
           </Grid>
         </Grid>
       </Paper>
-      <Grid className={classes.paper} justify="center" container spacing={2}>
+      <Box m={2} />
+      <Grid  justify="center" container spacing={2}>
         <Grid item xs={6} lg={4}>
           <Paper>
             <Grid item xs={12} lg={12}>
@@ -79,10 +86,7 @@ export default function Role() {
             </Grid>
             <Grid item xs={12} lg={12}>
               <Typography variant="body2">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
+                {role.description}
               </Typography>
             </Grid>
             <Box m={2} />
@@ -90,14 +94,14 @@ export default function Role() {
               <Typography variant="h6">Schedule</Typography>
             </Grid>
             <Grid item xs={12} lg={12}>
-              <Typography variant="body2">{bull} 10hr/week</Typography>
+              <Typography variant="body2">{bull} {role.hoursWeek}</Typography>
             </Grid>
             <Grid item xs={12} lg={12}>
-              <Typography variant="body2">{bull} 3 days/week</Typography>
+              <Typography variant="body2">{bull} {role.daysWeek}</Typography>
             </Grid>
             <Grid item xs={12} lg={12}>
               <Typography variant="body2">
-                {bull} One semester minimum
+                {bull} {role.semester}
               </Typography>
             </Grid>
             <Box m={2} />
@@ -106,7 +110,7 @@ export default function Role() {
             </Grid>
             <Grid item xs={12} lg={12}>
               <Typography color="textSecondary" variant="body2">
-                Andrew Bregman: andrew.bregman@westpoint.edu
+                {role.contact}: PARCE AND INCLUDE CONTACT'S EMAIL ADDRESS
               </Typography>
             </Grid>
           </Paper>
@@ -118,10 +122,7 @@ export default function Role() {
             </Grid>
             <Grid item xs={12} lg={12}>
               <Typography variant="body2">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
+                {role.qualifications}
               </Typography>
             </Grid>
             <Box m={2} />
@@ -130,10 +131,7 @@ export default function Role() {
             </Grid>
             <Grid item xs={12} lg={12}>
               <Typography variant="body2">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
+                {role.niceToHave} 
               </Typography>
             </Grid>
             <Box m={2} />
@@ -142,10 +140,7 @@ export default function Role() {
             </Grid>
             <Grid item xs={12} lg={12}>
               <Typography variant="body2">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
+                {role.idealFor}
               </Typography>
             </Grid>
           </Paper>

@@ -4,6 +4,7 @@ import MessengerIcon from './icons/messenger.svg';
 import CaretIcon from './icons/caret.svg';
 import PlusIcon from './icons/plus.svg';
 import dataProfile from "../DataFetching";
+import dataProject from "./dataProject";
 import DropdownMenu from "../DropDown";
 import React, { useState, useEffect } from 'react';
 import {
@@ -339,7 +340,7 @@ function App() {
             <ProfileSelf
                         />
           </Route>
-          <Route path="/project">
+          <Route exact path="/project/:id" component={dataProject}>
             <Project />
           </Route>
         </Switch>
