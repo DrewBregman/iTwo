@@ -30,6 +30,8 @@ To replicate:
 
 >pip install django-multiselectfield
 
+>pip install djangorestframework
+
 
 **in frontend app:**
 
