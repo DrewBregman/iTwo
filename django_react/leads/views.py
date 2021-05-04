@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from .models import Lead, Profile, Post, Source
-from .serializers import LeadSerializer, ProfileSerializer, PostSerializer, SourceSerializer, \
-    EditProfileSerializer1, EditProfileSerializer2, EditProfileSerializer3
+from .models import Lead, Profile, Post, Source, Project, Role, Milestones, uProjects
+from .serializers import(LeadSerializer, ProfileSerializer, PostSerializer, SourceSerializer, 
+EditProfileSerializer1, EditProfileSerializer2, EditProfileSerializer3, 
+ProjectSerializer, MemberSerializer, RoleSerializer, MilestoneSerializer)
+
 from rest_framework import generics,status
 from rest_framework.views import APIView
 from frontend import templates
@@ -151,3 +153,65 @@ class SetProfile3API(APIView):
                 return Response({'Profile Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
 
         return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
+class ProjectAPI(APIView):
+    serializer_class = ProjectSerializer
+    queryset = Profile.objects.all()
+
+    def get(self,*args, **kwargs):
+            #id = request.GET.get(self.lookup_url_kwarg)
+            id = self.kwargs['id']
+            if id != None:
+                project = Project.objects.filter(id=id)
+                if len(project) > 0:
+                    data = ProjectSerializer(project[0]).data
+                    return Response(data, status=status.HTTP_200_OK)
+                return Response({'Project Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
+
+            return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+    #def get_context_data(self, **kwargs):
+        #context = super().get_context_data(**kwargs)
+        #context= {
+            #'project': Project.objects.filter(name=name),
+            #'id': Project.objects.filter(id=id)
+        #}
+        #return Response(context, status=status.HTTP_200_OK)
+
+
+class ProjMemberAPI(APIView):
+    serializer_class = MemberSerializer
+    queryset = uProjects.objects.all()
+    serializer_action_classes = {
+        'list': MemberSerializer,
+    }
+    filterset_fields = ('uProjects_ID')
+    def get_context_data(self,*args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = {
+            'project': Project.objects.filter(name=name),
+            'id': Project.objects.filter(id=id)
+        }
+        return Response(context, status=status.HTTP_200_OK)
+
+class RoleAPI(APIView):
+    serializer_class = RoleSerializer
+    queryset = Role.objects.all()
+
+    def get_context_data(self,*args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = {
+            'project': Project.objects.filter(name=name),
+            'id': Project.objects.filter(id=id)
+        }
+        return Response(context, status=status.HTTP_200_OK)
+
+class MilestoneAPI(APIView):
+    serializer_class = MilestoneSerializer
+    queryset = Milestones.objects.all()
+
+    def get_context_data(self,*args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = {
+            'project': Project.objects.filter(name=name),
+        }
+        return Response(context, status=status.HTTP_200_OK)

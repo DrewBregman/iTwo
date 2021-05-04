@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, Source, Post, Lead
+from .models import Profile, Source, Post, Lead, Project, Role, Milestones, uProjects
 
 
 class LeadSerializer(serializers.ModelSerializer):
@@ -38,3 +38,25 @@ class EditProfileSerializer3(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ('lookingFor','goalOne','goalOneDesc','goalTwo','goalTwoDesc','goalThree','goalThreeDesc')
+
+class RoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Role
+        fields = ('role', 'project', 'description', 'hoursWeek', 'daysWeek', 'semester', 'contact', 
+                'qualifications', 'idealFor')
+
+class MilestoneSerializer(serializers.ModelSerializer):
+    class Meta:
+        models = Milestones
+        fields = ('title', 'date','description', 'project')
+
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        models = Project
+        fields = ('name','sourceID','logo','department','mission','vision','description','dateFounded',
+                'recruiting','status')
+
+class MemberSerializer(serializers.ModelSerializer):
+    class Meta:
+        models = uProjects
+        fields = ('user', 'project', 'ifAccepted', 'ifAdmin', 'title')

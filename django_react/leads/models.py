@@ -242,6 +242,28 @@ class Profile(models.Model):
         notification = Notification(user=self.user, message=message)
         notification.save()
 
+class Role(models.Model):
+    role = models.CharField(max_length=50)
+    project = models.ForeignKey('Project', blank=True, on_delete=models.CASCADE, null=True)
+    description = models.TextField('Please describe the role' , null=True)
+    hoursWeek = models.CharField(max_length=50)
+    daysWeek = models.CharField('Please describe the average number of work days per week for this role', max_length=50)
+    semester = models.CharField('Please describe the minimum number of semesters for this role', null=True, max_length=50)
+    contact = models.ForeignKey('Profile', blank=True, on_delete=models.CASCADE, null=True)
+    qualifications =  models.TextField('What are the basic qualifications for this role' , null=True)
+    niceToHave = models.TextField('What experience or qualities would be nice to have for this role' , null=True)
+    idealFor = models.TextField('Who would this role be ideal for' , null=True)
+
+    def __str__(self):
+        return self.role
+class Milestones(models.Model):
+    title = models.CharField(max_length=50)
+    date = models.DateTimeField()
+    description = models.TextField(null=True)
+    project = models.ForeignKey('Project', on_delete= models.CASCADE)
+
+    def __str__(self):
+        return self.title 
 
 class Project(models.Model):
     name = models.CharField(max_length=30)
@@ -275,54 +297,13 @@ class Project(models.Model):
         choices=dep_choice1,
         default='Independent',
     )
-    purpose = models.CharField(
-        "Enter your project's purpose", max_length=50, null=True)
+    mission = models.CharField(
+        "What are is this project trying to accomplish?", max_length=50, null=True)
+    vision = models.CharField(
+        "How does your project's application fit in to the future?", max_length=50, null=True)
     description = models.TextField(
-        "Please give a brief description of your project, progress, team, and goals.", null=True)
-    tag_choice = (
-        ('Data Analysis', ('Data Analysis')),
-        ('3D Printing', ('3D Printing')),
-        ('Robotics', ('Robotics')),
-        ('Coding', ('Coding')),
-        ('Science', ('Science')),
-        ('Drones', ('Drones')),
-        ('Math', ('Math')),
-        ('Chemistry', ('Chemistry')),
-        ('Nuclear Engineering', ('Nuclear Engineering')),
-        ('Physics', ('Physics')),
-        ('Photonics', ('Photonics')),
-        ('MATLAB', ('MATLAB')),
-        ('SolidWorks', ('SolidWorks')),
-        ('Writing', ('Writing')),
-        ('Graphic Design', ('Graphic Design')),
-        ('Design', ('Design')),
-        ('Robotics', ('Robotics')),
-        ('Business', ('Business')),
-        ('Stocks', ('Stocks')),
-        ('Hacking', ('Hacking')),
-        ('Law', ('Law Studies')),
-        ('Coding', ('Coding')),
-        ('Environmental', ('Environment')),
-        ('Lifestyle', ('Lifestyle')),
-        ('Kinesiology', ('Kinesiology')),
-        ('Health', ('Health')),
-        ('Sleep', ('Sleep')),
-        ('Psychology', ('Psychology')),
-        ('Material Science', ('Material Science')),
-        ('Batteries', ('Batteries')),
-        ('Energy', ('Energy')),
-        ('Fiber Optics', ('Fiber Optics')),
-        ('Space', ('Space')),
-        ('Autonomous Vehicles', ('Autonomous Vehicles')),
-        ('Biology', ('Biology')),
-    )
-
-    projectTag = MultiSelectField(
-        "Choose Up To 5 Tags",
-        choices=tag_choice,
-        max_choices=5
-    )
-
+        "Describe this project.", null=True)
+    dateFounded = models.DateTimeField(null=True, blank=True)
     look = (
         ('Expert Cadets.', ('motivated cadets with niche expertise.')),
         ('Any cadet who wants to help.', ('cadets who want to learn and help.')),
@@ -367,11 +348,28 @@ class Project(models.Model):
         default='Active',
     )
 
+    
     class Meta:
         verbose_name_plural = "projects"
 
     def __str__(self):
         return self.name
+
+class uProjects(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="u")
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name="uProj")
+    ifAccepted = models.BooleanField(null=True, blank=False, default=False)
+    #ifLeader = models.BooleanField(null = False, blank=False)
+    ifAdmin = models.BooleanField(
+        "Do you want this user to be a project Admin?", null=True, blank=False, default=False)
+    title = models.CharField(max_length=100, null=False, blank=False)
+
+    def __str__(self):
+        return self.user.username + ',' + self.project.name
+
+
 
 
 class Department(models.Model):
@@ -541,20 +539,6 @@ class Member(models.Model):
         return self.text
 
 
-
-class uProjects(models.Model):
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="u")
-    project = models.ForeignKey(
-        Project, on_delete=models.CASCADE, related_name="uProj")
-    ifAccepted = models.BooleanField(null=True, blank=False, default=False)
-    #ifLeader = models.BooleanField(null = False, blank=False)
-    ifAdmin = models.BooleanField(
-        "Do you want this user to be a project Admin?", null=True, blank=False, default=False)
-    title = models.CharField(max_length=100, null=False, blank=False)
-
-    def __str__(self):
-        return self.user.username + ',' + self.project.name
 
 
 # DEPARTMENT VIEWS
