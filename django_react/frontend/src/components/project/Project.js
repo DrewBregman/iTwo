@@ -17,6 +17,9 @@ import GroupIcon from '@material-ui/icons/Group';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import About from "./About";
 import Milestones from "./Milestones";
+import Members from "./Members";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -71,9 +74,30 @@ function a11yProps(index) {
   };
 }
 
+function getProject(project_id){
+  const [projects, setProjects] = useState([])
+
+  useEffect(() => {
+      const str = "/api/project/" + project_id 
+      axios.get(str)
+          .then(res =>{
+              console.log(res)
+              setProjects(res.data)
+          })
+          .catch(err => {
+              console.log(err)
+          })
+  }, [])
+  return (
+                  projects
+  )
+}
+
+
 export default function Project() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const project = getProject(project_id);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -99,19 +123,19 @@ export default function Project() {
       </Grid>
       <Grid item container xs={8} lg={10}>
         <Grid item xs={12}>
-          Name
+          Project {project.name}
         </Grid> 
         <Grid item xs={12}>
-          Description
+          {project.description}
         </Grid>  
         <Grid item xs={12}>
           Number Members
         </Grid>
         <Grid item xs={12}>
-          Date Founded
+          Date Founded: {project.dateFounded}
         </Grid>     
         <Grid item xs={12}>
-          Departments
+          {project.department} Department
         </Grid>                              
       </Grid>
       <Grid className={classes.nav} item xs={12}>
@@ -151,7 +175,7 @@ export default function Project() {
           <Milestones />
         </TabPanel>
         <TabPanel value={value} index={4}>
-          Item Five
+          <Members />
         </TabPanel>
         <TabPanel value={value} index={5}>
           Item Six
@@ -161,8 +185,8 @@ export default function Project() {
         </TabPanel>
                           
     </Paper>          
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
+      <h1>Find Your Limits </h1>
+      <h2>Then push past them!</h2>
     </div>
   );
 }
