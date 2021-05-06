@@ -102,7 +102,7 @@ function Members() {
                             <Grid item xs={2} lg={1} />
                             <Grid item container xs={4} lg={5}>
                               <Grid item xs={12} lg={12}>
-                                {member.user} {bull} {member.title}
+                                {member.user} {bull} {member.title} {/* Seth this is where I need you to go from member>user>profile>profile.name please*/}
                               </Grid>
                               <Grid item xs={12} lg={12}>
                                 <Typography color="textSecondary">@andrew.bregman</Typography>
@@ -131,3 +131,5 @@ function Members() {
 export default Members
 
 /* Let's add a green check mark icon if the milestone model's status object = True, else add a red  "x" icon */
+
+
