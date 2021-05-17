@@ -66,7 +66,7 @@ function refreshPage() {
       }
     });
 
-    xhr.open("POST", "http://127.0.0.1:8000/api/editP1/2");
+    xhr.open("POST", "http://127.0.0.1:8000/api/editP1/" + window.REP_LOG_APP_PROPS.user_id);
     xhr.setRequestHeader("content-type", "application/json");
     xhr.setRequestHeader("cache-control", "no-cache");
     xhr.setRequestHeader('X-CSRFToken', csrftoken);
