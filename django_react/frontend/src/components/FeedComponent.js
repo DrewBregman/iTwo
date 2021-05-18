@@ -89,18 +89,23 @@ function gettingPosts(id){
 function FeedComponent() {
   const classes = useStyles();
   const post = gettingPosts(window.REP_LOG_APP_PROPS.request_id)
-  var img = post.image
-  const logo1 = '/static/default.jpg'
-  if(img != undefined) {
-    var logo2 = '/static' + img.replace('/post_pics','');
-  }
-  if(img != undefined) {
-    var logo = logo2;
-  }
-  
-  else{
-    var logo = logo1;
-  }
+  function getLogo(pic){
+
+      var img = pic
+      console.log(img)
+      const logo1 = '/static/default.jpg'
+      if(img != undefined) {
+        var logo2 = '/static' + img.replace('/post_pics','');
+      }
+      if(img != undefined) {
+        var logo = logo2;
+      }
+
+      else{
+        var logo = logo1;
+      }
+      return logo
+      }
   
   return (
     
@@ -129,7 +134,7 @@ function FeedComponent() {
               <Grid item container xs={12} lg={12}>
                 <Grid item xs={2} lg={2} xl={2}>
                   <IconButton aria-label="avatar">
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                  <Avatar alt="Remy Sharp" src="/static/1.jpg" />
                   </IconButton>
                 </Grid>
                 <Grid item xs={8} lg={8} xl={8}> 
@@ -157,6 +162,20 @@ function FeedComponent() {
               <Grid item container xs={12} lg={12} xl={12}>
                 <Grid item xs={12} xl={12}>
                   {p.body}
+                </Grid>
+                <Box m={2} />
+              </Grid>
+                            <Grid item container xs={12} lg={12} xl={12}>
+                <Grid item xs={12} xl={12}>
+                  <Avatar
+                        src={getLogo(p.image)}
+                        /*src="https://images.huffingtonpost.com/2016-03-25-1458864692-9841862-MahatmaGandhiALegacyofPeace-thumb.jpg"
+                        */style={{
+                        margin: "10px",
+                        width: "160px",
+                        height: "160px",
+                        }}
+                        />
                 </Grid>
                 <Box m={2} />
               </Grid>

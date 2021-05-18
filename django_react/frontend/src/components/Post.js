@@ -91,7 +91,7 @@ function Post() {
   var img = post.image
   const logo1 = '/static/default.jpg'
   if(img != undefined) {
-    var logo2 = '/static' + img.replace('/post_pics','');
+    var logo2 = '/static' + img.replace('/post_pics/images/avatar','');
   }
   if(img != undefined) {
     var logo = logo2;
@@ -100,7 +100,7 @@ function Post() {
   else{
     var logo = logo1;
   }
-  
+  console.log(logo)
   return (
     <Grid container spacing={2}>
       <Grid className={classes.post} item container xs={12} md={12} lg={12}>
@@ -137,6 +137,12 @@ function Post() {
             <Grid item container xs={12} lg={12} xl={12}>
               <Grid item xs={12} xl={12}>
                 {post.body}
+              </Grid>
+              <Box m={2} />
+            </Grid>
+            <Grid item container xs={12} lg={12} xl={12}>
+              <Grid item xs={12} xl={12}>
+                {logo}
               </Grid>
               <Box m={2} />
             </Grid>
