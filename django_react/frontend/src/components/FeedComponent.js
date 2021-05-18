@@ -167,13 +167,13 @@ function FeedComponent() {
               </Grid>
                             <Grid item container xs={12} lg={12} xl={12}>
                 <Grid item xs={12} xl={12}>
-                  <Avatar
+                  <Avatar variant="square" className={classes.square}
                         src={getLogo(p.image)}
                         /*src="https://images.huffingtonpost.com/2016-03-25-1458864692-9841862-MahatmaGandhiALegacyofPeace-thumb.jpg"
                         */style={{
                         margin: "10px",
-                        width: "160px",
-                        height: "160px",
+                        width: "320px",
+                        height: "320px",
                         }}
                         />
                 </Grid>
