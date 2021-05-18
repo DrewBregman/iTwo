@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from .models import Lead, Profile, Post, Source, Project, Role, Milestones, uProjects
+from .models import Lead, Profile, Post, Source, Project, Role, Milestones, uProjects, Department, uClub, depClub, projDepartment, Club, uDepartment, projDepartment
 from .serializers import(LeadSerializer, ProfileSerializer, PostSerializer, SourceSerializer,
                          EditProfileSerializer1, EditProfileSerializer2, EditProfileSerializer3,
                          ProjectSerializer, MemberSerializer, RoleSerializer, MilestoneSerializer,
-                         DepartmentSerializer, )
+                         DepartmentSerializer, dMemberSerializer, dProjectSerializer, dClubSerializer,
+                         uClubSerializer, ClubSerializer)
 
 from rest_framework import generics, status
 from rest_framework.views import APIView
@@ -188,6 +189,24 @@ class ProjectAPI(APIView):
         # return Response(context, status=status.HTTP_200_OK)
 
 
+class depProjectAPI(APIView):
+    serializer_class = dProjectSerializer
+    queryset = Department.objects.all()
+
+    def get(self, *args, **kwargs):
+        #id = request.GET.get(self.lookup_url_kwarg)
+        id = self.kwargs['id']
+        if id != None:
+            department = Department.objects.filter(id=id)
+            dProj = projDepartment.objects.all()
+            if len(dProj) > 0:
+                data = [dProjectSerializer(x).data for x in dProj]
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'department Projects Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
+
 class DepartmentAPI(APIView):
     serializer_class = DepartmentSerializer
     queryset = Profile.objects.all()
@@ -205,6 +224,57 @@ class DepartmentAPI(APIView):
         return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class ClubAPI(APIView):
+    serializer_class = ClubSerializer
+    queryset = Club.objects.all()
+
+    def get(self, *args, **kwargs):
+        #id = request.GET.get(self.lookup_url_kwarg)
+        id = self.kwargs['id']
+        if id != None:
+            club = Club.objects.filter(id=id)
+            if len(club) > 0:
+                data = ClubSerializer(club[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Club Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ClubMemberAPI(APIView):
+    serializer_class = uClubSerializer
+
+    def get(self, *args, **kwargs):
+        #id = request.GET.get(self.lookup_url_kwarg)
+        id = self.kwargs['id']
+        if id != None:
+            club = Club.objects.filter(id=id)
+            uC = uClub.objects.all()
+            if len(uC) > 0:
+                data = [uClubSerializer(x).data for x in uC]
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'User Clubs Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DepMemberAPI(APIView):
+    serializer_class = dMemberSerializer
+
+    def get(self, *args, **kwargs):
+        #id = request.GET.get(self.lookup_url_kwarg)
+        id = self.kwargs['id']
+        if id != None:
+            department = Department.objects.filter(id=id)
+            dMember = uDepartment.objects.all()
+            if len(dMember) > 0:
+                data = [dMemberSerializer(x).data for x in dMember]
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Department Members Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
+
 class ProjMemberAPI(APIView):
     serializer_class = MemberSerializer
 
@@ -218,6 +288,24 @@ class ProjMemberAPI(APIView):
                 data = [MemberSerializer(x).data for x in uProj]
                 return Response(data, status=status.HTTP_200_OK)
             return Response({'User Projects Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ClubDepartmentAPI(APIView):
+    serializer_class = dClubSerializer
+    queryset = depClub.objects.all()
+
+    def get(self, *args, **kwargs):
+        #id = request.GET.get(self.lookup_url_kwarg)
+        id = self.kwargs['id']
+        if id != None:
+            club = Club.objects.filter(id=id)
+            dClub = depClub.objects.all()
+            if len(dClub) > 0:
+                data = [dClubSerializer(x).data for x in dClub]
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Department Clubs Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
 
         return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 

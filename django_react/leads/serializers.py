@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, Source, Post, Lead, Project, Role, Milestones, depClub, uClub, uProjects, Department, projDepartment, uDepartment
+from .models import Club, Profile, Source, Post, Lead, Project, Role, Milestones, depClub, uClub, uProjects, Department, projDepartment, uDepartment
 
 
 class LeadSerializer(serializers.ModelSerializer):
@@ -46,6 +46,13 @@ class uClubSerializer(serializers.ModelSerializer):
     class Meta:
         model = uClub
         fields = ('user', 'club')
+
+
+class ClubSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Club
+        fields = ('name', 'description', 'meet', 'next', 'during',
+                  'poc')
 
 
 class PostSerializer(serializers.ModelSerializer):

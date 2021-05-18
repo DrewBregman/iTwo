@@ -595,7 +595,7 @@ class uClub(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user + ',' + self.club
+        return str(self.user) + ',' + str(self.club)
 
 
 class depClub(models.Model):
@@ -603,7 +603,7 @@ class depClub(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.club + ',' + self.department
+        return str(self.club) + ',' + str(self.department)
 
 
 class uDepartment(models.Model):
@@ -611,7 +611,7 @@ class uDepartment(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user + ',' + self.department
+        return str(self.user) + ',' + self.department
 
 
 class projDepartment(models.Model):
@@ -619,7 +619,7 @@ class projDepartment(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.project + ',' + self.department
+        return str(self.project) + ',' + str(self.department)
 
 # USERS m
 
