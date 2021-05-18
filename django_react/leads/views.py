@@ -249,9 +249,9 @@ class ClubMemberAPI(APIView):
         id = self.kwargs['id']
         if id != None:
             club = Club.objects.filter(id=id)
-            uClub = uClub.objects.all()
-            if len(uClub) > 0:
-                data = [uClubSerializer(x).data for x in uClub]
+            uC = uClub.objects.all()
+            if len(uC) > 0:
+                data = [uClubSerializer(x).data for x in uC]
                 return Response(data, status=status.HTTP_200_OK)
             return Response({'User Clubs Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
 
@@ -294,15 +294,16 @@ class ProjMemberAPI(APIView):
 
 class ClubDepartmentAPI(APIView):
     serializer_class = dClubSerializer
+    queryset = depClub.objects.all()
 
     def get(self, *args, **kwargs):
         #id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
         if id != None:
             club = Club.objects.filter(id=id)
-            depClub = depClub.objects.all()
-            if len(depClub) > 0:
-                data = [dClubSerializer(x).data for x in depClub]
+            dClub = depClub.objects.all()
+            if len(dClub) > 0:
+                data = [dClubSerializer(x).data for x in dClub]
                 return Response(data, status=status.HTTP_200_OK)
             return Response({'Department Clubs Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
 
