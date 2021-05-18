@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, Source, Post, Lead, Project, Role, Milestones, uProjects
+from .models import Profile, Source, Post, Lead, Project, Role, Milestones, depClub, uClub, uProjects, Department, projDepartment, uDepartment
 
 
 class LeadSerializer(serializers.ModelSerializer):
@@ -15,6 +15,37 @@ class ProfileSerializer(serializers.ModelSerializer):
                   'goalOne', 'goalOneDesc', 'goalTwo', 'goalTwoDesc', 'goalThree', 'goalThreeDesc',
                   'Major', 'lookingFor', 'Department', 'experienceOne', 'experienceTwo', 'experienceThree',
                   'experienceFour', 'experienceFive', 'meetMe', 'day', 'image', 'areaInterestOne', 'areaInterestTwo', 'areaInterestThree', 'company', 'gradYear', 'followers', 'following', 'sourceID')
+
+
+class DepartmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Department
+        fields = ('mission', 'departmentHead', 'deputyHead'
+                  )
+
+
+class dMemberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = uDepartment
+        fields = ('user', 'department')
+
+
+class dProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = projDepartment
+        fields = ('project', 'department')
+
+
+class dClubSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = depClub
+        fields = ('club', 'department')
+
+
+class uClubSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = uClub
+        fields = ('user', 'club')
 
 
 class PostSerializer(serializers.ModelSerializer):

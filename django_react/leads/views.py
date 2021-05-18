@@ -2,7 +2,8 @@ from django.shortcuts import render
 from .models import Lead, Profile, Post, Source, Project, Role, Milestones, uProjects
 from .serializers import(LeadSerializer, ProfileSerializer, PostSerializer, SourceSerializer,
                          EditProfileSerializer1, EditProfileSerializer2, EditProfileSerializer3,
-                         ProjectSerializer, MemberSerializer, RoleSerializer, MilestoneSerializer)
+                         ProjectSerializer, MemberSerializer, RoleSerializer, MilestoneSerializer,
+                         DepartmentSerializer, )
 
 from rest_framework import generics, status
 from rest_framework.views import APIView
@@ -185,6 +186,23 @@ class ProjectAPI(APIView):
         # 'id': Project.objects.filter(id=id)
         # }
         # return Response(context, status=status.HTTP_200_OK)
+
+
+class DepartmentAPI(APIView):
+    serializer_class = DepartmentSerializer
+    queryset = Profile.objects.all()
+
+    def get(self, *args, **kwargs):
+        #id = request.GET.get(self.lookup_url_kwarg)
+        id = self.kwargs['id']
+        if id != None:
+            department = Department.objects.filter(id=id)
+            if len(department) > 0:
+                data = DepartmentSerializer(department[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Department Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ProjMemberAPI(APIView):

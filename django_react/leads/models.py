@@ -576,13 +576,42 @@ class Member(models.Model):
 # DEPARTMENT VIEWS
 # DEPARTMENT VIEWS
 
+class Club(models.Model):
+    name = models.CharField(max_length=50, null=True)
+    description = models.TextField(null=True)
+    meet = models.CharField(max_length=50, null=True)
+    next = models.DateField()
+    during = models.TextField(null=True)
+    poc = models.ForeignKey(User, on_delete=models.CASCADE)
+    depLogo = models.ImageField(
+        default='', blank=True, upload_to='department_logo')
+
+    def __str__(self):
+        return self.name
+
+
+class uClub(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user + ',' + self.club
+
+
+class depClub(models.Model):
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.club + ',' + self.department
+
 
 class uDepartment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user.username + ',' + self.department.name
+        return self.user + ',' + self.department
 
 
 class projDepartment(models.Model):
@@ -590,7 +619,7 @@ class projDepartment(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.project.name + ',' + self.department.name
+        return self.project + ',' + self.department
 
 # USERS m
 
