@@ -5,6 +5,8 @@ import CaretIcon from './icons/caret.svg';
 import PlusIcon from './icons/plus.svg';
 import dataProfile from "../DataFetching";
 import dataProject from "./dataProject";
+import dataClubs from './dataClubs';
+import dataDepartment from './dataDepartment';
 import DropdownMenu from "../DropDown";
 import React, { useState, useEffect } from 'react';
 import {
@@ -44,6 +46,7 @@ import axios from 'axios';
 import ProjectTab from './components/uProjectTab/ProjectTab';
 import Project from './components/project/Project';
 import Feed from './components/feed';
+import Club from './components/Club/Club';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -320,6 +323,12 @@ function App() {
           </Route>
           <Route path="/feed/:id">
             <Feed />
+          </Route>
+          <Route path="/department/:id">
+            Hello There
+          </Route>
+          <Route path="/club/:id" component={dataClubs}>
+            <Club />
           </Route>
           <Route path="/editprofile">
             <h1>Edit Profile</h1>
