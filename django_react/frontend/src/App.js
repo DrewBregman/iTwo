@@ -43,7 +43,7 @@ import { MotionLayoutProvider } from "react-motion-layout";
 import axios from 'axios';
 import ProjectTab from './components/uProjectTab/ProjectTab';
 import Project from './components/project/Project';
-
+import Feed from './components/feed';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -315,8 +315,11 @@ function App() {
             <ExplorePage 
               />
           </Route>
-          <Route path="friend/:friendId">
+          <Route path="/friend/:friendId">
             <Friend />
+          </Route>
+          <Route path="/feed/:id">
+            <Feed />
           </Route>
           <Route path="/editprofile">
             <h1>Edit Profile</h1>

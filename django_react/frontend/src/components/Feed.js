@@ -71,7 +71,7 @@ function gettingPosts(id){
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
-      const str = "/api/feed/<:id>"
+      const str = "/api/feed/" + id
       axios.get(str)
           .then(res =>{
               console.log(res)
@@ -86,10 +86,9 @@ function gettingPosts(id){
 
 
 
-function Post() {
+function Feed() {
   const classes = useStyles();
-  const posts = gettingPosts(id)
-
+  const post = gettingPosts(window.REP_LOG_APP_PROPS.request_id)
   var img = post.image
   const logo1 = '/static/default.jpg'
   if(img != undefined) {
@@ -104,10 +103,10 @@ function Post() {
   }
   
   return (
-    <div>
+    
     <InfiniteScroll
-      dataLength={items.length} //This is important field to render the next data
-      next={fetchData}
+      dataLength={post.length} //This is important field to render the next data
+      next={post}
       hasMore={true}
       loader={<h4>Loading...</h4>}
       endMessage={
@@ -115,23 +114,17 @@ function Post() {
           <b>Yay! You have seen it all</b>
         </p>
       }
-      // below props only if you need pull down functionality
-      refreshFunction={this.refresh}
-      pullDownToRefresh
-      pullDownToRefreshThreshold={50}
-      pullDownToRefreshContent={
-        <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
-      }
-      releaseToRefreshContent={
-        <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
-      }
+      
     >
-      {items}
-    </InfiniteScroll>
-    </div>
-    /*{posts.map((post) => (
+      <div>
       <Grid container spacing={2}>
-        <Grid className={classes.post} item container xs={12} md={12} lg={12}>
+      <Grid item xs={1} md={2} lg={4}></Grid>
+      <List className={classes.root} subheader={<li />}>
+      <li key={`Post-${post.id}`} >
+      <ul >
+      {post.map((p) => 
+      <div>
+        <Grid className={classes.post} item container xs={10} md={8} lg={4}>
           <Paper elevation={3}>
             <Box p={1}>
               <Grid item container xs={12} lg={12}>
@@ -142,7 +135,7 @@ function Post() {
                 </Grid>
                 <Grid item xs={8} lg={8} xl={8}> 
                   <Grid className={classes.divide} item xs={8} lg={8}>
-                    {post.sourceID}
+                    {p.sourceID}
                   </Grid>
                   <Grid item xs={4} lg={4} xl={4}></Grid>
                 </Grid>
@@ -157,14 +150,14 @@ function Post() {
                 <Grid item xs={12} lg={12} xl={12}>
                   <Typography variant="h6">
                     HELLO
-                    {post.title}
+                    {p.title}
                   </Typography>
                 </Grid>
               </Grid>
               <Box m={2} />
               <Grid item container xs={12} lg={12} xl={12}>
                 <Grid item xs={12} xl={12}>
-                  {post.body}
+                  {p.body}
                 </Grid>
                 <Box m={2} />
               </Grid>
@@ -227,10 +220,18 @@ function Post() {
             </Box>
           </Paper>
         </Grid>
-      </Grid>
-    ))}
-  );*/
+
+      </div>
+    )};
+    </ul>
+    </li>
+    </List>
+    <Grid item xs={1} md={2} lg={4}></Grid>
+    </Grid>
+    
+</div>
+    </InfiniteScroll>
   )}
 
-export default Post;
+export default Feed;
 

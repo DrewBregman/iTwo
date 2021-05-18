@@ -29,3 +29,11 @@ def project(request, id):
     }
 
     return render(request, 'frontend/project.html', context)
+
+
+def feed(request, id):
+    context = {
+        'request_id': id,
+    }
+
+    return render(request, 'frontend/feed.html', context)
