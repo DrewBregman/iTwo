@@ -149,7 +149,7 @@ class Profile(models.Model):
         "What Are Your Interests?", null=True, blank=True, default="")
     expertise = models.TextField(
         "Please list Your Areas of Expertise (separate by commas)", null=True, blank=True, default="")
-    day = models.CharField(max_length=10, null=True, blank=True, default="")
+    day = models.TextField(null=True, blank=True, default="")
     goalOne = models.TextField(
         "Please List One of Your Research Goals?", null=True, blank=True, default="")
     goalOneDesc = models.TextField(
@@ -628,11 +628,13 @@ class projDepartment(models.Model):
 # NOTIFICATION MODELS
 # NOTIFICATION MODELS
 class Notification(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True)
     message = models.CharField(max_length=200, default='notification')
-    url = models.URLField(null='', blank='', default='')
+    url = models.TextField(null='', blank='', default='')
     ifViewed = models.BooleanField(null=False, default=False)
     ifAccepted = models.BooleanField(null=False, default=False)
+    sendSource = models.ForeignKey(Source, on_delete=models.CASCADE, null= True)
 
     def __str__(self):
         return self.message

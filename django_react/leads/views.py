@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Lead, Profile, Post, Source, Project, Role, Milestones, uProjects, Department, uClub, depClub, projDepartment, Club, uDepartment, projDepartment
+from .models import Lead, Profile, Post, Source, Project, Role, Milestones, uProjects, Department, uClub, depClub, projDepartment, Club, uDepartment, projDepartment, Notification
 from .serializers import(LeadSerializer, ProfileSerializer, PostSerializer, SourceSerializer,
                          EditProfileSerializer1, EditProfileSerializer2, EditProfileSerializer3,
                          ProjectSerializer, MemberSerializer, RoleSerializer, MilestoneSerializer,
@@ -11,6 +11,42 @@ from rest_framework.views import APIView
 from frontend import templates
 from rest_framework.response import Response
 from drf_multiple_model.views import ObjectMultipleModelAPIView
+
+
+class followNotification(APIView):
+    #serializer_class = EditProfileSerializer1
+
+    # lookup_url_kwarg = 'id'
+    def get(self, request, *args, **kwargs):
+        #serializer = self.serializer_class(data=request.data)
+        #if serializer.is_valid():
+            # id = request.GET.get(self.lookup_url_kwarg)
+        id = self.kwargs['id']
+        id2 = self.kwargs['id2']
+        if id != None:
+            profile = Profile.objects.filter(id=id)
+            if len(profile) > 0:
+                p = profile[0]
+                profile2 = Profile.objects.filter(id = id2)
+                if len(profile2) > 0:
+                    p2 = profile2[0]
+                    if p2.sourceID not in p.followers.all():
+                        p.followers.add(p2.sourceID)
+
+                        if p.sourceID in p2.followers.all():
+                            mess = p.firstName + ' ' + p.lastName + ' followed you on Candle.'
+                            url = ''
+                        else:
+                            mess = p.firstName + ' ' + p.lastName + ' followed you on Candle, would you like to follow back?'
+                            url = '/p/follow/' + str(p.id)
+                        n = Notification(profile = p2, sendSource = p.sourceID, message = mess, url = url)
+                        n.save()
+                        return Response({'message': 'nice!!!'}, status=status.HTTP_200_OK)
+                    else:
+                        return Response({'Bad Request': 'Already Following'},status=status.HTTP_400_BAD_REQUEST)
+            return Response({'Profile Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LeadListCreate(generics.ListCreateAPIView):

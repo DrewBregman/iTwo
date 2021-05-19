@@ -22,4 +22,5 @@ urlpatterns = [
     path('project/<int:id>/roles', views.RoleAPI.as_view()),
     path('project/<int:id>/milestones', views.MilestoneAPI.as_view()),
     path('project/<int:id>/members', views.ProjMemberAPI.as_view()),
+    path('follow/<int:id>/<int:id2>', views.followNotification.as_view()),
 ]
