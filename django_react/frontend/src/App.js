@@ -17,7 +17,7 @@ import {
 } from "react-router-dom";
 import ExplorePage from "./components/ExplorePage";
 import ProfileOne from "./components/ProfileOne";
-import ProfileSelf from "./components/ProfileSelf";
+import ProfileSelf from "./components/MyProfile/ProfileSelf";
 import ScrollableTabsButtonForce from "./components/tabs";
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -52,6 +52,7 @@ import ExploreIcon from '@material-ui/icons/Explore';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import Popover from '@material-ui/core/Popover';
 import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
 function getProfile(id){
   const [profiles, setProfiles] = useState([])
@@ -149,7 +150,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function UserGreeting() {
-  const p = getProfile(window.REP_LOG_APP_PROPS.user_id)
+  const p = getProfile(window.REP_LOG_APP_PROPS.id)
   return (
     <div>
       <Typography>
@@ -164,7 +165,7 @@ function GuestGreeting(){
     <div>
       <Typography>
         Welcome. 
-        <Button href="/login" color="primary">
+        <Button variant='outlined' href="/login" color="primary">
           Login
         </Button>
       </Typography>
@@ -173,8 +174,8 @@ function GuestGreeting(){
   )
 }
 function Greeting() {
-  const isLoggedIn = getProfile(window.REP_LOG_APP_PROPS.user_id);
-  if (isLoggedIn !== undefined) {
+  const isLoggedIn = getProfile(window.REP_LOG_APP_PROPS.id);
+  if (isLoggedIn != undefined) {
     return <UserGreeting />;
   }
   return <GuestGreeting />;
@@ -188,30 +189,45 @@ function App() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [NavAnchorEl, setNavAnchorEl] = React.useState(null);
-
+  const [AnchorAddEl, setAnchorAddEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
+  const isAddMenuOpen = Boolean(AnchorAddEl);
   const isNavMenuOpen = Boolean(NavAnchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const [hover, setHover] = React.useState(null);
-
-  const handlePopoverOpen = (event) => {
-    setHover(event.currentTarget);
+  const [hoverE, setHoverE] = React.useState(null);
+  const [hoverF, setHoverF] = React.useState(null);
+  const handlePopoverOpenExplore = (event) => {
+    setHoverE(event.currentTarget);
   };
 
-  const handlePopoverClose = () => {
-    setHover(null);
+  const handlePopoverCloseExplore = () => {
+    setHoverE(null);
+  };
+  const handlePopoverOpenFeed = (event) => {
+    setHoverF(event.currentTarget);
   };
 
-  const open = Boolean(hover);
+  const handlePopoverCloseFeed = () => {
+    setHoverF(null);
+  };
 
+  const openF = Boolean(hoverF);
+  const openE = Boolean(hoverE);
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleAddMenuOpen = (event) => {
+    setAnchorAddEl(event.currentTarget);
   };
   const handleNavMenuOpen = (event) => {
     setNavAnchorEl(event.currentTarget);
   };
   const handleNavMenuClose = (event) => {
     setNavAnchorEl(null);
+  };
+  const handleAddMenuClose = (event) => {
+    setAnchorAddEl(null);
   };
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -245,6 +261,25 @@ function App() {
     </Menu>
   );
   const navMenuId = 'primary-search-account-menu-nav';
+
+  const renderMenuAdd = (
+    <Menu
+    AnchorAddEl={AnchorAddEl}
+    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+    id={menuId}
+    keepMounted
+    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+    open={isAddMenuOpen}
+    onClose={handleAddMenuClose}
+  >
+    <MenuItem onClick={handleAddMenuClose}><Link to="/">Post Something</Link></MenuItem>
+    <MenuItem onClick={handleAddMenuClose}><Link to="/">Chat with Someone</Link></MenuItem>
+    <MenuItem onClick={handleAddMenuClose}><Link to="/">Add a Friend</Link></MenuItem>
+    <MenuItem onClick={handleAddMenuClose}><Link to="/">Start a Project</Link></MenuItem>
+    <MenuItem onClick={handleAddMenuClose}><Link to="/">Start a Club</Link></MenuItem>
+    <MenuItem onClick={handleAddMenuClose}><Link to="/">Create a Department</Link></MenuItem>
+  </Menu>
+  );
   const renderMenuNav = (
     <Menu
       NavAnchorEl={NavAnchorEl}
@@ -286,6 +321,7 @@ function App() {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
+      
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge badgeContent={11} color="secondary">
@@ -316,34 +352,14 @@ function App() {
         <p>Menu</p>
       </MenuItem>
       <MenuItem>
-      <IconButton aria-owns={open ? 'mouse-over-popover' : undefined}
+      <IconButton aria-owns={openE ? 'mouse-over-popover' : undefined}
           aria-haspopup="true"
-          onMouseEnter={handlePopoverOpen}
-          onMouseLeave={handlePopoverClose} color="inherit">
+          onMouseEnter={handlePopoverOpenExplore}
+          onMouseLeave={handlePopoverCloseExplore} color="inherit">
         <ExploreIcon />
       </IconButton>
 
-          <Popover
-          id="mouse-over-popover"
-          className={classes.popover}
-          classes={{
-            paper: classes.paper,
-          }}
-          open={open}
-          hover={hover}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
-          onClose={handlePopoverClose}
-          disableRestoreFocus
-        >
-        <Typography>Explore Page</Typography>
-        </Popover>
+      
       </MenuItem>
 
     </Menu>
@@ -353,10 +369,10 @@ function App() {
     <Router>
     <div className="App">
       <Navbar>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="absolute">
+        <Toolbar variant='dense'>
           <IconButton
-              edge="end"
+              edge="start"
               aria-label="account of current user"
               aria-controls={navMenuId}
               aria-haspopup="true"
@@ -366,7 +382,7 @@ function App() {
               <MenuIcon />
             </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Candle
+            The Candle
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -383,24 +399,7 @@ function App() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-        <IconButton aria-label="explore" color="inherit">
-            <ExploreIcon />
-        </IconButton>
-        <IconButton aria-label="feed" color="inherit">
-            <DynamicFeedIcon />
-        </IconButton>
-
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
+          <IconButton
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
@@ -408,8 +407,88 @@ function App() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
+              <Greeting />
               <AccountCircle />
             </IconButton>
+            <MenuItem>
+              <IconButton
+               edge="end"
+               aria-label="account of current user"
+               aria-controls={menuId}
+               aria-haspopup="true"
+               onClick={handleAddMenuOpen}
+               color="inherit">
+                <AddIcon />
+              </IconButton>
+            </MenuItem>
+          <IconButton aria-label="show 17 new notifications" color="inherit">
+              <Badge badgeContent={17} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+
+      <IconButton aria-owns={openE ? 'mouse-over-popover' : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpenExplore}
+          onMouseLeave={handlePopoverCloseExplore} color="inherit">
+       <Link color='white' to='/explore'><ExploreIcon /></Link>
+        <Popover
+          id="mouse-over-popover"
+          className={classes.popover}
+          classes={{
+            paper: classes.paper,
+          }}
+          open={openE}
+          hover={hoverE}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          onClose={handlePopoverCloseExplore}
+          disableRestoreFocus
+        >
+        <Typography>Explore Page</Typography>
+        </Popover>
+      </IconButton>
+      <IconButton aria-owns={openF ? 'mouse-over-popover' : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpenFeed}
+          onMouseLeave={handlePopoverCloseFeed} color="inherit">
+        <Link color='inherit' to={`/feed/${p.id}`}><DynamicFeedIcon /></Link>
+        
+        
+        <Popover
+          id="mouse-over-popover"
+          className={classes.popover}
+          classes={{
+            paper: classes.paper,
+          }}
+          open={openF}
+          hover={hoverF}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          onClose={handlePopoverCloseFeed}
+          disableRestoreFocus
+        >
+        <Typography>Feed</Typography>
+        </Popover>
+      </IconButton>
+            <IconButton aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <MailIcon />
+              </Badge>
+            </IconButton>
+
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
@@ -427,6 +506,7 @@ function App() {
         {renderMobileMenu}
         {renderMenu}
         {renderMenuNav}
+        {renderMenuAdd}
       </Navbar>
       <MotionLayoutProvider>
       <Switch>

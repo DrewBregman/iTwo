@@ -7,6 +7,7 @@ urlpatterns = [
     path('post/<int:id>', views.PostAPI.as_view()),
     path('department/<int:id>', views.DepartmentAPI.as_view()),
     path('feed/<int:id>', views.FeedAPI.as_view()),
+    path('myfeed/<int:id>', views.ProfileFeedAPI.as_view()),
     path('editP1/<int:id>', views.SetProfile1API.as_view()),
     path('department/<int:id>', views.DepartmentAPI.as_view()),
     path('club/<int:id>', views.ClubAPI.as_view()),

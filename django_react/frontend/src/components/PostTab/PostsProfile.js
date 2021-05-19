@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 /*import "../css/ProfileOne.css";*/
 import Posts from "./Posts";
-import CreatePost from "./CreatePost";
+import CreatePost from "../MyProfile/CreatePost";
 import Friends from "./Friends";
-import AreaInterest from "./AreaInterest";
+import AreaInterest from "../MyProfile/AreaInterest";
 import Post from "../Post";
 
 const useStyles = makeStyles({

@@ -37,11 +37,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import axios from 'axios';
 /*import EditButton from './EditProfile';*/
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
-import PostsProfile from "./PostTab/PostsProfile";
-import Posts from "./PostTab/Posts";
-import ProjectTab from "./uProjectTab/ProjectTab";
-import EditButton from './EditProfile/EditProf';
+import PostsProfile from "../PostTab/PostsProfile";
+import Posts from "../PostTab/Posts";
+import ProjectTab from "../uProjectTab/ProjectTab";
+import EditButton from '../EditProfile/EditProf';
 import BookIcon from '@material-ui/icons/Book';
+import PostTab from './PostTab';
 
 function getProfile(id){
   const [profiles, setProfiles] = useState([])
@@ -364,7 +365,7 @@ export default function ProfileSelf() {
       </div>
       <div className="postsProfile">
         <TabPanel value={value} index={2}>
-          <PostsProfile />
+          <PostTab />
         </TabPanel>
       </div>
       <div className="projectsProfile">
