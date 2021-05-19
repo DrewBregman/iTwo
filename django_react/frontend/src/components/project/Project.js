@@ -20,6 +20,7 @@ import Milestones from "./Milestones";
 import Members from "./Members";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import BookIcon from '@material-ui/icons/Book';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,7 +39,13 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     flexGrow: 1,
     backgroundColor: 'white',
-    }
+    },
+    tab: {
+      flexGrow: 1,
+      backgroundColor: 'white',
+      alignItems: 'center',
+      alignContent: 'center',
+      }
 }));
 
 function TabPanel(props) {
@@ -110,7 +117,7 @@ export default function Project() {
     <div className={classes.root}>
     <Paper className={classes.paper} elevation={3}>
     <Grid container spacing={3}>
-
+    <Box my={1} mx={1} />
       <Grid item xs={4} lg={2}>
         <IconButton>
                       <Avatar 
@@ -124,25 +131,65 @@ export default function Project() {
                           />
           </IconButton>
       </Grid>
-      <Grid item container xs={8} lg={10}>
-        <Grid item xs={12}>
-          Project {project.name}
-        </Grid> 
-        <Grid item xs={12}>
-          {project.description}
-        </Grid>  
-        <Grid item xs={12}>
-          Number Members
+      <Grid item container xs={6} lg={8}>
+        <Grid item container xs={8} lg={10}>
+          <Grid item xs={4} xl={2}>
+            <Typography variant="h6">
+              <b>{project.name}</b>
+            </Typography>
+          </Grid> 
+          <Grid item xs={12}>
+            <Typography variant="h6">
+            {project.department} Department
+            </Typography>
+          </Grid>  
         </Grid>
+        <Box m={2} />
         <Grid item xs={12}>
-          Date Founded: {project.dateFounded}
-        </Grid>     
-        <Grid item xs={12}>
-          {project.department} Department
-        </Grid>                              
+          <Typography variant="body1">
+           {project.description}
+          </Typography>
+        </Grid>  
+        <Box m={2} />
+        <Grid item container xs={12} xl={12}>
+          <Grid item xs={4} lg={4} xl={4}>
+            <Grid item xs={12} xl={12}>
+              <Typography>
+                  <b>65</b>         
+              </Typography>
+            </Grid>
+            <Grid item xs={12} xl={12}>
+              <Typography variant="caption" gutterBottom>
+                  Members          
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid item xs={4} lg={4} xl={4}>
+            <Grid item xs={12} xl={12}>
+                <Typography>
+                    <b>324</b>         
+                </Typography>
+              </Grid>
+              <Grid item xs={12} xl={12}>
+                <Typography variant="caption" gutterBottom>
+                    Posts          
+                </Typography>
+              </Grid>
+          </Grid>
+          <Grid item xs={4} lg={4} xl={4}>
+            <Typography>
+              Estimated {project.dateFounded}
+            </Typography>
+          </Grid>     
+        </Grid>
+        
+                                    
       </Grid>
-      <Grid className={classes.nav} item xs={12}>
-        <AppBar position="static" color="white">
+
+    </Grid>
+    </Paper>         
+     <Grid className={classes.tab} item xs={12}>
+        <AppBar position="center" color="white">
           <Tabs
             value={value}
             onChange={handleChange}
@@ -153,18 +200,16 @@ export default function Project() {
             aria-label="scrollable force tabs example"
           >
             <Tab label="Home" icon={<HomeIcon />} {...a11yProps(0)} />
-            <Tab label="Posts" icon={<PostAddIcon  />} {...a11yProps(1)} />
+            <Tab label="Posts" icon={<BookIcon  />} {...a11yProps(1)} />
             <Tab label="About" icon={<InfoIcon />} {...a11yProps(2)} />
             <Tab label="Milestones" icon={<TimelineIcon />} {...a11yProps(3)} />
             <Tab label="Members" icon={<GroupIcon />} {...a11yProps(4)} />
           </Tabs>
         </AppBar>
       </Grid>
-    </Grid>
-    </Paper>         
-
-    <Box m={2} />
-    <Paper className={classes.paper} elevation={3} >
+      <Box m={5} />
+      <Box mx={4}>
+    <Paper className={classes.tab} elevation={3} >
        <TabPanel value={value} index={0}>
           Item One
         </TabPanel>
@@ -187,9 +232,19 @@ export default function Project() {
           Item Seven
         </TabPanel>
                           
-    </Paper>          
-      <h1>Find Your Limits </h1>
-      <h2>Then push past them!</h2>
+    </Paper>       
+    </Box>   
+    <Box m={3} />
+    <Grid container >
+      <Grid item xs={10} lg={10} xl={10} />
+      <Grid item xs={2} xl={2}>
+      <Typography alignItems='center'>
+        The Candle
+      </Typography>     
+      </Grid>
+      
+    </Grid>
+               
     </div>
   );
 }

@@ -336,7 +336,7 @@ class Project(models.Model):
         "How does your project's application fit in to the future?", max_length=50, null=True)
     description = models.TextField(
         "Describe this project.", null=True)
-    dateFounded = models.DateTimeField(null=True, blank=True)
+    dateFounded = models.DateField(null=True, blank=True)
     look = (
         ('Expert Cadets.', ('motivated cadets with niche expertise.')),
         ('Any cadet who wants to help.', ('cadets who want to learn and help.')),
