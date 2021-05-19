@@ -21,7 +21,7 @@ import Members from "./Members";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import BookIcon from '@material-ui/icons/Book';
-
+import Button from '@material-ui/core/Button';
 const useStyles = makeStyles(theme => ({
   root: {
     minWidth: 275,
@@ -118,7 +118,7 @@ export default function Project() {
     <Paper className={classes.paper} elevation={3}>
     <Grid container spacing={3}>
     <Box my={1} mx={1} />
-      <Grid item xs={4} lg={2}>
+      <Grid item xs={4} lg={2} xl={1.5}>
         <IconButton>
                       <Avatar 
                           variant="square"
@@ -138,11 +138,27 @@ export default function Project() {
               <b>{project.name}</b>
             </Typography>
           </Grid> 
-          <Grid item xs={12}>
-            <Typography variant="h6">
+          <Grid item xs={4} xl={8}>
+          </Grid>
+          <Grid item xs={4}  xl={2}>
+          <Button variant="contained" color="primary">
+            View Roles
+          </Button>
+          </Grid>
+
+          <Grid item xs={8} lg={8} xl={5}>
+          <Typography variant="h6">
             {project.department} Department
             </Typography>
-          </Grid>  
+          </Grid> 
+          <Grid item xs={0} lg={0} xl={5}>
+          </Grid>
+          <Grid item xs={4}  lg={2} xl={2}>
+          <Box mt={1} />
+          <Button variant="outlined" color="primary">
+            Contact
+          </Button>
+          </Grid>
         </Grid>
         <Box m={2} />
         <Grid item xs={12}>
