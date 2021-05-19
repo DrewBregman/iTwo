@@ -64,7 +64,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 class SourceSerializer(serializers.ModelSerializer):
     model = Source
-    fields = ('id', 'profile', 'project', 'team', 'department')
+    fields = ('id', 'profile', 'project', 'team', 'department', 'club')
 
 
 class EditProfileSerializer1(serializers.ModelSerializer):

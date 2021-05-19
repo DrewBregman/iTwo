@@ -64,7 +64,15 @@ const useStyles = makeStyles((theme) => ({
       width: 160,
       height: 160,
       border: 10
+    },
+    square: {
+      margin: "auto",
+      width: theme.spacing(50),
+      height: theme.spacing(30),
+      alignContent: 'center',
     }
+
+    
   }));
   
 function gettingPosts(id){
@@ -85,7 +93,6 @@ function gettingPosts(id){
 }
 
 
-
 function FeedComponent() {
   const classes = useStyles();
   const post = gettingPosts(window.REP_LOG_APP_PROPS.request_id)
@@ -102,7 +109,7 @@ function FeedComponent() {
       }
 
       else{
-        var logo = logo1;
+        var logo = null;
       }
       return logo
       }
@@ -165,17 +172,15 @@ function FeedComponent() {
                 </Grid>
                 <Box m={2} />
               </Grid>
-                            <Grid item container xs={12} lg={12} xl={12}>
+              <Grid item container xs={12} lg={12} xl={12}>
                 <Grid item xs={12} xl={12}>
                   <Avatar variant="square" className={classes.square}
-                        src={getLogo(p.image)}
-                        /*src="https://images.huffingtonpost.com/2016-03-25-1458864692-9841862-MahatmaGandhiALegacyofPeace-thumb.jpg"
-                        */style={{
-                        margin: "10px",
-                        width: "320px",
-                        height: "320px",
-                        }}
-                        />
+                              src={getLogo(p.image)}
+                              /*src="https://images.huffingtonpost.com/2016-03-25-1458864692-9841862-MahatmaGandhiALegacyofPeace-thumb.jpg"
+                              */style={{
+                            
+                              }}
+                              />
                 </Grid>
                 <Box m={2} />
               </Grid>

@@ -88,7 +88,7 @@ export default function About(){
 
   return(
   <Grid container spacing={2}>
-    <Grid item container xs={6} xl={4}>
+    <Grid item container xs={6} xl={6} >
       <Grid item xs={12} xl={12}>
         <Paper className={classes.paper}>
           <Typography align="center" variant="h6">
@@ -110,7 +110,7 @@ export default function About(){
               Commmitment Level
             </Typography>
           </Grid>
-          <Grid item xs={12} lg={12}>
+          <Grid item xs={12} lg={12} xl={12}>
             <Typography variant="body1">
               SPEAR Rocketry team says that members should work for a minimum of
               four hours per week for at least a semester in order to be successful.
@@ -120,7 +120,7 @@ export default function About(){
       </Grid>
     </Grid>
 
-    <Grid item container xs={6} xl={4}>
+    <Grid item container xs={6} xl={6}>
       <Paper className={classes.paperRole}>
         <Grid item xs={12}>
           <Typography variant="h6">
@@ -152,7 +152,7 @@ export default function About(){
         </Grid>
         </Grid>
         <Box m={2} />
-        <Grid item xs={12} lg={12}>
+        <Grid item xs={12} lg={12} xl={12}>
           <Typography variant="body1" color="textPrimary">
             Click View Role To Apply For Roles!
           </Typography>

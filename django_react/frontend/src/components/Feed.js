@@ -74,11 +74,13 @@ export default function Feed() {
     return (
         <div>
             <Grid container>
-            <Grid item sm={2} md={3.5} lg={4} xl={4.5}></Grid>
-            <Grid item sm={8} md={5} lg={4} xl={3}>
+            <Box ml={1} />
+            <Grid item sm={0} md={1} lg={4} xl={4}></Grid>
+            <Grid item sm={12} md={10} lg={4} xl={3} alignContent='center' justify='center' alignItems='center'>
                 <FeedComponent />
             </Grid>
-            <Grid item sm={2} md={3.5} lg={4} xl={4.5}></Grid>
+            <Grid item sm={0} md={1} lg={4} xl={4}></Grid>
+            <Box mr={1} />
             </Grid>
 
         </div>
