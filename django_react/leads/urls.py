@@ -11,7 +11,9 @@ urlpatterns = [
     path('department/<int:id>', views.DepartmentAPI.as_view()),
     path('club/<int:id>', views.ClubAPI.as_view()),
     path('club/<int:id>/members', views.ClubMemberAPI.as_view()),
+    path('club/<int:id>/feed', views.ClubFeedAPI.as_view()),
     path('department/<int:id>/members', views.DepMemberAPI.as_view()),
+    path('department/<int:id>/feed', views.DepartmentFeedAPI.as_view()),
     path('department/<int:id>/projects', views.depProjectAPI.as_view()),
     path('department/<int:id>/clubs', views.ClubDepartmentAPI.as_view()),
     path('department/<int:id>', views.DepartmentAPI.as_view()),
@@ -20,6 +22,7 @@ urlpatterns = [
     #path('feed/<str:firstName>-<str:lastName>-<int:id>', views.FeedAPI.as_view()),
     path('project/<int:id>', views.ProjectAPI.as_view()),
     path('project/<int:id>/roles', views.RoleAPI.as_view()),
+    path('project/<int:id>/feed', views.ProjectFeedAPI.as_view()),
     path('project/<int:id>/milestones', views.MilestoneAPI.as_view()),
     path('project/<int:id>/members', views.ProjMemberAPI.as_view()),
 ]

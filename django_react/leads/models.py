@@ -48,6 +48,8 @@ class Source(models.Model):
         'Team', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
     department = models.ForeignKey(
         'Department', on_delete=models.CASCADE, blank=True, null=True, related_name='+')
+    club = models.ForeignKey(
+        'Club', on_delete=models.CASCADE, blank=True, null=True, related_name='+')
 
     def __str__(self):
         return str(self.id)
@@ -578,6 +580,8 @@ class Member(models.Model):
 
 class Club(models.Model):
     name = models.CharField(max_length=50, null=True)
+    sourceID = AutoOneToOneField(
+        'Source', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
     description = models.TextField(null=True)
     meet = models.CharField(max_length=50, null=True)
     next = models.DateField()

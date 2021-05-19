@@ -19,7 +19,8 @@ import About from "./About";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ClubMembers from './ClubMembers';
-
+import BookIcon from '@material-ui/icons/Book';
+import PostTab from './PostTab';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -159,24 +160,29 @@ export default function Club() {
             aria-label="scrollable force tabs example"
           >
             <Tab label="About" icon={<InfoIcon />} {...a11yProps(0)} />
-            <Tab label="Members" icon={<GroupIcon  />} {...a11yProps(1)} />
+            <Tab label="Posts" icon={<BookIcon  />} {...a11yProps(1)} />
+            <Tab label="Members" icon={<GroupIcon  />} {...a11yProps(2)} />
           </Tabs>
         </AppBar>
       </Grid>
-    <Box m={2} />
-    <Box m={2} />
+
+    <Box m={5} />
+    <Box mx={5}>
     <Paper className={classes.tabs} elevation={3} >
         <TabPanel value={value} index={0}>
           <About />
         </TabPanel>
         <TabPanel value={value} index={1}>
+          <PostTab />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
           <ClubMembers />
         </TabPanel>
 
                           
-    </Paper>          
-      <h4>Find Your Limits </h4>
-      <h6>Then push past them!</h6>
+    </Paper>   
+    </Box>       
+     
     </div>
   );
 }

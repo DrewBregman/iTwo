@@ -22,6 +22,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import BookIcon from '@material-ui/icons/Book';
 import Button from '@material-ui/core/Button';
+import PostTab from './PostTab';
+
 const useStyles = makeStyles(theme => ({
   root: {
     minWidth: 275,
@@ -230,7 +232,7 @@ export default function Project() {
           Item One
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          <PostTab />
         </TabPanel>
         <TabPanel value={value} index={2}>
           <About />

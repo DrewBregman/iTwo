@@ -23,6 +23,8 @@ import BookIcon from '@material-ui/icons/Book';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import Projects from './Projects';
 import Clubs from './Clubs';
+import PostTab from './PostTab';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -130,30 +132,35 @@ export default function Department() {
 
       <Grid item container xs={8} lg={10}>           
         <Grid item container xs={5.5} lg={5.5} xl={5.5}>
-        <Paper>
-          <Grid item xs={12} lg={12} xl={12}>
+
+          <Grid item xs={10} lg={10} xl={10}>
             <Typography variant="h6" gutterBottom>
               <b>{d.name}</b>
             </Typography>
           </Grid> 
+          <Grid item xs={2} xl={2}>
+            <Button variant="outlined" color="primary">
+              Join
+            </Button>
+            </Grid>
           <Grid item xs={12}>
             <Typography variant="body1" gutterBottom>
               {d.mission}
             </Typography>
           </Grid>  
-          </Paper>
  
         </Grid>
 
         <Grid item xs={0} lg={1} xl={1}></Grid>
  
         <Grid item alignContent='center' container xs={5.5} lg={5.5} xl={5.5}>
-        <Paper>
-            <Grid item xs={12}>
+
+            <Grid item xs={10} xl={10}>
               <Typography variant="body1" gutterBottom>
                 Department Head: {d.departmentHead}
               </Typography>
             </Grid>
+            
             <Grid item xs={12}>
               <Typography variant="body1" gutterBottom>
                 Deputy Department Head: {d.deputyHead}
@@ -164,13 +171,16 @@ export default function Department() {
                 Number of Members: 3 Million NONCHANGING
               </Typography>
             </Grid>
-            </Paper>
+
           </Grid>
      
         </Grid>
 
       </Grid>
-      <Grid className={classes.nav} item xs={12}>
+      
+    </Grid>
+    </Paper>    
+    <Grid className={classes.nav} item xs={12}>
         <AppBar position="static" color="white">
           <Tabs
             value={value}
@@ -189,16 +199,15 @@ export default function Department() {
           </Tabs>
         </AppBar>
       </Grid>
-    </Grid>
-    </Paper>         
-
-    <Box m={2} />
+      
+    <Box m={4} />
+    <Box mx={5} >
     <Paper className={classes.paper} elevation={3} >
        <TabPanel value={value} index={0}>
           <Projects />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Posts
+          <PostTab />
         </TabPanel>
         <TabPanel value={value} index={2}>
           <Clubs />
@@ -206,9 +215,10 @@ export default function Department() {
         <TabPanel value={value} index={3}>
           <Members />
         </TabPanel>
-
+    
                           
-    </Paper>          
+    </Paper>   
+    </Box>       
       <h1>Find Your Limits </h1>
       <h2>Then push past them!</h2>
     </div>

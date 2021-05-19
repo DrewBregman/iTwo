@@ -75,11 +75,11 @@ const useStyles = makeStyles((theme) => ({
     
   }));
   
-  function gettingPosts(department_id){
+  function gettingPosts(club_id){
     const [members, setMembers] = useState([])
   
     useEffect(() => {
-        const str = "/api/department/" + department_id + '/feed'
+        const str = "/api/club/" + club_id + '/feed'
         axios.get(str)
             .then(res =>{
                 console.log(res)
@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
 
 function FeedComponent() {
   const classes = useStyles();
-  const post = gettingPosts(department_id)
+  const post = gettingPosts(club_id)
   function getLogo(pic){
 
       var img = pic

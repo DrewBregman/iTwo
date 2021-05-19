@@ -78,6 +78,53 @@ class FeedAPI(APIView):
 # go from followers to source to post.id
 
 
+class ProjectFeedAPI(APIView):
+
+    #lookup_url_kwarg = 'id'
+    def get(self, *args, **kwargs):
+        id = self.kwargs['id']
+
+        props = Source.objects.filter(project_id=id)
+        superList = []
+        for x in props:
+            feedPosts = Post.objects.filter(sourceID_id=x)
+            for item in feedPosts:
+                superList.append(item)
+        data = PostSerializer(superList, many=True).data
+        return Response(data, status=status.HTTP_200_OK)
+        # return Response(feedPosts,  status=status.HTTP_200_OK)
+
+# go from followers to source to post.id
+
+
+class DepartmentFeedAPI(APIView):
+    def get(self, *args, **kwargs):
+        id = self.kwargs['id']
+
+        props = Source.objects.filter(department_id=id)
+        superList = []
+        for x in props:
+            feedPosts = Post.objects.filter(sourceID_id=x)
+            for item in feedPosts:
+                superList.append(item)
+        data = PostSerializer(superList, many=True).data
+        return Response(data, status=status.HTTP_200_OK)
+
+
+class ClubFeedAPI(APIView):
+    def get(self, *args, **kwargs):
+        id = self.kwargs['id']
+
+        props = Source.objects.filter(club_id=id)
+        superList = []
+        for x in props:
+            feedPosts = Post.objects.filter(sourceID_id=x)
+            for item in feedPosts:
+                superList.append(item)
+        data = PostSerializer(superList, many=True).data
+        return Response(data, status=status.HTTP_200_OK)
+
+
 class SetProfile1API(APIView):
     serializer_class = EditProfileSerializer1
     #lookup_url_kwarg = 'id'
