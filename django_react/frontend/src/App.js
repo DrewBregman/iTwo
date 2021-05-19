@@ -48,7 +48,35 @@ import Project from './components/project/Project';
 import Feed from './components/feed';
 import Club from './components/Club/Club';
 import Department from './components/Department/Department';
+import ExploreIcon from '@material-ui/icons/Explore';
+import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
+import Popover from '@material-ui/core/Popover';
+import Button from '@material-ui/core/Button';
 
+function getProfile(id){
+  const [profiles, setProfiles] = useState([])
+
+  useEffect(() => {
+      const str = "/api/profiles/" + id
+      axios.get(str)
+          .then(res =>{
+              console.log(res)
+              setProfiles(res.data)
+          })
+          .catch(err => {
+              console.log(err)
+          })
+  }, [])
+  return (
+                  profiles
+                  /*profiles.map(profile => {
+                    const {major, day, experienceOne, experienceTwo, experienceThree,
+                          experienceFour, experienceFive, skillOne, skillTwo, SkillThree,
+                          skillFour, skillFive, name, goalOne, goalTwo, goalThree,
+                          goalOneDesc, goalTwoDesc, goalThreeDesc, meetMe, lookFor} = profile;
+                    })*/
+  )
+}
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -112,14 +140,50 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  popover: {
+    pointerEvents: 'none',
+  },
+  paper: {
+    padding: theme.spacing(1),
+  },
 }));
 
+function UserGreeting() {
+  const p = getProfile(window.REP_LOG_APP_PROPS.user_id)
+  return (
+    <div>
+      <Typography>
+        Welcome, {p.firstName}
+      </Typography>
+    </div>
+  )
+}
 
+function GuestGreeting(){
+  return(
+    <div>
+      <Typography>
+        Welcome. 
+        <Button href="/login" color="primary">
+          Login
+        </Button>
+      </Typography>
+
+    </div>
+  )
+}
+function Greeting() {
+  const isLoggedIn = getProfile(window.REP_LOG_APP_PROPS.user_id);
+  if (isLoggedIn !== undefined) {
+    return <UserGreeting />;
+  }
+  return <GuestGreeting />;
+}
 
 
 function App() {
   /*const data123 = JSON.parse(window._DEFAULT_DATA);*/
-
+  const p = getProfile(window.REP_LOG_APP_PROPS.user_id)
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -128,6 +192,17 @@ function App() {
   const isMenuOpen = Boolean(anchorEl);
   const isNavMenuOpen = Boolean(NavAnchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [hover, setHover] = React.useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setHover(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setHover(null);
+  };
+
+  const open = Boolean(hover);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -153,6 +228,8 @@ function App() {
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
+  
+    
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -162,9 +239,9 @@ function App() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}><Link to="/p/1">Profile</Link></MenuItem>
+      <MenuItem onClick={handleMenuClose}><Link to={`/p/self/${p.id}`}>My Profile</Link></MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem onClick={handleMenuClose}><Link to="/project">My Projects</Link></MenuItem>
+      <MenuItem onClick={handleMenuClose}><Link to="/project/1">My Projects</Link></MenuItem>
     </Menu>
   );
   const navMenuId = 'primary-search-account-menu-nav';
@@ -178,7 +255,7 @@ function App() {
       open={isNavMenuOpen}
       onClose={handleNavMenuClose}
     >
-      <MenuItem onClick={handleNavMenuClose}><Link to="/explore">Explore</Link></MenuItem>
+      <MenuItem onClick={handleNavMenuClose}><Link to="/logout">Logout</Link></MenuItem>
       <MenuItem onClick={handleNavMenuClose}><Link to="/">Home</Link></MenuItem>
       <MenuItem onClick={handleNavMenuClose}><Link to="/">Settings</Link></MenuItem>
     </Menu>
@@ -196,6 +273,37 @@ function App() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      <Greeting />
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <Greeting />
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton aria-label="show 11 new notifications" color="inherit">
+          <Badge badgeContent={11} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <p>Notifications</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={4} color="secondary">
+            <MailIcon />
+          </Badge>
+        </IconButton>
+        <p>Messages</p>
+      </MenuItem>
+
+
       <MenuItem onClick={handleNavMenuOpen}>
       <IconButton
           aria-label="account of current user"
@@ -208,32 +316,36 @@ function App() {
         <p>Menu</p>
       </MenuItem>
       <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
+      <IconButton aria-owns={open ? 'mouse-over-popover' : undefined}
           aria-haspopup="true"
-          color="inherit"
+          onMouseEnter={handlePopoverOpen}
+          onMouseLeave={handlePopoverClose} color="inherit">
+        <ExploreIcon />
+      </IconButton>
+
+          <Popover
+          id="mouse-over-popover"
+          className={classes.popover}
+          classes={{
+            paper: classes.paper,
+          }}
+          open={open}
+          hover={hover}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+          onClose={handlePopoverClose}
+          disableRestoreFocus
         >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
+        <Typography>Explore Page</Typography>
+        </Popover>
       </MenuItem>
+
     </Menu>
   );
 
@@ -271,6 +383,13 @@ function App() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+        <IconButton aria-label="explore" color="inherit">
+            <ExploreIcon />
+        </IconButton>
+        <IconButton aria-label="feed" color="inherit">
+            <DynamicFeedIcon />
+        </IconButton>
+
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <MailIcon />
