@@ -611,7 +611,7 @@ class uDepartment(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.user) + ',' + self.department
+        return str(self.user) + ',' + str(self.department)
 
 
 class projDepartment(models.Model):
@@ -659,7 +659,7 @@ class uPosts(models.Model):
     )
 
     def __str__(self):
-        return 'Post From' + self.user.firstName + (' ') + self.user.lastName
+        return 'Post From' + str(self.user)
 
 
 class depPosts(models.Model):
@@ -679,7 +679,7 @@ class depPosts(models.Model):
     )
 
     def __str__(self):
-        return 'Post From' + self.Department.name
+        return 'Post From' + str(self.department)
 
 
 class projPosts(models.Model):
@@ -699,7 +699,7 @@ class projPosts(models.Model):
     )
 
     def __str__(self):
-        return 'Post From' + self.Project.name
+        return 'Post From' + str(self.project)
 
 # DIRECT MESSAGE VIEWS
 

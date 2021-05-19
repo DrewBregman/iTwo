@@ -11,7 +11,7 @@ urlpatterns = [
     path('department/<int:id>', views.DepartmentAPI.as_view()),
     path('club/<int:id>', views.ClubAPI.as_view()),
     path('club/<int:id>/members', views.ClubMemberAPI.as_view()),
-    path('department/<int:id>/members', views.depProjectAPI.as_view()),
+    path('department/<int:id>/members', views.DepMemberAPI.as_view()),
     path('department/<int:id>/projects', views.depProjectAPI.as_view()),
     path('department/<int:id>/clubs', views.ClubDepartmentAPI.as_view()),
     path('department/<int:id>', views.DepartmentAPI.as_view()),

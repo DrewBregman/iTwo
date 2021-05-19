@@ -6,7 +6,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <script>
     window._DEFAULT_DATA = 'Data parsed in string'
-    var terry = {{department_id}}
+    var department_id = {{department_id}}
     </script>
 </head>
 <body>
@@ -17,7 +17,7 @@
   {% load static %}
   <script type="text/javascript">
       window.REP_LOG_APP_PROPS = {
-            department_id : terry
+            department_id : department_id
         }
   </script>
   <script src="{% static "frontend/main.js" %}"></script>

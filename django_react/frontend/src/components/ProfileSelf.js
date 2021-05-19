@@ -41,6 +41,7 @@ import PostsProfile from "./PostTab/PostsProfile";
 import Posts from "./PostTab/Posts";
 import ProjectTab from "./uProjectTab/ProjectTab";
 import EditButton from './EditProfile/EditProf';
+import BookIcon from '@material-ui/icons/Book';
 
 function getProfile(id){
   const [profiles, setProfiles] = useState([])
@@ -303,7 +304,7 @@ export default function ProfileSelf() {
                     >
                     <Tab label="Home" icon={<HomeIcon />} {...a11yProps(0)} />
                     <Tab label="About" icon={<InfoIcon />} {...a11yProps(1)} />
-                    <Tab label="Posts" icon={<BlurOnIcon />} {...a11yProps(2)} />
+                    <Tab label="Posts" icon={<BookIcon />} {...a11yProps(2)} />
                     <Tab label="Projects" icon={<AccountTreeIcon />} {...a11yProps(3)} />
                     <Tab label="Reviews" icon={<RateReviewIcon />} {...a11yProps(4)} />
                     </Tabs>

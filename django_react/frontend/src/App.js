@@ -47,6 +47,7 @@ import ProjectTab from './components/uProjectTab/ProjectTab';
 import Project from './components/project/Project';
 import Feed from './components/feed';
 import Club from './components/Club/Club';
+import Department from './components/Department/Department';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -325,7 +326,7 @@ function App() {
             <Feed />
           </Route>
           <Route path="/department/:id">
-            Hello There
+            <Department />
           </Route>
           <Route path="/club/:id" component={dataClubs}>
             <Club />
