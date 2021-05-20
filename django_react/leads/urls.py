@@ -11,6 +11,7 @@ urlpatterns = [
     path('editP1/<int:id>', views.SetProfile1API.as_view()),
     path('department/<int:id>', views.DepartmentAPI.as_view()),
     path('club/<int:id>', views.ClubAPI.as_view()),
+    path('profile/<int:id>/projects', views.UserProjectAPI.as_view()),
     path('club/<int:id>/members', views.ClubMemberAPI.as_view()),
     path('club/<int:id>/feed', views.ClubFeedAPI.as_view()),
     path('department/<int:id>/members', views.DepMemberAPI.as_view()),
@@ -27,5 +28,5 @@ urlpatterns = [
     path('project/<int:id>/milestones', views.MilestoneAPI.as_view()),
     path('project/<int:id>/members', views.ProjMemberAPI.as_view()),
     path('follow/<int:id>/<int:id2>', views.followNotification.as_view()),
-    path('pnotification/<int:id>',views.profileNotifications.as_view())
+    path('pnotification/<int:id>', views.profileNotifications.as_view())
 ]
