@@ -269,8 +269,9 @@ export default function ProfileSelf() {
         alignItems="center"
         spacing={3}
       >
+        <Paper className={classes.paper}>
         <Grid item xs={12} xl={12}>
-          <Paper className={classes.paper}>
+          
             <div className={classes.profileImg}>
             <label htmlFor="contained-button-file">
                 <IconButton>
@@ -321,8 +322,9 @@ export default function ProfileSelf() {
 
                 </AppBar>
             </div>
-          </Paper>
+         
           </Grid>
+          </Paper>
           </Grid>
 
 <div>

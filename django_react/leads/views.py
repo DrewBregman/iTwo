@@ -4,7 +4,7 @@ from .serializers import(LeadSerializer, ProfileSerializer, PostSerializer, Sour
                          EditProfileSerializer1, EditProfileSerializer2, EditProfileSerializer3,
                          ProjectSerializer, MemberSerializer, RoleSerializer, MilestoneSerializer,
                          DepartmentSerializer, dMemberSerializer, dProjectSerializer, dClubSerializer,
-                         uClubSerializer, ClubSerializer)
+                         uClubSerializer, ClubSerializer, NotificationSerializer)
 
 from rest_framework import generics, status
 from rest_framework.views import APIView
@@ -14,11 +14,11 @@ from drf_multiple_model.views import ObjectMultipleModelAPIView
 
 
 class followNotification(APIView):
-    #serializer_class = EditProfileSerializer1
+    # serializer_class = EditProfileSerializer1
 
     # lookup_url_kwarg = 'id'
     def get(self, request, *args, **kwargs):
-        #serializer = self.serializer_class(data=request.data)
+        # serializer = self.serializer_class(data=request.data)
         # if serializer.is_valid():
         # id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
@@ -32,14 +32,21 @@ class followNotification(APIView):
                     p2 = profile2[0]
                     if p2.sourceID not in p.followers.all():
                         p.followers.add(p2.sourceID)
-
+                        p2.following.add(p.sourceID)
                         if p.sourceID in p2.followers.all():
-                            mess = p.firstName + ' ' + p.lastName + ' followed you on Candle.'
+                            mess = p.firstName + ' ' + p.lastName + ' followed you back on Candle.'
                             url = ''
                         else:
+
                             mess = p.firstName + ' ' + p.lastName + \
                                 ' followed you on Candle, would you like to follow back?'
                             url = '/p/follow/' + str(p.id)
+                        n = Notification(
+                            profile=p2, sendSource=p.sourceID, message=mess, url=url)
+
+                        mess = p.firstName + ' ' + p.lastName + \
+                            ' followed you on Candle, would you like to follow back?'
+                        url = '/api/follow/' + str(p2.id) + '/' + str(p.id)
                         n = Notification(
                             profile=p2, sendSource=p.sourceID, message=mess, url=url)
                         n.save()
@@ -51,6 +58,15 @@ class followNotification(APIView):
         return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class profileNotifications(APIView):
+    def get(self, *args, **kwargs):
+        id = self.kwargs['id']
+        profile = Profile.objects.filter(id=id)
+        notifications = Notification.objects.filter(profile=profile[0])
+        data = NotificationSerializer(notifications, many=True).data
+        return Response(data, status=status.HTTP_200_OK)
+
+
 class LeadListCreate(generics.ListCreateAPIView):
     queryset = Lead.objects.all()
     serializer_class = LeadSerializer
@@ -58,10 +74,10 @@ class LeadListCreate(generics.ListCreateAPIView):
 
 class ProfileAPI(APIView):
     serializer_class = ProfileSerializer
-    #lookup_url_kwarg = 'id'
+    # lookup_url_kwarg = 'id'
 
     def get(self, *args, **kwargs):
-        #id = request.GET.get(self.lookup_url_kwarg)
+        # id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
         if id != None:
             profile = Profile.objects.filter(id=id)
@@ -78,7 +94,7 @@ class PostAPI(APIView):
     serializer_class = PostSerializer
 
     def get(self, *args, **kwargs):
-        #id = request.GET.get(self.lookup_url_kwarg)
+        # id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
         if id != None:
             post = Post.objects.filter(id=id)
@@ -90,13 +106,13 @@ class PostAPI(APIView):
         return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
 # class FeedAPI(APIView):
-    #queryset = Profile.objects.all()
+    # queryset = Profile.objects.all()
     # serializer_class =
 
 
 class FeedAPI(APIView):
 
-    #lookup_url_kwarg = 'id'
+    # lookup_url_kwarg = 'id'
     def get(self, *args, **kwargs):
         id = self.kwargs['id']
 
@@ -118,7 +134,7 @@ class FeedAPI(APIView):
 
 class ProjectFeedAPI(APIView):
 
-    #lookup_url_kwarg = 'id'
+    # lookup_url_kwarg = 'id'
     def get(self, *args, **kwargs):
         id = self.kwargs['id']
 
@@ -137,7 +153,7 @@ class ProjectFeedAPI(APIView):
 
 class ProfileFeedAPI(APIView):
 
-    #lookup_url_kwarg = 'id'
+    # lookup_url_kwarg = 'id'
     def get(self, *args, **kwargs):
         id = self.kwargs['id']
 
@@ -181,12 +197,12 @@ class ClubFeedAPI(APIView):
 
 class SetProfile1API(APIView):
     serializer_class = EditProfileSerializer1
-    #lookup_url_kwarg = 'id'
+    # lookup_url_kwarg = 'id'
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            #id = request.GET.get(self.lookup_url_kwarg)
+            # id = request.GET.get(self.lookup_url_kwarg)
             id = self.kwargs['id']
             if id != None:
                 profile = Profile.objects.filter(id=id)
@@ -209,12 +225,12 @@ class SetProfile1API(APIView):
 
 class SetProfile2API(APIView):
     serializer_class = EditProfileSerializer2
-    #lookup_url_kwarg = 'id'
+    # lookup_url_kwarg = 'id'
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            #id = request.GET.get(self.lookup_url_kwarg)
+            # id = request.GET.get(self.lookup_url_kwarg)
             id = self.kwargs['id']
             if id != None:
                 profile = Profile.objects.filter(id=id)
@@ -240,12 +256,12 @@ class SetProfile2API(APIView):
 
 class SetProfile3API(APIView):
     serializer_class = EditProfileSerializer3
-    #lookup_url_kwarg = 'id'
+    # lookup_url_kwarg = 'id'
 
     def post(self, request, *args, **kwargs):
         serializer = EditProfileSerializer3(data=request.data)
         if serializer.is_valid():
-            #id = request.GET.get(self.lookup_url_kwarg)
+            # id = request.GET.get(self.lookup_url_kwarg)
             id = self.kwargs['id']
             if id != None:
                 profile = Profile.objects.filter(id=id)
@@ -271,7 +287,7 @@ class ProjectAPI(APIView):
     queryset = Profile.objects.all()
 
     def get(self, *args, **kwargs):
-        #id = request.GET.get(self.lookup_url_kwarg)
+        # id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
         if id != None:
             project = Project.objects.filter(id=id)
@@ -283,7 +299,7 @@ class ProjectAPI(APIView):
         return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
     # def get_context_data(self, **kwargs):
-        #context = super().get_context_data(**kwargs)
+        # context = super().get_context_data(**kwargs)
         # context= {
         # 'project': Project.objects.filter(name=name),
         # 'id': Project.objects.filter(id=id)
@@ -296,7 +312,7 @@ class depProjectAPI(APIView):
     queryset = Department.objects.all()
 
     def get(self, *args, **kwargs):
-        #id = request.GET.get(self.lookup_url_kwarg)
+        # id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
         if id != None:
             department = Department.objects.filter(id=id)
@@ -314,7 +330,7 @@ class DepartmentAPI(APIView):
     queryset = Profile.objects.all()
 
     def get(self, *args, **kwargs):
-        #id = request.GET.get(self.lookup_url_kwarg)
+        # id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
         if id != None:
             department = Department.objects.filter(id=id)
@@ -331,7 +347,7 @@ class ClubAPI(APIView):
     queryset = Club.objects.all()
 
     def get(self, *args, **kwargs):
-        #id = request.GET.get(self.lookup_url_kwarg)
+        # id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
         if id != None:
             club = Club.objects.filter(id=id)
@@ -347,7 +363,7 @@ class ClubMemberAPI(APIView):
     serializer_class = uClubSerializer
 
     def get(self, *args, **kwargs):
-        #id = request.GET.get(self.lookup_url_kwarg)
+        # id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
         if id != None:
             club = Club.objects.filter(id=id)
@@ -364,7 +380,7 @@ class DepMemberAPI(APIView):
     serializer_class = dMemberSerializer
 
     def get(self, *args, **kwargs):
-        #id = request.GET.get(self.lookup_url_kwarg)
+        # id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
         if id != None:
             department = Department.objects.filter(id=id)
@@ -381,13 +397,13 @@ class ProjMemberAPI(APIView):
     serializer_class = MemberSerializer
 
     def get(self, *args, **kwargs):
-        #id = request.GET.get(self.lookup_url_kwarg)
+        # id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
         if id != None:
             projects = uProjects.objects.filter(project_id=id)
             superList = []
-            for x in projects[0].user.profile.filter(uprojects_id=id):
-                superList.append(x)
+            for x in projects:
+                superList.append(x.user.profile)
             if len(projects) > 0:
                 data = ProfileSerializer(superList, many=True).data
                 return Response(data, status=status.HTTP_200_OK)
@@ -395,14 +411,21 @@ class ProjMemberAPI(APIView):
 
         return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
-        props = Source.objects.filter(club_id=id)
-        superList = []
-        for x in props:
-            feedPosts = Post.objects.filter(sourceID_id=x)
-            for item in feedPosts:
-                superList.append(item)
-        data = PostSerializer(superList, many=True).data
-        return Response(data, status=status.HTTP_200_OK)
+
+class UserProjectAPI(APIView):
+    def get(self, *args, **kwargs):
+        id = self.kwargs['id']
+        if id != None:
+            projects = uProjects.objects.filter(user_id=id)
+            list = []
+            for x in projects:
+                list.append(x.project)
+            if len(projects) > 0:
+                data = ProjectSerializer(list, many=True).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Member Profiles Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ClubDepartmentAPI(APIView):
@@ -410,7 +433,7 @@ class ClubDepartmentAPI(APIView):
     queryset = depClub.objects.all()
 
     def get(self, *args, **kwargs):
-        #id = request.GET.get(self.lookup_url_kwarg)
+        # id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
         if id != None:
             club = Club.objects.filter(id=id)
@@ -427,7 +450,7 @@ class RoleAPI(APIView):
     serializer_class = RoleSerializer
 
     def get(self, *args, **kwargs):
-        #id = request.GET.get(self.lookup_url_kwarg)
+        # id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
         if id != None:
             project = Project.objects.filter(id=id)
@@ -444,7 +467,7 @@ class MilestoneAPI(APIView):
     serializer_class = MilestoneSerializer
 
     def get(self, *args, **kwargs):
-        #id = request.GET.get(self.lookup_url_kwarg)
+        # id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
         if id != None:
             project = Project.objects.filter(id=id)

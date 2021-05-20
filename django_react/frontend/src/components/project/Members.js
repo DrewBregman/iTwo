@@ -65,6 +65,15 @@ function getMembers(project_id){
     )
   }
 
+function ViewButton() {
+  return (
+    <div>
+      <Button variant="contained" color="primary ">
+        View Profile
+      </Button>
+    </div>
+  )
+}
 
 function Members() {
     var randomColor = require('randomcolor'); 
@@ -93,32 +102,40 @@ function Members() {
                     {members.map((member) => 
                     <div>
                     <Grid container spacing={2}>
-                      <Grid item container xs={2} lg={3} />
-                        <Paper variant="outlined" color={color} className={classes.paper}>
+                      <Box mx={45} my={2}>
+                        <Paper elevation={3} variant="outlined" color={color} className={classes.paper}>
                           <Grid item className={classes.paper} container xs={12} lg={12}>
                             <Grid className={classes.paper} item xs={2} lg={2}>
-                              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                              <Avatar alt="Remy Sharp" src={member.image} />
                             </Grid>
                             <Grid item xs={2} lg={1} />
-                            <Grid item container xs={4} lg={5}>
+                            <Grid item container xs={4} xl={5}>
                               <Grid item xs={12} lg={12}>
-                                {member.user} {bull} {member.title} {/* Seth this is where I need you to go from member>user>profile>profile.name please*/}
+                                {member.firstName} {member.lastName} {bull} {member.Major} {/* Seth this is where I need you to go from member>user>profile>profile.name please*/}
                               </Grid>
                               <Grid item xs={12} lg={12}>
-                                <Typography color="textSecondary">@andrew.bregman</Typography>
+                                <Typography color="textSecondary">West Point {member.gradYear}</Typography>
                               </Grid>
                             </Grid>
-                            <Grid item xs={2} lg={2} />
-                            <Grid item className={classes.paper} xs={2} lg={2}>
-                              <Button variant="outlined" color="primary ">
-                                Chat
-                              </Button>
-                            </Grid>
+                              <Grid item container justify='flex-end' xs={4} lg={4}>
+                              <Box mx={2}>
+                                <Grid item xs={12} xl={12}>
+                                  <Link color='inherit' to={`/p/${member.id}`}><ViewButton /></Link>       
+                                </Grid>
+                                <Box m={1} />
+                                <Grid item xs={12} xl={12}>
+                                  <Button variant="outlined" color="primary ">
+                                  <Link color='inherit' to='/p/self/1'>Chat</Link> 
+                                  </Button>
+                                </Grid>
+                                </Box>
+                              </Grid>
+                            
+                            
                           </Grid>
                         </Paper>
-                        <Grid item container xs={2} lg={3} />
+                        </Box>
                     </Grid>
-                    <Box m={2} />
                     </div>
                 )};
                 </ul>
