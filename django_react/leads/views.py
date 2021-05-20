@@ -19,15 +19,15 @@ class followNotification(APIView):
     # lookup_url_kwarg = 'id'
     def get(self, request, *args, **kwargs):
         #serializer = self.serializer_class(data=request.data)
-        #if serializer.is_valid():
-            # id = request.GET.get(self.lookup_url_kwarg)
+        # if serializer.is_valid():
+        # id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
         id2 = self.kwargs['id2']
         if id != None:
             profile = Profile.objects.filter(id=id)
             if len(profile) > 0:
                 p = profile[0]
-                profile2 = Profile.objects.filter(id = id2)
+                profile2 = Profile.objects.filter(id=id2)
                 if len(profile2) > 0:
                     p2 = profile2[0]
                     if p2.sourceID not in p.followers.all():
@@ -37,13 +37,15 @@ class followNotification(APIView):
                             mess = p.firstName + ' ' + p.lastName + ' followed you on Candle.'
                             url = ''
                         else:
-                            mess = p.firstName + ' ' + p.lastName + ' followed you on Candle, would you like to follow back?'
+                            mess = p.firstName + ' ' + p.lastName + \
+                                ' followed you on Candle, would you like to follow back?'
                             url = '/p/follow/' + str(p.id)
-                        n = Notification(profile = p2, sendSource = p.sourceID, message = mess, url = url)
+                        n = Notification(
+                            profile=p2, sendSource=p.sourceID, message=mess, url=url)
                         n.save()
                         return Response({'message': 'nice!!!'}, status=status.HTTP_200_OK)
                     else:
-                        return Response({'Bad Request': 'Already Following'},status=status.HTTP_400_BAD_REQUEST)
+                        return Response({'Bad Request': 'Already Following'}, status=status.HTTP_400_BAD_REQUEST)
             return Response({'Profile Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
 
         return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
@@ -279,6 +281,7 @@ class ProjectAPI(APIView):
             return Response({'Project Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
 
         return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
     # def get_context_data(self, **kwargs):
         #context = super().get_context_data(**kwargs)
         # context= {
@@ -381,14 +384,25 @@ class ProjMemberAPI(APIView):
         #id = request.GET.get(self.lookup_url_kwarg)
         id = self.kwargs['id']
         if id != None:
-            project = Project.objects.filter(id=id)
-            uProj = uProjects.objects.all()
-            if len(uProj) > 0:
-                data = [MemberSerializer(x).data for x in uProj]
+            projects = uProjects.objects.filter(project_id=id)
+            superList = []
+            for x in projects[0].user.profile.filter(uprojects_id=id):
+                superList.append(x)
+            if len(projects) > 0:
+                data = ProfileSerializer(superList, many=True).data
                 return Response(data, status=status.HTTP_200_OK)
-            return Response({'User Projects Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'Member Profiles Not Found': 'Invalid ID'}, status=status.HTTP_404_NOT_FOUND)
 
         return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
+        props = Source.objects.filter(club_id=id)
+        superList = []
+        for x in props:
+            feedPosts = Post.objects.filter(sourceID_id=x)
+            for item in feedPosts:
+                superList.append(item)
+        data = PostSerializer(superList, many=True).data
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class ClubDepartmentAPI(APIView):

@@ -406,10 +406,10 @@ class uProjects(models.Model):
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=50)
     sourceID = AutoOneToOneField(
         'Source', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
-    mission = models.CharField(max_length=100)
+    mission = models.CharField(max_length=300)
     departmentHead = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name="departmentHead")
     deputyHead = models.OneToOneField(
@@ -638,7 +638,7 @@ class Notification(models.Model):
     url = models.TextField(null='', blank='', default='')
     ifViewed = models.BooleanField(null=False, default=False)
     ifAccepted = models.BooleanField(null=False, default=False)
-    sendSource = models.ForeignKey(Source, on_delete=models.CASCADE, null= True)
+    sendSource = models.ForeignKey(Source, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.message

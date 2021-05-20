@@ -43,6 +43,7 @@ import ProjectTab from "../uProjectTab/ProjectTab";
 import EditButton from '../EditProfile/EditProf';
 import BookIcon from '@material-ui/icons/Book';
 import PostTab from './PostTab';
+import About from './About';
 
 function getProfile(id){
   const [profiles, setProfiles] = useState([])
@@ -195,6 +196,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function generate(element) {
+  return [0].map((value) =>
+    React.cloneElement(element, {
+      key: value,
+    }),
+  );
+}
+
 export default function ProfileSelf() {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
@@ -260,7 +269,7 @@ export default function ProfileSelf() {
         alignItems="center"
         spacing={3}
       >
-        <Grid item xs={12}>
+        <Grid item xs={12} xl={12}>
           <Paper className={classes.paper}>
             <div className={classes.profileImg}>
             <label htmlFor="contained-button-file">
@@ -313,204 +322,32 @@ export default function ProfileSelf() {
                 </AppBar>
             </div>
           </Paper>
-        </Grid>
-        <Grid item xs={6}>
-          
-        </Grid>
-        <Grid item xs={6}>
-            <div className={classes.homeView}>
-                <TabPanel value={value} index={0}>
-                    <Posts />
-                </TabPanel>
-            </div>
-            
-            <TabPanel value={value} index={4}>
-                This is where the user's reviews will go
-            </TabPanel>
-        </Grid>
-      </Grid>
-      <div className = {classes.about}>
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="flex-start"
-        >       
-            <TabPanel value={value} index={1}>
-              <About 
-                major={gottenprofile.major}
-                day={gottenprofile.day}
-                experienceOne={gottenprofile.experienceOne}
-                experienceTwo={gottenprofile.experienceTwo}
-                experienceThree={gottenprofile.experienceThree}
-                experienceFour={gottenprofile.experienceFour}
-                experienceFive={gottenprofile.experienceFive}
-                skillOne={gottenprofile.skillOne}
-                skillTwo={gottenprofile.skillTwo}
-                skillThree={gottenprofile.skillThree}
-                skillFour={gottenprofile.skillFour}
-                skillFive={gottenprofile.skillFive}
-                name={name}
-                goalOne={gottenprofile.goalOne}
-                goalTwo={gottenprofile.goalTwo}
-                goalThree={gottenprofile.goalThree}
-                goalOneDesc={gottenprofile.goalOneDesc}
-                goalTwoDesc={gottenprofile.goalTwoDesc}
-                goalThreeDesc={gottenprofile.goalThreeDesc}
-                meetMe={gottenprofile.meetMe}
-                lookFor={gottenprofile.lookingFor}
-              />
-            </TabPanel>
-        </Grid>
-      </div>
-      <div className="postsProfile">
+          </Grid>
+          </Grid>
+
+<div>
+      <Box mx={4} my={5} >
+    <Paper className={classes.tab} elevation={3} >
+       <TabPanel value={value} index={0}>
+          <Posts />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <About />
+        </TabPanel>
         <TabPanel value={value} index={2}>
           <PostTab />
         </TabPanel>
-      </div>
-      <div className="projectsProfile">
         <TabPanel value={value} index={3}>
-                <ProjectTab />
+          <ProjectTab />
         </TabPanel>
-      </div>
+        <TabPanel value={value} index={4}>
+          This is where the users reviews will go
+        </TabPanel>
+                         
+    </Paper>       
+    </Box>   
     </div>
+  </div>
   );
                     }
-
-
-
-function generate(element) {
-  return [0].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    }),
-  );
-}
-
-function About({ goalTwo, 
-                goalTwoDesc, goalThree, goalThreeDesc, 
-                major, day, experienceOne, experienceTwo, 
-                experienceThree, skillOne, skillTwo, skillThree, 
-                skillFour, skillFive, experienceFour, 
-                experienceFive, name, meetMe, lookFor, goalOne, goalOneDesc
-              }) {
-  const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
-  const [dense, setDense] = React.useState(false);
-
-
-  return (
-    <div className={classes.rootGoals}>
-      <Grid container alignItems="baseline" justify="center" spacing={3}>
-        <Grid item xs={4}>
-          <Paper className={classes.about}>
-            Meet Me
-            <Typography variant="body1" color="textSecondary" className={classes.demoGoals}>
-              {meetMe}
-            </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={4}>
-            <Paper className={classes.aboutGoals}>
-              <Grid item xs={12}>
-                <Typography variant="h6" className={classes.titleGoals}>
-                  Research Goals
-                </Typography>
-                <div className={classes.demoGoals}>
-                  <List dense={dense}>
-                    {generate(
-                      <ListItem>
-                        <ListItemText
-                          primary={goalOne}
-                          secondary={goalOneDesc}
-                        />
-                      </ListItem>,
-                    )}
-                    {generate(
-                      <ListItem>
-                        <ListItemText
-                          primary={goalTwo}
-                          secondary={goalTwoDesc}
-                        />
-                      </ListItem>,
-                    )}
-                    {generate(
-                      <ListItem>
-                        <ListItemText
-                          primary={goalThree}
-                          secondary={goalThreeDesc}
-                        />
-                      </ListItem>,
-                    )}
-                  </List>
-                </div>
-              </Grid>
-            </Paper>
-        </Grid>
-        <Grid item xs={4}>
-          <div className={classes.rootExperience}>
-            <Paper className={classes.aboutExperience}>
-            <div className={classes.section1Experience}>
-              <Grid container alignItems="center">
-                <Grid item xs>
-                  <Typography gutterBottom variant="h6">
-                    Experience
-                  </Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography color="text-secondary" gutterBottom variant="body1">
-                    {major} Major
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Typography gutterBottom variant="body2">
-              <div className={classes.list}>
-                <ul>
-                  <li>{bull}{experienceOne}</li>
-                  <li>{bull}{experienceTwo}</li>
-                  <li>{bull}{experienceThree}</li>
-                  <li>{bull}{experienceFour}</li>
-                  <li>{bull}{experienceFive}</li>
-                </ul>
-              </div>
-              </Typography>
-            </div>
-            <Divider variant="middle" />
-            <div className={classes.section2Experience}>
-              <Typography gutterBottom variant="body1">
-                Skills
-              </Typography>
-              <div>
-                <Chip className={classes.chipExperience} label={skillOne} />
-                <Chip className={classes.chipExperience} color="primary" label={skillTwo} />
-                <Chip className={classes.chipExperience} label={skillThree} />
-                <Chip className={classes.chipExperience} label={skillFour} />
-                <Chip className={classes.chipExperience} label={skillFive} />
-              </div>
-            </div>
-            <div className={classes.section3Experience}>
-              <Button color="primary">Endorse a Skill</Button>
-            </div>
-          </Paper>
-          </div>
-        </Grid>
-        <Grid item xs={4}>
-          <Paper className={classes.rootGoals}>
-            <b><u>Looking For</u></b>
-            <Typography gutterBottom color="textSecondary" variant="body1">
-                {name} is {lookFor}
-            </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={4}>
-          <Paper className={classes.about}><b>{name}</b> is Usually Free On {day}</Paper>
-        </Grid>
-        <Grid item xs={4}>
-            <EditButton>Hello</EditButton>
-        </Grid>
-      </Grid>
-    </div>
-
-  );
-}
 

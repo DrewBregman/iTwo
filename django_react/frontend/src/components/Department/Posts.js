@@ -162,7 +162,7 @@ function FeedComponent() {
               <Grid item container xs={12} lg={12} xl={12}>
                 <Grid item xs={12} lg={12} xl={12}>
                   <Typography variant="h6">
-                    HELLO
+
                     {p.title}
                   </Typography>
                 </Grid>
