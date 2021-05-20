@@ -4,7 +4,7 @@ from .serializers import(LeadSerializer, ProfileSerializer, PostSerializer, Sour
                          EditProfileSerializer1, EditProfileSerializer2, EditProfileSerializer3,
                          ProjectSerializer, MemberSerializer, RoleSerializer, MilestoneSerializer,
                          DepartmentSerializer, dMemberSerializer, dProjectSerializer, dClubSerializer,
-                         uClubSerializer, ClubSerializer)
+                         uClubSerializer, ClubSerializer, NotificationSerializer)
 
 from rest_framework import generics, status
 from rest_framework.views import APIView
@@ -32,13 +32,13 @@ class followNotification(APIView):
                     p2 = profile2[0]
                     if p2.sourceID not in p.followers.all():
                         p.followers.add(p2.sourceID)
-
+                        p2.following.add(p.sourceID)
                         if p.sourceID in p2.followers.all():
-                            mess = p.firstName + ' ' + p.lastName + ' followed you on Candle.'
+                            mess = p.firstName + ' ' + p.lastName + ' followed you back on Candle.'
                             url = ''
                         else:
                             mess = p.firstName + ' ' + p.lastName + ' followed you on Candle, would you like to follow back?'
-                            url = '/p/follow/' + str(p.id)
+                            url = '/api/follow/' + str(p2.id) + '/' + str(p.id)
                         n = Notification(profile = p2, sendSource = p.sourceID, message = mess, url = url)
                         n.save()
                         return Response({'message': 'nice!!!'}, status=status.HTTP_200_OK)
@@ -48,6 +48,13 @@ class followNotification(APIView):
 
         return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
+class profileNotifications(APIView):
+    def get(self, *args, **kwargs):
+        id = self.kwargs['id']
+        profile = Profile.objects.filter(id=id)
+        notifications = Notification.objects.filter(profile = profile[0])
+        data = NotificationSerializer(notifications, many=True).data
+        return Response(data, status=status.HTTP_200_OK)
 
 class LeadListCreate(generics.ListCreateAPIView):
     queryset = Lead.objects.all()

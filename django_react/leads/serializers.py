@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Club, Profile, Source, Post, Lead, Project, Role, Milestones, depClub, uClub, uProjects, Department, projDepartment, uDepartment
+from .models import Notification, Club, Profile, Source, Post, Lead, Project, Role, Milestones, depClub, uClub, uProjects, Department, projDepartment, uDepartment
 
 
 class LeadSerializer(serializers.ModelSerializer):
@@ -54,6 +54,10 @@ class ClubSerializer(serializers.ModelSerializer):
         fields = ('name', 'description', 'meet', 'next', 'during',
                   'poc')
 
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = ('message','url','ifViewed')
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
