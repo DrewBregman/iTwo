@@ -17,10 +17,11 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 3,
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
     color: "white",
-    width: 'auto', /*800*/
+    width: 800, /*800*/
     height: 'auto',
     overflow: "auto",
-    padding: "0 30px"
+    padding: "0 30px",
+    margin: 'auto',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,

@@ -17,6 +17,33 @@ import DescriptionIcon from "@material-ui/icons/Description";
 import Avatar from "@material-ui/core/Avatar";
 import Divider from "@material-ui/core/Divider";
 import SendIcon from "@material-ui/icons/Send";
+import IconButton from '@material-ui/core/IconButton';
+import {useState, useEffect} from 'react';
+
+function getProfile(id){
+  const [profiles, setProfiles] = useState([])
+
+  useEffect(() => {
+      const str = "/api/profiles/" + id
+      axios.get(str)
+          .then(res =>{
+              console.log(res)
+              setProfiles(res.data)
+          })
+          .catch(err => {
+              console.log(err)
+          })
+  }, [])
+  return (
+                  profiles
+                  /*profiles.map(profile => {
+                    const {major, day, experienceOne, experienceTwo, experienceThree,
+                          experienceFour, experienceFive, skillOne, skillTwo, SkillThree,
+                          skillFour, skillFive, name, goalOne, goalTwo, goalThree,
+                          goalOneDesc, goalTwoDesc, goalThreeDesc, meetMe, lookFor} = profile;
+                    })*/
+  )
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,32 +81,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 function Top() {
   return (
-    <div>
+    <>
       <Grid item xs={10} xl={11}>
         <Typography variant="h5" align="left">
           Post Something
         </Typography>
       </Grid>
       <Grid item xs={2} xl={1} align="right">
-        <CloseIcon />
+        <IconButton>
+          <CloseIcon />
+        </IconButton>
       </Grid>
-    </div>
+    </>
   );
 }
 
 function Below() {
+  const p = getProfile(window.REP_LOG_APP_PROPS.user_id)
   return (
-    <div>
+    <>
       <Grid item xs={2} xl={2}>
         <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
       </Grid>
-      <Grid item xs={10} xl={10} alignContent="left">
-        Name
+      <Grid item xs={8} xl={8} alignContent="center">
+        {p.name}
       </Grid>
-    </div>
+    </>
   );
 }
 export default function CreatePost() {
+  const p = getProfile(window.REP_LOG_APP_PROPS.user_id)
   /*const p = getProfile(window.REP_LOG_APP_PROPS.user_id) */
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
@@ -89,38 +120,50 @@ export default function CreatePost() {
         <Paper>
           <Grid container spacing={2}>
             <Top />
-            <Divider variant="middle" />
+            <Divider/>
             <Below />
             <Grid item xs={12} xl={12}>
-              <form className={classes.form} noValidate autoComplete="off">
-                <TextField
-                  id="outlined-secondary"
-                  label="Post Something Inspiring"
-                  variant="outlined"
-                  color="secondary"
-                  size="large"
-                />
-              </form>
+              <Box m={2}>
+                <form className={classes.form} noValidate autoComplete="off">
+                  <TextField
+                    id="outlined-secondary"
+                    label="Post Something Inspiring"
+                    variant="outlined"
+                    color="secondary"
+                    size="large"
+                  />
+                </form>
+              </Box>              
             </Grid>
             <Grid item container xs={12} xl={12}>
               <Grid item container xs={8} xl={8}>
                 <Grid item xs={2} xl={2} alignContent="center">
-                  <ImageIcon />
+                  <IconButton>
+                    <ImageIcon />
+                  </IconButton>              
                 </Grid>
                 <Grid item xs={2} xl={2} alignContent="center">
-                  <VideocamIcon />
+                  <IconButton>
+                    <VideocamIcon />
+                  </IconButton>              
                 </Grid>
                 <Grid item xs={2} xl={2} alignContent="center">
-                  <LinkIcon />
+                  <IconButton>
+                    <LinkIcon />
+                  </IconButton>                  
                 </Grid>
                 <Grid item xs={2} xl={2} alignContent="center">
-                  <DescriptionIcon />
+                  <IconButton>
+                    <DescriptionIcon />
+                  </IconButton>         
                 </Grid>
               </Grid>
               <Grid item xs={3} xl={3} align="right">
-                <Typography>
-                  Post <SendIcon />
-                </Typography>
+                <IconButton>
+                  <Typography>
+                    Post <SendIcon />
+                  </Typography>
+                </IconButton>               
               </Grid>
               <Grid item xs={1} xl={1} />
             </Grid>
