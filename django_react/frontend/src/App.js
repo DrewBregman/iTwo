@@ -53,6 +53,7 @@ import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import Popover from '@material-ui/core/Popover';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import CreatePostModal from './CreatePostModal';
 
 function getProfile(id){
   const [profiles, setProfiles] = useState([])
@@ -272,7 +273,7 @@ function App() {
     open={isAddMenuOpen}
     onClose={handleAddMenuClose}
   >
-    <MenuItem onClick={handleAddMenuClose}><Link to="/">Post Something</Link></MenuItem>
+    <MenuItem onClick={handleAddMenuClose}><CreatePostModal /></MenuItem>
     <MenuItem onClick={handleAddMenuClose}><Link to="/">Chat with Someone</Link></MenuItem>
     <MenuItem onClick={handleAddMenuClose}><Link to="/">Add a Friend</Link></MenuItem>
     <MenuItem onClick={handleAddMenuClose}><Link to="/">Start a Project</Link></MenuItem>
